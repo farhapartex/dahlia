@@ -1,1 +1,1 @@
-## Blog CMS
+## Blog CMS 1.0
