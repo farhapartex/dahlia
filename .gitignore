@@ -1,0 +1,10 @@
+**/__pycache__
+*/__pycache__
+*/**/__pycache__
+server/static
+server/static/*
+server/media
+server/media/*
+.vscode*
+server/media_files/*
+server/media_files
