@@ -1,0 +1,17 @@
+#!/bin/bash
+DIRS_TO_TRIM="/usr/share/man
+/var/cache/apt
+/var/lib/apt/lists
+/usr/share/locale
+/var/log
+/usr/share/info
+"
+
+apt-get update -qq &&
+apt-get install -y "$@"
+apt-get clean
+apt-get auto-clean
+
+for DIR in $DIRS_TO_TRIM; do
+  rm -rf $DIR/*
+done

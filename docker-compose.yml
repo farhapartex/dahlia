@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: blogCMS_db
+    volumes:
+      - blogCMS-db:/var/lib/postgresql/data
+  server:
+    container_name: blogCMS_server
+    build:
+      context: ./server
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/app/server
+    ports:
+      - "0.0.0.0:8000:8000"
+    depends_on:
+      - db
+volumes:
+  blogCMS-db:
