@@ -13,3 +13,7 @@ class SocialMediaInfoAdmin(admin.ModelAdmin):
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
+    pass

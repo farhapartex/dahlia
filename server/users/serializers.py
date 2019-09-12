@@ -18,12 +18,18 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields = ("name",)
 
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = ("id","degree","institution","session")
+
 class PublicProfileSerializer(serializers.ModelSerializer):
     user = FlatUserSerializers()
     socialMedia = SocialMediaPublicSerializer()
     skills = SkillSerializer(many=True)
-    
+    educations = EducationSerializer(many=True)
+
     class Meta:
         model = Profile
         read_only_fields = ('user','skills')
-        fields = ("id","user","avatar","bio","about","mobile","socialMedia","skills")
+        fields = ("id","user","avatar","bio","about","mobile","socialMedia","skills","educations")

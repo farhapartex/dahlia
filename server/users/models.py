@@ -39,3 +39,14 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+
+class Education(models.Model):
+    profile = models.ForeignKey(Profile, verbose_name=_("Profile"),related_name="educations", on_delete=models.CASCADE)
+    degree = models.CharField(_("Degree"), max_length=150)
+    institution = models.CharField(_("Institution"), max_length=255)
+    session = models.CharField(_("Session"), max_length=50)
+
+    def __str__(self):
+        return f'{self.profile.user} {self.degree}'
+
+
