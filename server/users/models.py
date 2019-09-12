@@ -18,15 +18,12 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user}'
 
+
+SOCIAL_TYPE = ((1,"Facebook"),(2,"Linkedin"),(3,"Github"),(4,"Stackoverflow"),(5,"Behance"),(6,"Kaggle"),(7,"Flicker"),)
 class SocialMediaInfo(models.Model):
-    profile = models.OneToOneField(Profile, verbose_name=_("Social Media"), related_name="socialMedia", on_delete=models.CASCADE)
-    website = models.CharField(_("Website"), max_length=255, blank=True, null=True)
-    facebook = models.CharField(_("Facebook"), max_length=255, blank=True, null=True)
-    twitter = models.CharField(_("Twitter"), max_length=255, blank=True, null=True)
-    linkedin = models.CharField(_("Linkedin"), max_length=255, blank=True, null=True)
-    instagram = models.CharField(_("Instagram"), max_length=255, blank=True, null=True)
-    stackoverflow = models.CharField(_("Stackoverflow"), max_length=255, blank=True, null=True)
-    github = models.CharField(_("Github"), max_length=255, blank=True, null=True)
+    profile = models.ForeignKey(Profile, verbose_name=_("Social Media"), related_name="socialMedias", on_delete=models.CASCADE)
+    type = models.SmallIntegerField(_("Type"), choices=SOCIAL_TYPE, default=1)
+    url = models.CharField(_("URL"), max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.profile.user}'

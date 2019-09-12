@@ -10,7 +10,7 @@ class FlatUserSerializers(serializers.ModelSerializer):
 class SocialMediaPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMediaInfo
-        fields = ("id","website","facebook","twitter","linkedin","instagram","stackoverflow","github")
+        fields = ("id","type","url")
 
 class SkillSerializer(serializers.ModelSerializer):
 
@@ -25,11 +25,11 @@ class EducationSerializer(serializers.ModelSerializer):
 
 class PublicProfileSerializer(serializers.ModelSerializer):
     user = FlatUserSerializers()
-    socialMedia = SocialMediaPublicSerializer()
+    socialMedias = SocialMediaPublicSerializer(many=True)
     skills = SkillSerializer(many=True)
     educations = EducationSerializer(many=True)
 
     class Meta:
         model = Profile
         read_only_fields = ('user','skills')
-        fields = ("id","user","avatar","bio","about","mobile","socialMedia","skills","educations")
+        fields = ("id","user","avatar","bio","about","mobile","socialMedias","skills","educations")
