@@ -26,7 +26,7 @@ class SocialMediaInfo(models.Model):
     url = models.CharField(_("URL"), max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.profile.user}'
+        return f'{self.profile.user} {self.type}'
 
 
 class Skill(models.Model):

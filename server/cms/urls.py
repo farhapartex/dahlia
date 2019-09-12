@@ -19,12 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static  
 from rest_framework.routers import DefaultRouter
 from users import views as u_views
+from blog import views as b_views
 
 admin_router = DefaultRouter()
 public_router = DefaultRouter()
 
 # public routers
 public_router.register(r'profile',u_views.PublicProfileViewSet)
+public_router.register(r'categories',b_views.PublicCategoryViewSet)
+public_router.register(r'tags',b_views.PublicTagViewSet)
+public_router.register(r'posts',b_views.PublicPostViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

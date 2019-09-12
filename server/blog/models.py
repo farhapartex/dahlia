@@ -11,7 +11,7 @@ Post, Comment, React, Tag
 class Category(models.Model):
     name = models.CharField(_("Category"), max_length=150)
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Updated At"), auto_now=False, auto_now_add=False)
+    updated_at = models.DateTimeField(_("Updated At"), auto_now=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -22,7 +22,7 @@ class Category(models.Model):
 class Tag(models.Model):
     name =models.CharField(_("Tag"), max_length=50)
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Updated At"), auto_now=False, auto_now_add=False)
+    updated_at = models.DateTimeField(_("Updated At"), auto_now=True)
 
     def __str__(self):
         return self.name
@@ -37,10 +37,10 @@ class Post(models.Model):
     published = models.BooleanField(_("Published"), choices=PUBLISH_CHOICE, default=False)
 
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Updated At"), auto_now=False, auto_now_add=False)
+    updated_at = models.DateTimeField(_("Updated At"), auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 REACT_TYPES = ((1,"LIKE"),(2,"DISLIKE"),(3,"CLAP"),(4,"LOVE"))
 class React(models.Model):
@@ -59,7 +59,7 @@ class Comment(models.Model):
     parent = models.ForeignKey("self", verbose_name=_("Parent"), on_delete=models.SET_NULL, blank=True, null=True)
     body = models.TextField(_("Comment Text"))
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Updated At"), auto_now=False, auto_now_add=False)
+    updated_at = models.DateTimeField(_("Updated At"), auto_now=True)
 
     def __str__(self):
         return f'{self.post} {self.text[:30]}' 
