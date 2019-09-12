@@ -15,13 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.conf import settings
+from django.conf.urls.static import static  
 from rest_framework.routers import DefaultRouter
+from users import views as u_views
 
 admin_router = DefaultRouter()
 public_router = DefaultRouter()
+
+# public routers
+public_router.register(r'profile',u_views.PublicProfileViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
