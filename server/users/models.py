@@ -17,3 +17,25 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user}'
+
+class SocialMediaInfo(models.Model):
+    profile = models.OneToOneField(Profile, verbose_name=_("Social Media"), related_name="socialMedia", on_delete=models.CASCADE)
+    website = models.CharField(_("Website"), max_length=255, blank=True, null=True)
+    facebook = models.CharField(_("Facebook"), max_length=255, blank=True, null=True)
+    twitter = models.CharField(_("Twitter"), max_length=255, blank=True, null=True)
+    linkedin = models.CharField(_("Linkedin"), max_length=255, blank=True, null=True)
+    instagram = models.CharField(_("Instagram"), max_length=255, blank=True, null=True)
+    stackoverflow = models.CharField(_("Stackoverflow"), max_length=255, blank=True, null=True)
+    github = models.CharField(_("Github"), max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.profile.user}'
+
+
+class Skill(models.Model):
+    profile = models.ForeignKey(Profile, verbose_name=_("Skill"),related_name="skills", on_delete=models.CASCADE)
+    name = models.CharField(_("Skill Name"), max_length=250)
+
+    def __str__(self):
+        return self.name
+
