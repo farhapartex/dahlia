@@ -45,7 +45,6 @@ class Post(models.Model):
 REACT_TYPES = ((1,"LIKE"),(2,"DISLIKE"),(3,"CLAP"),(4,"LOVE"))
 class React(models.Model):
     post = models.ForeignKey(Post, verbose_name=_("Post"),related_name="reacts", on_delete=models.CASCADE)
-    ip_address = models.CharField(_("IP Address"), max_length=20)
     amount = models.PositiveIntegerField(_("Amount"))
     type = models.SmallIntegerField(_("Type"), choices=REACT_TYPES, default=1)
 
@@ -55,11 +54,10 @@ class React(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, verbose_name=_("Post"),related_name="comments", on_delete=models.CASCADE)
-    ip_address = models.CharField(_("IP Address"), max_length=20)
-    parent = models.ForeignKey("self", verbose_name=_("Parent"), on_delete=models.SET_NULL, blank=True, null=True)
+    parent = models.ForeignKey("self", verbose_name=_("Parent"),related_name="children", on_delete=models.SET_NULL, blank=True, null=True)
     body = models.TextField(_("Comment Text"))
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated At"), auto_now=True)
 
     def __str__(self):
-        return f'{self.post} {self.text[:30]}' 
+        return f'{self.post} {self.body[:30]}' 
