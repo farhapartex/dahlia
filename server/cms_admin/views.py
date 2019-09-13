@@ -38,4 +38,8 @@ class LogoutView(TemplateView):
 
 class HomeView(TemplateView):
     template_name = "admin/dashboard.html"
+
+
+class ProfileView(TemplateView):
+    template_name = "admin/profile.html"
         
