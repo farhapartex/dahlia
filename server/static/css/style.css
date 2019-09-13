@@ -1,0 +1,49 @@
+.main-header{
+    background: #204060;
+}
+
+.main-header h3{
+    color: #b3b3b3;;
+}
+
+.left-sidebar{
+    background: #e6e6e6;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar-menu{
+    overflow: hidden;
+}
+
+.sidebar-menu ul{
+   padding: 0px;
+   margin: 0px;
+   list-style: none;
+}
+
+.sidebar-menu > ul > li{
+   padding-top: 2px;
+   padding-bottom: 7px;
+}
+
+.sidebar-menu > ul > li > a{
+   display: block;
+   color: #737373;
+   font-size: 17px;
+   text-decoration: none;
+}
+
+.sidebar-menu > ul > li:hover > a{
+   color: #999999;
+}
+
+.main-panel{
+    height: 100%;
+}
+
+.panel-main-box{
+    
+    height: 100%;
+    width: 100%;
+}
