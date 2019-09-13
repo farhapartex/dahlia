@@ -35,11 +35,7 @@ class LogoutView(TemplateView):
         return HttpResponseRedirect('/accounts/login/')
         
 
-        
-        
-
 
 class HomeView(TemplateView):
-    login_required = True
-    template_name = "index.html"
+    template_name = "admin/dashboard.html"
         
