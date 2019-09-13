@@ -29,3 +29,7 @@
 * `api/v1/public/tags/id` ( This API will expose blog tags for various type posts. Here `id` is a number)
 * `api/v1/public/posts` ( This API will expose blog post list)
 * `api/v1/public/posts/id` ( This API will expose single blog post. Here `id` is a number)
+
+### Admin Panel
+
+* `accounts/login/` (This url is for admin login form, After successful login, it will redirect to dashboard )
