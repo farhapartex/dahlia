@@ -20,7 +20,7 @@
 * Run the command on second terminal `pipenv run ./manage.py createsuperuser` ( By this command you will create account for the CMS as superuser. Provide `username`, `password` and `email`)
 * Open browser and hit the url `127.0.0.1:8000/admin`. It will redirect to the CMS admin login page.
 
-### Available API
+### Available API endpoints
 
 * `api/v1/public/profile` ( This API will expose blog admin information)
 * `api/v1/public/categories` ( This API will expose blog category list)
