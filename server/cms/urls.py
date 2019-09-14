@@ -31,7 +31,7 @@ public_router.register(r'tags',b_views.PublicTagViewSet)
 public_router.register(r'posts',b_views.PublicPostViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('django/admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('cms/', include("cms_admin.urls")),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
