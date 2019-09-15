@@ -34,7 +34,7 @@
                                         {{ form_error }}
                                     </div>
                                     {% endif %}
-                                    <form action="/cms/category/add/" class="w-25" method="post">
+                                    <form action="/cms/category/add/" class="w-100" method="post">
                                         {% csrf_token %}
                                         <!-- <div class="form-group">
                                         <label for="category">Category</label>
@@ -42,15 +42,27 @@
                                     </div> -->
 
                                         <div class="form-group">
-                                            <label for="{{ form.category.id_for_label }}">Category</label>
+                                            <div class="w-100 form-label">
+                                                <!-- <span class="pl-2 pr-2 pb-3" style="background:#8cb3d9;"><i
+                                                        class="fas fa-angle-down"></i></span> -->
+                                                <p style="margin: 0px; padding:0px;" class="pt-3 pb-3 pl-3">
+                                                    Category</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group w-50">
                                             {{ form.category }}
                                         </div>
 
                                         <div class="form-group">
                                             <!-- <input type="button" class="btn btn-info btn-sm" value="Add Category"> -->
-                                            <button class="btn btn-info btn-sm">Add Category</button>
+                                            <div class="form-label pt-3 pb-3 pl-3">
+                                                <button class="btn btn-info btn-sm">Add Category</button>
 
-                                            <a href="/cms/category/" class="btn btn-primary btn-sm">Back</a>
+                                                <a href="/cms/category/" class="btn btn-primary btn-sm">Back To
+                                                    Category</a>
+                                            </div>
+
                                         </div>
                                     </form>
                                 </div>

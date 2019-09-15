@@ -7,7 +7,7 @@
 }
 
 .left-sidebar{
-    background: #666666;
+    background: #404040;
     height: 100%;
     width: 100%;
     padding-left: 0px !important;
@@ -100,4 +100,8 @@ input[type='text'], input[type='password']{
 
 .cms-table tr{
     font-size: 14px;
+}
+
+.form-label{
+    background: #ecf2f9
 }
