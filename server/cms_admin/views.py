@@ -129,3 +129,12 @@ class CategoryUpdateView(TemplateView):
 
         return render(request, self.template_name, context)
         
+
+
+class CategoryDeleteView(TemplateView):
+
+    def get(self, request, catid):
+        category = Category.objects.get(id=catid)
+        if category:
+            category.delete()
+            return HttpResponseRedirect('/cms/category/')
