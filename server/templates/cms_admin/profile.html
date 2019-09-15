@@ -4,36 +4,35 @@
 
 
 {% block header %}
-    {% include 'cms_admin/header.html' %}
+{% include 'cms_admin/header.html' %}
 {% endblock header %}
 
 
 <div class="main-box w-100">
- <div class="w-100 h-100">
-     <div class="w-100 h-100">
-         <div class="container-fluid h-100">
-            <div class="row h-100">
-                <div class="col-md-2 col-lg-2 col-xl-2 left-sidebar pb-3 position-fixed">
-                    
-                    {% block base_sidebar %}
+    <div class="w-100 h-100">
+        <div class="w-100 h-100">
+            <div class="container-fluid h-100">
+                <div class="row h-100">
+                    <div class="col-md-2 col-lg-2 col-xl-2 left-sidebar pb-3 position-fixed">
+
+                        {% block base_sidebar %}
                         {% include 'cms_admin/base_sidebar.html' %}
-                    {% endblock base_sidebar %}
-                        
-                </div>
-                <div class="col-md-10 col-lg-10 col-xl-10 offset-2 main-panel">
-                    <div class="panel-main-box h-100">
-                        <div class="w-100 section-header pt-2 pb-2">
-                            <h4>Profile</h4>
+                        {% endblock base_sidebar %}
+
+                    </div>
+                    <div class="col-md-10 col-lg-10 col-xl-10 offset-2 main-panel">
+                        <div class="panel-main-box h-100">
+                            <div class="w-100 section-header pt-2 pb-2">
+                                <h5 class="ml-5">Profile</h5>
+                            </div>
+
                         </div>
-        
-                    </div>     
+                    </div>
                 </div>
+
             </div>
-             
-         </div>
-     </div>
- </div>
+        </div>
+    </div>
 </div>
 
-{% endblock content %} 
-    
+{% endblock content %}
