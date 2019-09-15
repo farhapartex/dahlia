@@ -122,14 +122,14 @@ class CategoryUpdateView(TemplateView):
     def get(self, request, catid):
         context = {}
         category = Category.objects.get(id=catid)
-        form = CategoryForm(initial={'category': category.name})
-        context['user'] = request.user.username
-        context['category'] = category
-        context['form'] = form
+        if category:
+            form = CategoryForm(initial={'category': category.name})
+            context['user'] = request.user.username
+            context['category'] = category
+            context['form'] = form
 
-        return render(request, self.template_name, context)
+            return render(request, self.template_name, context)
         
-
 
 class CategoryDeleteView(TemplateView):
 
@@ -138,3 +138,43 @@ class CategoryDeleteView(TemplateView):
         if category:
             category.delete()
             return HttpResponseRedirect('/cms/category/')
+
+
+class TagListView(TemplateView):
+    template_name = "cms_admin/tag/tag.html"
+
+    def get(self, request):
+        tags = Tag.objects.all().order_by('-updated_at')
+        context = {}
+        context['tags'] = tags
+        context['user'] = request.user.username
+
+        return render(request, self.template_name, context)
+
+
+class TagUpdateView(TemplateView):
+    template_name = "cms_admin/tag/tag_update.html"
+
+    def get(self, request, tagid):
+        tag = Tag.objects.get(id=tagid)
+        context = {}
+        # if tag:
+        form = TagForm(initial={'tag': tag.name})
+        context['tag'] = tag
+        context['user'] = request.user.username
+        context['form'] = form
+        return render(request, self.template_name, context)
+    
+    def post(self, request, tagid):
+        context = {}
+        form = TagForm(request.POST)
+        if form.is_valid():
+            tagValue = form.cleaned_data['tag']
+            tag = Tag.objects.get(id=tagid)
+            if len(tagValue) > 0:
+                tag.name = tagValue
+                tag.save()
+                return HttpResponseRedirect('/cms/tags/')
+
+
+
