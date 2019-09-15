@@ -152,18 +152,59 @@ class TagListView(TemplateView):
         return render(request, self.template_name, context)
 
 
+class TagAddView(TemplateView):
+    template_name = "cms_admin/tag/tag_add.html"
+
+    def get(self, request):
+        context = {}
+        context['user'] = request.user.username
+        form = TagForm()
+        context['form'] = form
+
+        return render(request, self.template_name, context)
+
+    
+    def post(self,request):
+        context = {}
+        context['user'] = request.user.username
+        form = TagForm(request.POST)
+        if form.is_valid():
+            tagValue = form.cleaned_data['tag']
+            if len(tagValue) == 0:
+                form = TagForm()
+                context['user'] = request.user.username
+                context['form'] = form
+                context['form_error'] = "You can not submit empty field!"
+                return render(request, self.template_name, context)
+            else:
+                tagObj = Tag(name=tagValue)
+                tagObj.save()
+                return HttpResponseRedirect('/cms/tags/')
+        else:
+            form = TagForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            context['form_error'] = "Data is not valid!"
+            return render(request, self.template_name, context)
+
+
 class TagUpdateView(TemplateView):
     template_name = "cms_admin/tag/tag_update.html"
 
     def get(self, request, tagid):
-        tag = Tag.objects.get(id=tagid)
         context = {}
+        try:
+            tag = Tag.objects.get(id=tagid)
+            form = TagForm(initial={'tag': tag.name})
+            context['tag'] = tag
+            context['user'] = request.user.username
+            context['form'] = form
+            return render(request, self.template_name, context)
+        except:
+            return HttpResponseRedirect('/cms/tags/')
+        
         # if tag:
-        form = TagForm(initial={'tag': tag.name})
-        context['tag'] = tag
-        context['user'] = request.user.username
-        context['form'] = form
-        return render(request, self.template_name, context)
+        
     
     def post(self, request, tagid):
         context = {}
@@ -175,6 +216,14 @@ class TagUpdateView(TemplateView):
                 tag.name = tagValue
                 tag.save()
                 return HttpResponseRedirect('/cms/tags/')
+
+class TagDeleteView(TemplateView):
+
+    def get(self, request, tagid):
+        tag = Tag.objects.get(id=tagid)
+        if tag:
+            tag.delete()
+            return HttpResponseRedirect('/cms/tags/')
 
 
 
