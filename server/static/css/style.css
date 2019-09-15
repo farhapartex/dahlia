@@ -7,9 +7,11 @@
 }
 
 .left-sidebar{
-    background: #e6e6e6;
+    background: #666666;
     height: 100%;
     width: 100%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .sidebar-menu{
@@ -23,19 +25,24 @@
 }
 
 .sidebar-menu > ul > li{
-   padding-top: 7px;
-   padding-bottom: 7px;
+   /* padding-top: 7px;
+   padding-bottom: 7px; */
 }
+
+.sidebar-menu > ul > li:hover{
+    background: #4d4d4d;
+ }
 
 .sidebar-menu > ul > li > a{
    display: block;
-   color: #737373;
-   font-size: 17px;
+   color: #cccccc;
+   font-size: 14px;
    text-decoration: none;
+   padding: 7px 12px;
 }
 
 .sidebar-menu > ul > li:hover > a{
-   color: #999999;
+   color: #cccccc;
 }
 
 .main-panel{

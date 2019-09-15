@@ -13,14 +13,14 @@
         <div class="w-100 h-100">
             <div class="container-fluid h-100">
                 <div class="row h-100">
-                    <div class="col-md-2 col-lg-2 col-xl-2 left-sidebar pb-3 position-fixed">
+                    <div class="col-md-1 col-lg-1 col-xl-1 left-sidebar position-fixed">
 
                         {% block base_sidebar %}
                         {% include 'cms_admin/base_sidebar.html' %}
                         {% endblock base_sidebar %}
 
                     </div>
-                    <div class="col-md-10 col-lg-10 col-xl-10 offset-2 main-panel">
+                    <div class="col-md-11 col-lg-11 col-xl-11 offset-1 main-panel">
                         <div class="panel-main-box h-100">
                             <div class="w-100 section-header pt-2 pb-2">
                                 <a href="/cms/category/add/" class="btn btn-sm btn-add float-right mr-5">Add Category
@@ -45,8 +45,9 @@
                                         <tr>
                                             <td scope="row" style="width:10%;">{{ forloop.counter }}</td>
                                             <td style="width:35%;">{{ category.name }}</td>
-                                            <td style="width:20%;">{{ category.created_at }}</td>
-                                            <td style="width:20%;">{{ category.updated_at }}</td>
+                                            <td style="width:20%;">{{ category.created_at| timesince }}
+                                            </td>
+                                            <td style="width:20%;">{{ category.updated_at | timesince}}</td>
                                             <td style="width:15%;">
                                                 <a href="/cms/category/{{ category.id }}/change/">Edit <span
                                                         class="ml-1"><i class="far fa-edit"></i></span></a> <span
