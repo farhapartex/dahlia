@@ -23,7 +23,7 @@
 }
 
 .sidebar-menu > ul > li{
-   padding-top: 2px;
+   padding-top: 7px;
    padding-bottom: 7px;
 }
 
@@ -65,7 +65,7 @@
     text-decoration: none; 
 }
 
-.btn-add{
+.btn-add, .btn-add:hover{
     color: #fff;
     background-color: #204060;
     border-color: #204060;
@@ -89,4 +89,8 @@ input[type='text'], input[type='password']{
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.cms-table tr{
+    font-size: 14px;
 }

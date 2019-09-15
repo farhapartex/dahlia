@@ -51,25 +51,69 @@ class CategoryView(TemplateView):
 
     def get(self, request):
         context = {}
-        categories = Category.objects.all()
+        categories = Category.objects.all().order_by('-updated_at')
         context['user'] = request.user.username
         context['categories'] = categories
         return render(request, self.template_name, context)
+
+
+class CategoryAddView(TemplateView):
+    template_name = "cms_admin/category_add.html"
+
+    def get(self, request):
+        context = {}
+        form = CategoryForm()
+        context['user'] = request.user.username
+        context['form'] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            catValue = form.cleaned_data['category']
+            if len(catValue) == 0:
+                form = CategoryForm()
+                context['user'] = request.user.username
+                context['form'] = form
+                context['form_error'] = "You can not submit empty field!"
+                return render(request, self.template_name, context)
+            else:
+                catObj = Category(name=catValue)
+                catObj.save()
+                return HttpResponseRedirect('/cms/category/')
+        else:
+            form = CategoryForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            context['form_error'] = "Data is not valid!"
+            return render(request, self.template_name, context)
+
+
 
 class CategoryUpdateView(TemplateView):
 
     template_name = "cms_admin/category_update.html"
 
     def post(self, request, catid):
-        print("working")
         context = {}
         context['user'] = request.user.username
         form = CategoryForm(request.POST)
         if form.is_valid():
+            catValue = form.cleaned_data['category']
             category = Category.objects.get(id=catid)
-            category.name = form.cleaned_data['category']
-            category.save()
-            return HttpResponseRedirect('/cms/admin/')
+            if len(catValue) > 0:
+                category.name = catValue
+                category.save()
+                return HttpResponseRedirect('/cms/category/')
+            else:
+                form = CategoryForm(initial={'category': category.name})
+                context['user'] = request.user.username
+                context['category'] = category
+                context['form'] = form
+                return render(request, self.template_name, context)
+
         else:
             form = CategoryForm()
             return render(request, self.template_name, context)

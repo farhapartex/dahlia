@@ -23,12 +23,18 @@
                     <div class="col-md-10 col-lg-10 col-xl-10 offset-2 main-panel">
                         <div class="panel-main-box h-100">
                             <div class="w-100 section-header pt-2 pb-2">
-                                <h5 class="ml-5">Category Change</h5>
+                                <h5 class="ml-5">Category Add</h5>
                             </div>
 
                             <div class="w-100">
+
                                 <div class="w-100 p-3">
-                                    <form action="/cms/category/{{ category.id }}/change/" class="w-25" method="post">
+                                    {% if form_error %}
+                                    <div class="alert alert-danger w-50" role="alert">
+                                        {{ form_error }}
+                                    </div>
+                                    {% endif %}
+                                    <form action="/cms/category/add/" class="w-25" method="post">
                                         {% csrf_token %}
                                         <!-- <div class="form-group">
                                         <label for="category">Category</label>
@@ -41,9 +47,10 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-info btn-sm" value="Update">
+                                            <!-- <input type="button" class="btn btn-info btn-sm" value="Add Category"> -->
+                                            <button class="btn btn-info btn-sm">Add Category</button>
+
                                             <a href="/cms/category/" class="btn btn-primary btn-sm">Back</a>
-                                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
                                         </div>
                                     </form>
                                 </div>
