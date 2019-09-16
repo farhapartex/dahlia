@@ -37,7 +37,7 @@ class LogoutView(TemplateView):
 
 
 class HomeView(TemplateView):
-    template_name = "cms_admin/dashboard.html"
+    template_name = "cms_admin2/dashboard/dashboard.html"
 
     def get(self, request):
         return render(request, self.template_name, {"user": request.user.username})
@@ -47,18 +47,20 @@ class ProfileView(TemplateView):
     template_name = "cms_admin/profile.html"
 
 class CategoryView(TemplateView):
-    template_name = "cms_admin/category.html"
+    template_name = "cms_admin2/category/categoryList.html"
 
     def get(self, request):
         context = {}
         categories = Category.objects.all().order_by('-updated_at')
         context['user'] = request.user.username
         context['categories'] = categories
+        form = CategoryForm()
+        context['form'] = form
         return render(request, self.template_name, context)
 
 
 class CategoryAddView(TemplateView):
-    template_name = "cms_admin/category_add.html"
+    template_name = "cms_admin2/category/categoryAdd.html"
 
     def get(self, request):
         context = {}
@@ -82,7 +84,7 @@ class CategoryAddView(TemplateView):
             else:
                 catObj = Category(name=catValue)
                 catObj.save()
-                return HttpResponseRedirect('/cms/category/')
+                return HttpResponseRedirect('/cms/categories/')
         else:
             form = CategoryForm()
             context['user'] = request.user.username
@@ -137,7 +139,7 @@ class CategoryDeleteView(TemplateView):
         category = Category.objects.get(id=catid)
         if category:
             category.delete()
-            return HttpResponseRedirect('/cms/category/')
+            return HttpResponseRedirect('/cms/categories/')
 
 
 class TagListView(TemplateView):
