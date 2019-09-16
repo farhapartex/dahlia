@@ -6,6 +6,7 @@ class FlatUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id","first_name","last_name","email")
+        # fields = ("__all__")
 
 class SocialMediaPublicSerializer(serializers.ModelSerializer):
     class Meta:

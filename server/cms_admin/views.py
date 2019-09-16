@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User 
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse,HttpResponseRedirect
 from blog.models import * 
@@ -237,3 +238,15 @@ class MediaListView(TemplateView):
         context["user"] = request.user.username
 
         return render(request, self.template_name, context)
+
+class UserView(TemplateView):
+    template_name = "cms_admin2/user/user.html"
+
+    def get(self, request):
+        users = User.objects.all()
+        context = {}
+        context["user"] = request.user.username
+        context["users"] = users
+
+        return render(request, self.template_name, context) 
+        
