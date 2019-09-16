@@ -1,0 +1,77 @@
+{% extends 'cms_admin2/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin2/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin2/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update Tag</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Tag Form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="/cms/tags/{{ tag.id }}/change/" method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tag Name</label>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.tag }}
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-secondary">Update</button>
+                                <a href="/cms/tags/{{ tag.id }}/delete/" class="btn btn-danger">Delete</a>
+                                <a href="/cms/tags/" class="btn btn-warning">Back</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin2/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

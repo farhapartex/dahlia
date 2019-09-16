@@ -96,7 +96,7 @@ class CategoryAddView(TemplateView):
 
 class CategoryUpdateView(TemplateView):
 
-    template_name = "cms_admin/category_update.html"
+    template_name = "cms_admin2/category/categoryUpdate.html"
 
     def post(self, request, catid):
         context = {}
@@ -108,7 +108,7 @@ class CategoryUpdateView(TemplateView):
             if len(catValue) > 0:
                 category.name = catValue
                 category.save()
-                return HttpResponseRedirect('/cms/category/')
+                return HttpResponseRedirect('/cms/categories/')
             else:
                 form = CategoryForm(initial={'category': category.name})
                 context['user'] = request.user.username
@@ -143,13 +143,15 @@ class CategoryDeleteView(TemplateView):
 
 
 class TagListView(TemplateView):
-    template_name = "cms_admin/tag/tag.html"
+    template_name = "cms_admin2/tag/tagList.html"
 
     def get(self, request):
         tags = Tag.objects.all().order_by('-updated_at')
         context = {}
         context['tags'] = tags
         context['user'] = request.user.username
+        form = TagForm()
+        context['form'] = form
 
         return render(request, self.template_name, context)
 
@@ -191,7 +193,7 @@ class TagAddView(TemplateView):
 
 
 class TagUpdateView(TemplateView):
-    template_name = "cms_admin/tag/tag_update.html"
+    template_name = "cms_admin2/tag/tagUpdate.html"
 
     def get(self, request, tagid):
         context = {}

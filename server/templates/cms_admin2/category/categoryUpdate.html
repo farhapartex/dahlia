@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Category</h1>
+                    <h1>Update Category</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -32,7 +32,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/cms/category/add/" method="post">
+                        <form action="/cms/categories/{{ category.id }}/change/" method="post">
                             {% csrf_token %}
                             <div class="card-body">
                                 <div class="form-group">
@@ -45,7 +45,8 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-secondary">Submit</button>
+                                <button type="submit" class="btn btn-secondary">Update</button>
+                                <a href="/cms/categories/{{ category.id }}/delete/" class="btn btn-danger">Delete</a>
                                 <a href="/cms/categories/" class="btn btn-warning">Back</a>
                             </div>
                         </form>

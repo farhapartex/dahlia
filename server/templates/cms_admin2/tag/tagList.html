@@ -1,0 +1,133 @@
+{% extends 'cms_admin2/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin2/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin2/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Tag List</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
+                        data-target="#exampleModalLong">Add Tag
+                        <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Tag</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/cms/tags/add/" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tag Name</label>
+                            </div>
+                            <div class="form-group">
+                                {{ form.tag }}
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-secondary">Submit</button>
+                            <a href="#" class="btn btn-warning" data-dismiss="modal">Back</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            {% if tags.count > 0 %}
+                            <table id="example2" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Tag Name</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tag in tags %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ tag.name }}</td>
+                                        <td>{{ tag.created_at| timesince }}</td>
+                                        <td>{{ tag.updated_at | timesince}}</td>
+                                        <td><a href="/cms/tags/{{ tag.id }}/change/" class="text-warning">Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
+                                            <a href="/cms/tags/{{ tag.id }}/delete/" class="text-danger">Delete
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert alert-info " role="alert">
+                                    Currently there are no tags found!
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin2/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

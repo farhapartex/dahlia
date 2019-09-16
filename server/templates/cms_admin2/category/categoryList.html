@@ -92,9 +92,9 @@
                     <td>{{ category.name }}</td>
                     <td>{{ category.created_at| timesince }}</td>
                     <td>{{ category.updated_at | timesince}}</td>
-                    <td><a href="/cms/category/{{ category.id }}/change/" class="text-warning">Edit <span
+                    <td><a href="/cms/categories/{{ category.id }}/change/" class="text-warning">Edit <span
                           class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span> <a
-                        href="/cms/category/{{ category.id }}/delete/" class="text-danger">Delete
+                        href="/cms/categories/{{ category.id }}/delete/" class="text-danger">Delete
                         <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
                   </tr>
                   {% endfor %}
