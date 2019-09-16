@@ -229,5 +229,11 @@ class TagDeleteView(TemplateView):
             tag.delete()
             return HttpResponseRedirect('/cms/tags/')
 
+class MediaListView(TemplateView):
+    template_name = "cms_admin2/media/mediaList.html"
 
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
 
+        return render(request, self.template_name, context)
