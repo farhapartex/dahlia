@@ -239,7 +239,7 @@ class MediaListView(TemplateView):
 
         return render(request, self.template_name, context)
 
-class UserView(TemplateView):
+class UserListView(TemplateView):
     template_name = "cms_admin2/user/user.html"
 
     def get(self, request):
@@ -249,4 +249,19 @@ class UserView(TemplateView):
         context["users"] = users
 
         return render(request, self.template_name, context) 
+
+
+class ProfileView(TemplateView):
+    template_name = "cms_admin2/user/profile.html"
+
+    def get(self, request, uid):
+        context = {}
+        userobj = User.objects.get(id=uid)
+        context["user"] = request.user.username
+        context["userobj"] = userobj
+        context["educations"] = userobj.profile.educations.all()
+        context["skills"] = userobj.profile.skills.all()
+
+        return render(request, self.template_name, context) 
+    
         

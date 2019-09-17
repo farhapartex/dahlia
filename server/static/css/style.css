@@ -72,5 +72,14 @@ input[type='text'], input[type='password']{
       padding: 0px !important;
   }
 
+  .social-list-item{
+    height: 2rem;
+    width: 2rem;
+    line-height: calc(2rem - 2px);
+    display: block;
+    border: 2px solid #adb5bd;
+    border-radius: 50%;
+  }
+
 
 

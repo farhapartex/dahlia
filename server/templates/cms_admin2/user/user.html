@@ -97,7 +97,8 @@
                                         <td>{{ u.email }}</td>
                                         <td>{{ u.is_superuser }}</td>
                                         <td>{{ u.last_login | timesince }}</td>
-                                        <td><a href="#">Edit</a> <span> | </span> <a href="#">Delete</a></td>
+                                        <td><a href="/cms/users/{{ u.id }}/profile/">Edit</a> <span> | </span> <a
+                                                href="#">Delete</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
