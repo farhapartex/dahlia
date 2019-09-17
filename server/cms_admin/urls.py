@@ -19,6 +19,7 @@ urlpatterns = [
     path('users/<int:uid>/profile/', login_required(ProfileView.as_view()), name="profile"),
     path('site/', login_required(SiteView.as_view()), name="site"),
     path('site/<int:siteid>/change/', login_required(SiteUpdateView.as_view()), name="site_update"),
+    path('posts/', login_required(PostListView.as_view()), name="posts"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]

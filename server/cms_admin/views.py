@@ -321,5 +321,16 @@ class ProfileView(TemplateView):
         context["user_form"] = user_form
 
         return render(request, self.template_name, context) 
+
+
+class PostListView(TemplateView):
+    template_name  = "cms_admin2/post/postList.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        context["posts"] = Post.objects.all().order_by("id")
+
+        return render(request, self.template_name, context)
     
         
