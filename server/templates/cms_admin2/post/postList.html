@@ -1,5 +1,4 @@
 {% extends 'cms_admin2/base.html' %}
-{% load static %}
 
 {% block content %}
 <!-- Navbar -->
@@ -14,11 +13,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Users List</h1>
+                    <h1 class="m-0 text-dark">Post List</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
-                        data-target="#exampleModalLong">Add User
+                        data-target="#exampleModalLong">Add Post
                         <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
                 </div>
             </div><!-- /.row -->
@@ -32,7 +31,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Post</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -76,38 +75,46 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            {% if users.count > 0 %}
+                            {% if posts.count > 0 %}
                             <table id="example2" class="table table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th># ID</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Superuser</th>
-                                        <th>Last Login</th>
-                                        <th>Action</th>
+                                        <th>Post Title</th>
+                                        <th>Post Category</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for u in users %}
-                                    {{ u }}
+                                    {% for post in posts %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        <td>{{ u.username }} </td>
-                                        <td>{{ u.email }}</td>
-                                        <td>{{ u.is_superuser }}</td>
-                                        <td>{{ u.last_login | timesince }}</td>
-                                        <td><a href="/cms/users/{{ u.id }}/profile/" class="text-warning">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a>
-                                            <span></span></td>
+                                        <td>{{ post.title }}</td>
+                                        <td>{{ post.category }}</td>
+                                        <td>{{ post.created_at| timesince }} ago</td>
+                                        <td>{{ post.updated_at | timesince}} ago</td>
+                                        <td><a href="/cms/categories/{{ category.id }}/change/"
+                                                class="text-warning">Edit <span class="ml-1"><i
+                                                        class="far fa-edit"></i></span></a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
+                                <!-- <tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                  </tr>
+                </tfoot> -->
                             </table>
                             {% else %}
                             <div class="w-75 mx-auto">
                                 <div class="alert alert-info " role="alert">
-                                    Currently there are no user found!
+                                    Currently there are no category list found!
                                 </div>
                             </div>
                             {% endif %}

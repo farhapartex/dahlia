@@ -1,0 +1,293 @@
+{% extends 'cms_admin2/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin2/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin2/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{ user }} Profile</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-secondary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="{% static 'images/user.jpg' %}"
+                                    alt="User profile picture">
+                            </div>
+
+                            <h3 class="profile-username text-center">{{ userobj.first_name }} {{ userobj.last_name }}
+                            </h3>
+                            <p class="text-muted text-center">Bio: {{ userobj.profile.bio }}</p>
+                            <p class="text-muted text-center"><span><i class="far fa-envelope"></i></span>
+                                {{ userobj.email }}</p>
+                            <p class="text-muted text-center"><span><i class="fas fa-mobile-alt"></i></span>
+                                {{ userobj.profile.mobile }}</p>
+                        </div>
+                    </div>
+
+                    <!-- About Me Box -->
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Profile Information</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                            <ul class="list-unstyled">
+                                {% for edu in educations %}
+                                <li>
+                                    <p class="text-muted">
+
+                                        {{ edu.degree }} from {{ edu.institution }}
+
+                                    </p>
+                                </li>
+                                {% endfor%}
+                            </ul>
+
+                            <hr>
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                            <p class="text-muted">Malibu, California</p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                            <p class="text-muted">
+                                {% for skill in skills %}
+                                <span class="tag tag-danger">{{ skill }} </span>
+                                {% if skills.count > forloop.counter %}
+                                <span>,</span>
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+
+                            <hr>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#overview"
+                                        data-toggle="tab">Overview</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#basic" data-toggle="tab">Basic
+                                        Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#advance" data-toggle="tab">Advance
+                                        Profile</a>
+                                </li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="overview">
+                                    <div class="w-100 mb-5">
+                                        <h4>About Me</h4>
+                                        <div class="mt-3">
+                                            <p>
+                                                {{ userobj.profile.about }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 mb-5">
+                                        <h4>Social Medias</h4>
+                                        <div class="mt-3">
+                                            {% if  socialMedias.count > 0%}
+                                            <ul class="list-inline">
+                                                {% for social in socialMedias %}
+                                                {% if social.type == 1 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#"
+                                                        class="social-list-item border-primary text-primary text-center">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 2 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#"
+                                                        class="social-list-item border-info text-info text-center">
+                                                        <i class="fab fa-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 3 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#"
+                                                        class="social-list-item border-secondary text-secondary text-center">
+                                                        <i class="fab fa-github-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 4 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="social-list-item stackoverflow text-center">
+                                                        <i class="fab fa-stack-overflow"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 5 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="social-list-item behance text-center">
+                                                        <i class="fab fa-behance"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 6 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="social-list-item kaggle text-center">
+                                                        <i class="fab fa-kaggle"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 7 %}
+                                                <li class="list-inline-item">
+                                                    <a href="#"
+                                                        class="social-list-item border-danger text-danger text-center">
+                                                        <i class="fab fa-google"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+
+                                                {% endfor %}
+                                            </ul>
+                                            {% else %}
+                                            <div>
+
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /.tab-pane -->
+
+                                <div class="tab-pane" id="basic">
+                                    <form class="form-horizontal" method="POST">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">First
+                                                        Name</label>
+                                                    {{ user_form.first_name }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Last
+                                                        Name</label>
+                                                    {{ user_form.last_name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Email</label>
+                                                    {{ user_form.email }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName"
+                                                        class="col-sm-12 control-label">Mobile</label>
+                                                    {{ user_form.mobile }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputName2" class="col-sm-2 control-label">Bio</label>
+
+                                            <div class="col-sm-10">
+                                                {{ user_form.bio }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="about" class="col-sm-2 control-label">About</label>
+
+                                            <div class="col-sm-10">
+                                                {{ user_form.about }}
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputSkills"
+                                                    placeholder="Skills">
+                                            </div>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-secondary">Submit</button>
+                                                <a href="/cms/users/" class="btn btn-warning">Back</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="advance">
+                                    <form class="form-horizontal" method="POST">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">First
+                                                        Name</label>
+                                                    {{ user_form.first_name }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Last
+                                                        Name</label>
+                                                    {{ user_form.last_name }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-secondary">Submit</button>
+                                                <a href="/cms/users/" class="btn btn-warning">Back</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin2/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'cms_admin',
     'blog',
-    'users'
+    'users',
+    'sites'
 ]
 
 MIDDLEWARE = [

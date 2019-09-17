@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse,HttpResponseRedirect
-from blog.models import * 
+from blog.models import *
+from sites.models import *
 from .forms import *
 # Create your views here.
 
@@ -36,6 +37,52 @@ class LogoutView(TemplateView):
         return HttpResponseRedirect('/accounts/login/')
         
 
+class SiteView(TemplateView):
+    template_name = "cms_admin2/site/site.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        try:
+           site = SiteInformation.objects.all()[0]
+           context["site"] = site
+           site_data = {
+               "site_name": site.site_name
+           }
+           form = SiteForm(initial=site_data)
+           context["form"] = form
+
+           return render(request, self.template_name, context)
+        except :
+            form = SiteForm()
+            context["form"] = form
+            return render(request, self.template_name, context)
+        
+        
+
+class SiteUpdateView(TemplateView):
+
+    template_name = "cms_admin2/site/site.html"
+
+    def post(self, request, siteid):
+        context = {}
+        context['user'] = request.user.username
+        form = SiteForm(request.POST)
+        if form.is_valid():
+            siteValue = form.cleaned_data['site_name']
+            site = SiteInformation.objects.get(id=siteid)
+            if len(siteValue) > 0:
+                site.site_name = siteValue
+                site.save()
+                return HttpResponseRedirect('/cms/site/')
+            else:
+                return HttpResponseRedirect('/cms/site/')
+
+        else:
+            form = SiteForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            return render(request, self.template_name, context)
 
 class HomeView(TemplateView):
     template_name = "cms_admin2/dashboard/dashboard.html"
@@ -239,7 +286,7 @@ class MediaListView(TemplateView):
 
         return render(request, self.template_name, context)
 
-class UserView(TemplateView):
+class UserListView(TemplateView):
     template_name = "cms_admin2/user/user.html"
 
     def get(self, request):
@@ -249,4 +296,41 @@ class UserView(TemplateView):
         context["users"] = users
 
         return render(request, self.template_name, context) 
+
+
+class ProfileView(TemplateView):
+    template_name = "cms_admin2/user/profile.html"
+
+    def get(self, request, uid):
+        context = {}
+        userobj = User.objects.get(id=uid)
+        context["user"] = request.user.username
+        context["userobj"] = userobj
+        context["educations"] = userobj.profile.educations.all().order_by("id")
+        context["skills"] = userobj.profile.skills.all()
+        context["socialMedias"] = userobj.profile.socialMedias.all().order_by("id")
+        user_data = {
+            'first_name':userobj.first_name,
+            'last_name':userobj.last_name,
+            'email':userobj.email,
+            'mobile':userobj.profile.mobile,
+            'bio':userobj.profile.bio,
+            'about':userobj.profile.about,
+        }
+        user_form = UserForm(initial=user_data)
+        context["user_form"] = user_form
+
+        return render(request, self.template_name, context) 
+
+
+class PostListView(TemplateView):
+    template_name  = "cms_admin2/post/postList.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        context["posts"] = Post.objects.all().order_by("id")
+
+        return render(request, self.template_name, context)
+    
         
