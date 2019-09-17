@@ -75,6 +75,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+              {% if categories.count > 0 %}
               <table id="example2" class="table table-bordered table-hover text-center">
                 <thead>
                   <tr>
@@ -109,6 +110,13 @@
                   </tr>
                 </tfoot> -->
               </table>
+              {% else %}
+              <div class="w-75 mx-auto">
+                <div class="alert alert-info " role="alert">
+                  Currently there are no category list found!
+                </div>
+              </div>
+              {% endif %}
             </div>
             <!-- /.card-body -->
           </div>
