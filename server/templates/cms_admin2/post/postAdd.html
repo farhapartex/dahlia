@@ -1,0 +1,88 @@
+{% extends 'cms_admin2/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin2/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin2/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Add New Post</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="w-100 p-3">
+            <form action="" method="post" class="">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="title">Post Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="textarea" placeholder="Place some text here"
+                                        style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mt-4 w-75 mx-auto">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Publish The Post</label>
+                        </div>
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <button class="btn btn-secondary w-100">Submit</button>
+                        </div>
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <label for="inputStatus">Select Category</label>
+                            <select class="form-control custom-select">
+                                <option selected disabled>Select one</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <label>Select Tags</label>
+                            <select multiple class="custom-select">
+                                {% for tag in tags %}
+                                <option>{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <!-- ./row -->
+      </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin2/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}
+
+<script>
+    $(function () {
+      // Summernote
+      $('.textarea').summernote()
+    })
+  </script>

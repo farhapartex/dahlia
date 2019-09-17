@@ -333,4 +333,13 @@ class PostListView(TemplateView):
 
         return render(request, self.template_name, context)
     
-        
+
+class PostAddView(TemplateView):
+    template_name = "cms_admin2/post/postAdd.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        context["categories"] = Category.objects.all().order_by("id")
+        context["tags"] = Tag.objects.all().order_by("id")
+        return render(request,  self.template_name, context)
