@@ -259,8 +259,19 @@ class ProfileView(TemplateView):
         userobj = User.objects.get(id=uid)
         context["user"] = request.user.username
         context["userobj"] = userobj
-        context["educations"] = userobj.profile.educations.all()
+        context["educations"] = userobj.profile.educations.all().order_by("id")
         context["skills"] = userobj.profile.skills.all()
+        context["socialMedias"] = userobj.profile.socialMedias.all().order_by("id")
+        user_data = {
+            'first_name':userobj.first_name,
+            'last_name':userobj.last_name,
+            'email':userobj.email,
+            'mobile':userobj.profile.mobile,
+            'bio':userobj.profile.bio,
+            'about':userobj.profile.about,
+        }
+        user_form = UserForm(initial=user_data)
+        context["user_form"] = user_form
 
         return render(request, self.template_name, context) 
     

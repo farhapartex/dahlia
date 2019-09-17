@@ -15,6 +15,23 @@ input[type='text'], input[type='password']{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+textarea{
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: .365rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 .btn-add,.btn-add:hover{
     color: #fff;
     background: #343a40;
@@ -79,6 +96,21 @@ input[type='text'], input[type='password']{
     display: block;
     border: 2px solid #adb5bd;
     border-radius: 50%;
+  }
+
+  .kaggle{
+      border: 2px solid #20BEFF !important;
+      color: #20BEFF !important;
+  }
+
+  .stackoverflow{
+    border: 2px solid #f2720c !important;
+    color: #f2720c !important;
+  }
+
+  .behance{
+    border: 2px solid #800000 !important;
+    color: #800000 !important;
   }
 
 
