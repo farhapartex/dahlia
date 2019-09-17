@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse,HttpResponseRedirect
-from blog.models import * 
+from blog.models import *
+from sites.models import *
 from .forms import *
 # Create your views here.
 
@@ -36,6 +37,52 @@ class LogoutView(TemplateView):
         return HttpResponseRedirect('/accounts/login/')
         
 
+class SiteView(TemplateView):
+    template_name = "cms_admin2/site/site.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        try:
+           site = SiteInformation.objects.all()[0]
+           context["site"] = site
+           site_data = {
+               "site_name": site.site_name
+           }
+           form = SiteForm(initial=site_data)
+           context["form"] = form
+
+           return render(request, self.template_name, context)
+        except :
+            form = SiteForm()
+            context["form"] = form
+            return render(request, self.template_name, context)
+        
+        
+
+class SiteUpdateView(TemplateView):
+
+    template_name = "cms_admin2/site/site.html"
+
+    def post(self, request, siteid):
+        context = {}
+        context['user'] = request.user.username
+        form = SiteForm(request.POST)
+        if form.is_valid():
+            siteValue = form.cleaned_data['site_name']
+            site = SiteInformation.objects.get(id=siteid)
+            if len(siteValue) > 0:
+                site.site_name = siteValue
+                site.save()
+                return HttpResponseRedirect('/cms/site/')
+            else:
+                return HttpResponseRedirect('/cms/site/')
+
+        else:
+            form = SiteForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            return render(request, self.template_name, context)
 
 class HomeView(TemplateView):
     template_name = "cms_admin2/dashboard/dashboard.html"

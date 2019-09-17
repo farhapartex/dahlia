@@ -23,3 +23,6 @@ class UserForm(forms.Form):
     mobile = forms.CharField(label="Mobile", max_length=15)
     bio = forms.CharField(label="Bio", max_length=250)
     about = forms.CharField(label="About", widget=forms.Textarea)
+
+class SiteForm(forms.Form):
+    site_name = forms.CharField(label="Site Name", max_length=120)

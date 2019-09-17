@@ -17,6 +17,8 @@ urlpatterns = [
     path('medias/', login_required(MediaListView.as_view()), name="medias"),
     path('users/', login_required(UserListView.as_view()), name="user"),
     path('users/<int:uid>/profile/', login_required(ProfileView.as_view()), name="profile"),
+    path('site/', login_required(SiteView.as_view()), name="site"),
+    path('site/<int:siteid>/change/', login_required(SiteUpdateView.as_view()), name="site_update"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]
