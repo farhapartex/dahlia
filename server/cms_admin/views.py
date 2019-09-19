@@ -5,6 +5,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse,HttpResponseRedirect
+from django.urls.resolvers import RegexPattern,RoutePattern
+from rest_framework.routers import DefaultRouter
+import re
+from cms import urls
 from blog.models import *
 from sites.models import *
 from .forms import *
@@ -343,3 +347,21 @@ class PostAddView(TemplateView):
         context["categories"] = Category.objects.all().order_by("id")
         context["tags"] = Tag.objects.all().order_by("id")
         return render(request,  self.template_name, context)
+
+
+class APIUrlListView(TemplateView):
+    template_name = "cms_admin/api/apiList.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        url_list = []
+        all_url = urls.public_router.get_urls()
+
+        for url_indx in range(0, len(all_url),4):
+            url_txt = all_url[url_indx].pattern._regex if isinstance(all_url[url_indx].pattern, RegexPattern) else uall_url[url_indx].pattern._route
+            url_txt = re.sub('[^A-Za-z0-9]+', '', url_txt)
+            url_list.append(url_txt)
+        del url_list[-1]
+        context["url_list"] = url_list
+        return render(request, self.template_name, context)

@@ -1,0 +1,89 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">API List</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Public API List</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <pre>
+{
+    {% for url in url_list %}
+    <a href="/api/v1/public/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/public/{{ url }}</a>
+    {% endfor %}
+}
+</pre>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Private API List</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <pre>
+    {
+        {% for url in url_list %}
+        <a href="/api/v1/public/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/public/{{ url }}</a>
+        {% endfor %}
+    }
+    </pre>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

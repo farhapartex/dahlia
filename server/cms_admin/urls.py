@@ -21,6 +21,7 @@ urlpatterns = [
     path('site/<int:siteid>/change/', login_required(SiteUpdateView.as_view()), name="site_update"),
     path('posts/', login_required(PostListView.as_view()), name="posts"),
     path('posts/add/', login_required(PostAddView.as_view()), name="post_add"),
+    path('apis/', login_required(APIUrlListView.as_view()), name="apis"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]
