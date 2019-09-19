@@ -89,9 +89,11 @@
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
                                         <td>{{ permission.name }}</td>
-                                        <td><a href="/cms/tags/{{ tag.id }}/change/" class="text-warning">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
-                                            <a href="/cms/tags/{{ tag.id }}/delete/" class="text-danger">Delete
+                                        <td><a href="/cms/permissions/{{ permission.id }}/change/"
+                                                class="text-warning">Edit <span class="ml-1"><i
+                                                        class="far fa-edit"></i></span></a> <span> | </span>
+                                            <a href="/cms/permissions/{{ permission.id }}/delete/"
+                                                class="text-danger">Delete
                                                 <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
                                     </tr>
                                     {% endfor %}
@@ -99,8 +101,8 @@
                             </table>
                             {% else %}
                             <div class="w-75 mx-auto">
-                                <div class="alert alert-info " role="alert">
-                                    Currently there are no tags found!
+                                <div class="alert alert-warning " role="alert">
+                                    Currently there are no permissions found!
                                 </div>
                             </div>
                             {% endif %}

@@ -402,3 +402,39 @@ class PermissionListView(TemplateView):
             context['form'] = form
             context['form_error'] = "Data is not valid!"
             return render(request, self.template_name, context)
+
+
+class PermissionUpdateView(TemplateView):
+    template_name = "cms_admin/permissions/permissionUpdate.html"
+
+    def get(self, request, permission_id):
+        try:
+            context = {}
+            permission = SystemPermission.objects.get(id=permission_id)
+            form = PermissionForm(initial={'permission_name': permission.name})
+            context['permission'] = permission
+            context['user'] = request.user.username
+            context['form'] = form
+            return render(request, self.template_name, context)
+        except:
+            return HttpResponseRedirect('/cms/permissions/')
+
+    def post(self, request, permission_id):
+        context = {}
+        form = PermissionForm(request.POST)
+        if form.is_valid():
+            permissionValue = form.cleaned_data['permission_name']
+            permission = SystemPermission.objects.get(id=permission_id)
+            if len(permissionValue) > 0:
+                permission.name = permissionValue
+                permission.save()
+                return HttpResponseRedirect('/cms/permissions/')
+        
+
+class PermissionDeleteView(TemplateView):
+
+    def get(self, request, permission_id):
+        permission = SystemPermission.objects.get(id=permission_id)
+        if permission:
+            permission.delete()
+            return HttpResponseRedirect('/cms/permissions/')

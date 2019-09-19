@@ -23,6 +23,8 @@ urlpatterns = [
     path('posts/add/', login_required(PostAddView.as_view()), name="post_add"),
     path('apis/', login_required(APIUrlListView.as_view()), name="apis"),
     path('permissions/', login_required(PermissionListView.as_view()), name="permissions"),
+    path('permissions/<int:permission_id>/change/', login_required(PermissionUpdateView.as_view()), name="permission_update"),
+    path('permissions/<int:permission_id>/delete/', login_required(PermissionDeleteView.as_view()), name="permission_delete"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]
