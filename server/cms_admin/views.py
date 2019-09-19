@@ -12,6 +12,7 @@ from cms import urls
 from blog.models import *
 from sites.models import *
 from .forms import *
+from .models import *
 # Create your views here.
 
 class LoginView(TemplateView):
@@ -365,3 +366,39 @@ class APIUrlListView(TemplateView):
         del url_list[-1]
         context["url_list"] = url_list
         return render(request, self.template_name, context)
+
+
+class PermissionListView(TemplateView):
+    template_name = "cms_admin/permissions/permissionList.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        permissions = SystemPermission.objects.all().order_by("-id")
+        context["permissions"] = permissions
+        context["form"] = PermissionForm()
+        return render(request, self.template_name, context)
+        
+    def post(self, request):
+        context = {}
+        context['user'] = request.user.username
+        form = PermissionForm(request.POST)
+
+        if form.is_valid():
+            permission_name = form.cleaned_data['permission_name']
+            if len(permission_name) == 0:
+                form = PermissionForm()
+                context['user'] = request.user.username
+                context['form'] = form
+                context['form_error'] = "You can not submit empty field!"
+                return render(request, self.template_name, context)
+            else:
+                permissionObj = SystemPermission(name=permission_name)
+                permissionObj.save()
+                return HttpResponseRedirect('/cms/permissions/')
+        else:
+            form = PermissionForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            context['form_error'] = "Data is not valid!"
+            return render(request, self.template_name, context)

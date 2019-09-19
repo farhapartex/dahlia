@@ -22,6 +22,7 @@ urlpatterns = [
     path('posts/', login_required(PostListView.as_view()), name="posts"),
     path('posts/add/', login_required(PostAddView.as_view()), name="post_add"),
     path('apis/', login_required(APIUrlListView.as_view()), name="apis"),
+    path('permissions/', login_required(PermissionListView.as_view()), name="permissions"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]

@@ -42,3 +42,6 @@ class UserForm(forms.Form):
 
 class SiteForm(forms.Form):
     site_name = forms.CharField(label="Site Name", max_length=120)
+
+class PermissionForm(forms.Form):
+    permission_name = forms.CharField(label="Permission Name", max_length=250)
