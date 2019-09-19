@@ -1,10 +1,10 @@
-{% extends 'cms_admin2/base.html' %}
+{% extends 'cms_admin/base.html' %}
 
 {% block content %}
 <!-- Navbar -->
-{% include 'cms_admin2/header/header.html' %}
+{% include 'cms_admin/header/header.html' %}
 <!-- Main Sidebar Container -->
-{% include 'cms_admin2/sidebar/sidebar.html' %}
+{% include 'cms_admin/sidebar/sidebar.html' %}
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <textarea class="textarea" placeholder="Place some text here"
-                                        style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -64,15 +64,15 @@
                         </div>
                     </div>
                 </div>
-                
+
             </form>
         </div>
         <!-- ./row -->
-      </section>
+    </section>
 
 </div>
 <!-- /.content-wrapper -->
-{% include 'cms_admin2/footer/footer.html' %}
+{% include 'cms_admin/footer/footer.html' %}
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
@@ -82,7 +82,7 @@
 
 <script>
     $(function () {
-      // Summernote
-      $('.textarea').summernote()
+        // Summernote
+        $('.textarea').summernote()
     })
-  </script>
+</script>
