@@ -38,7 +38,7 @@ class LogoutView(TemplateView):
         
 
 class SiteView(TemplateView):
-    template_name = "cms_admin2/site/site.html"
+    template_name = "cms_admin/site/site.html"
 
     def get(self, request):
         context = {}
@@ -62,7 +62,7 @@ class SiteView(TemplateView):
 
 class SiteUpdateView(TemplateView):
 
-    template_name = "cms_admin2/site/site.html"
+    template_name = "cms_admin/site/site.html"
 
     def post(self, request, siteid):
         context = {}
@@ -85,7 +85,7 @@ class SiteUpdateView(TemplateView):
             return render(request, self.template_name, context)
 
 class HomeView(TemplateView):
-    template_name = "cms_admin2/dashboard/dashboard.html"
+    template_name = "cms_admin/dashboard/dashboard.html"
 
     def get(self, request):
         return render(request, self.template_name, {"user": request.user.username})
@@ -95,7 +95,7 @@ class ProfileView(TemplateView):
     template_name = "cms_admin/profile.html"
 
 class CategoryView(TemplateView):
-    template_name = "cms_admin2/category/categoryList.html"
+    template_name = "cms_admin/category/categoryList.html"
 
     def get(self, request):
         context = {}
@@ -108,7 +108,7 @@ class CategoryView(TemplateView):
 
 
 class CategoryAddView(TemplateView):
-    template_name = "cms_admin2/category/categoryAdd.html"
+    template_name = "cms_admin/category/categoryAdd.html"
 
     def get(self, request):
         context = {}
@@ -144,7 +144,7 @@ class CategoryAddView(TemplateView):
 
 class CategoryUpdateView(TemplateView):
 
-    template_name = "cms_admin2/category/categoryUpdate.html"
+    template_name = "cms_admin/category/categoryUpdate.html"
 
     def post(self, request, catid):
         context = {}
@@ -191,7 +191,7 @@ class CategoryDeleteView(TemplateView):
 
 
 class TagListView(TemplateView):
-    template_name = "cms_admin2/tag/tagList.html"
+    template_name = "cms_admin/tag/tagList.html"
 
     def get(self, request):
         tags = Tag.objects.all().order_by('-updated_at')
@@ -241,7 +241,7 @@ class TagAddView(TemplateView):
 
 
 class TagUpdateView(TemplateView):
-    template_name = "cms_admin2/tag/tagUpdate.html"
+    template_name = "cms_admin/tag/tagUpdate.html"
 
     def get(self, request, tagid):
         context = {}
@@ -278,7 +278,7 @@ class TagDeleteView(TemplateView):
             return HttpResponseRedirect('/cms/tags/')
 
 class MediaListView(TemplateView):
-    template_name = "cms_admin2/media/mediaList.html"
+    template_name = "cms_admin/media/mediaList.html"
 
     def get(self, request):
         context = {}
@@ -287,7 +287,7 @@ class MediaListView(TemplateView):
         return render(request, self.template_name, context)
 
 class UserListView(TemplateView):
-    template_name = "cms_admin2/user/user.html"
+    template_name = "cms_admin/user/user.html"
 
     def get(self, request):
         users = User.objects.all()
@@ -299,7 +299,7 @@ class UserListView(TemplateView):
 
 
 class ProfileView(TemplateView):
-    template_name = "cms_admin2/user/profile.html"
+    template_name = "cms_admin/user/profile.html"
 
     def get(self, request, uid):
         context = {}
@@ -324,7 +324,7 @@ class ProfileView(TemplateView):
 
 
 class PostListView(TemplateView):
-    template_name  = "cms_admin2/post/postList.html"
+    template_name  = "cms_admin/post/postList.html"
 
     def get(self, request):
         context = {}
@@ -335,7 +335,7 @@ class PostListView(TemplateView):
     
 
 class PostAddView(TemplateView):
-    template_name = "cms_admin2/post/postAdd.html"
+    template_name = "cms_admin/post/postAdd.html"
 
     def get(self, request):
         context = {}
