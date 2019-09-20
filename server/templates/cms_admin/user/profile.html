@@ -36,11 +36,15 @@
 
                             <h3 class="profile-username text-center">{{ userobj.first_name }} {{ userobj.last_name }}
                             </h3>
+                            {% if userobj.profile.bio %}
                             <p class="text-muted text-center">Bio: {{ userobj.profile.bio }}</p>
+                            {% endif %}
                             <p class="text-muted text-center"><span><i class="far fa-envelope"></i></span>
                                 {{ userobj.email }}</p>
+                            {% if userobj.profile.bio %}
                             <p class="text-muted text-center"><span><i class="fas fa-mobile-alt"></i></span>
                                 {{ userobj.profile.mobile }}</p>
+                            {% endif %}
                         </div>
                     </div>
 
