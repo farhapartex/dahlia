@@ -93,7 +93,11 @@ class HomeView(TemplateView):
     template_name = "cms_admin/dashboard/dashboard.html"
 
     def get(self, request):
-        return render(request, self.template_name, {"user": request.user.username})
+        context= {}
+        context["user"] = request.user.username
+        context["total_user"] = User.objects.all().count()
+        context["total_post"] = Post.objects.all().count()
+        return render(request, self.template_name, context)
 
 
 class ProfileView(TemplateView):
