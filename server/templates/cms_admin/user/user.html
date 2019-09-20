@@ -32,20 +32,34 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cms/category/add/" method="post">
+                    <form action="/cms/users/add/" method="post">
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Category Name</label>
+                                <label for="exampleInputEmail1">First Name</label>
+                                {{ form.first_name }}
                             </div>
                             <div class="form-group">
-                                {{ form.category }}
+                                    <label for="exampleInputEmail1">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                    <label for="exampleInputEmail1">Password</label>
+                                {{ form.password }}
                             </div>
                         </div>
                         <!-- /.card-body -->

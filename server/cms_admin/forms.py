@@ -31,6 +31,12 @@ class PostForm(forms.Form):
     body = forms.CharField(label='Title', widget=forms.Textarea)
     # category = forms.ChoiceField(label='Category', widget=forms.Select, choices=get_category_list())
 
+class UserBasicForm(forms.Form):
+    first_name = forms.CharField(label="First Name", max_length=100)
+    last_name = forms.CharField(label="Last Name", max_length=100)
+    email = forms.CharField(label="Email")
+    username = forms.CharField(label="Username", max_length=100)
+    password = forms.CharField(label="Password")
 
 class UserForm(forms.Form):
     first_name = forms.CharField(label="First Name", max_length=100)

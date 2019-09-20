@@ -16,6 +16,7 @@ urlpatterns = [
     path('tags/<int:tagid>/delete/', login_required(TagDeleteView.as_view()), name="tag_delete"),
     path('medias/', login_required(MediaListView.as_view()), name="medias"),
     path('users/', login_required(UserListView.as_view()), name="user"),
+    path('users/add/', login_required(UserListView.as_view()), name="user_add"),
     path('users/<int:uid>/profile/', login_required(ProfileView.as_view()), name="profile"),
     path('site/', login_required(SiteView.as_view()), name="site"),
     path('site/<int:siteid>/change/', login_required(SiteUpdateView.as_view()), name="site_update"),

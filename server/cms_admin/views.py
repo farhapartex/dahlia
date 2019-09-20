@@ -291,6 +291,8 @@ class MediaListView(TemplateView):
         context["user"] = request.user.username
 
         return render(request, self.template_name, context)
+        
+
 
 class UserListView(TemplateView):
     template_name = "cms_admin/user/user.html"
@@ -299,9 +301,39 @@ class UserListView(TemplateView):
         users = User.objects.all()
         context = {}
         context["user"] = request.user.username
+        context["form"] = UserBasicForm()
         context["users"] = users
 
         return render(request, self.template_name, context) 
+
+    def post(self, request):
+        context = {}
+        context['user'] = request.user.username
+        form = UserBasicForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            if len(first_name) == 0 or len(last_name) == 0 or len(email) == 0 or len(username) == 0 or len(password)==0:
+                form = UserBasicForm()
+                context['user'] = request.user.username
+                context['form'] = form
+                context['form_error'] = "You can not submit empty field!"
+                return render(request, self.template_name, context)
+            else:
+                user = User.objects.create_user(username, email, password)
+                user.first_name=first_name
+                user.last_name =last_name
+                user.save()
+                return HttpResponseRedirect('/cms/users/')
+        else:
+            form = UserBasicForm()
+            context['user'] = request.user.username
+            context['form'] = form
+            context['form_error'] = "Data is not valid!"
+            return render(request, self.template_name, context)
 
 
 class ProfileView(TemplateView):
