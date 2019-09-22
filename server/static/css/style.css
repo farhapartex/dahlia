@@ -119,5 +119,12 @@ textarea{
     border-color: #c3e6cb !important;
   }
 
+  .nav-treeview > li > a{
+    font-size: 14px;
+  }
+  .nav-treeview > li > a > i{
+    font-size: 0.8rem !important;
+  }
+
 
 
