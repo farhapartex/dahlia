@@ -22,6 +22,7 @@ urlpatterns = [
     path('site/<int:siteid>/change/', login_required(SiteUpdateView.as_view()), name="site_update"),
     path('posts/', login_required(PostListView.as_view()), name="posts"),
     path('posts/add/', login_required(PostAddView.as_view()), name="post_add"),
+    path('posts/<int:pid>/change/', login_required(PostUpdateView.as_view()), name="post_update"),
     path('apis/', login_required(APIUrlListView.as_view()), name="apis"),
     path('permissions/', login_required(PermissionListView.as_view()), name="permissions"),
     path('permissions/<int:permission_id>/change/', login_required(PermissionUpdateView.as_view()), name="permission_update"),

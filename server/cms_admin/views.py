@@ -372,7 +372,7 @@ class PostListView(TemplateView):
     def get(self, request):
         context = {}
         context["user"] = request.user.username
-        context["posts"] = Post.objects.all().order_by("id")
+        context["posts"] = Post.objects.all().order_by("-id")
 
         return render(request, self.template_name, context)
     
@@ -383,8 +383,6 @@ class PostAddView(TemplateView):
     def get(self, request):
         context = {}
         context["user"] = request.user.username
-        context["categories"] = Category.objects.all().order_by("id")
-        context["tags"] = Tag.objects.all().order_by("id")
         form = PostForm()
         context["form"] = form
         return render(request,  self.template_name, context)
@@ -392,8 +390,29 @@ class PostAddView(TemplateView):
     def post(self, request):
         context = {}
         context["user"] = request.user.username
-        form = UserBasicForm(request.POST)
+        form = PostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save()
+            if new_post:
+                return HttpResponseRedirect('/cms/posts/')
 
+
+
+class PostUpdateView(TemplateView):
+    template_name = "cms_admin/post/postAdd.html"
+
+    def get(self, request, pid):
+        context = {}
+        context["user"] = request.user.username
+        try:
+            post = Post.objects.get(id=pid)
+            form = PostForm(instance=post)
+            context["form"] = form
+            context["stage"] = "update"
+            return render(request, self.template_name, context)
+        except:
+            return HttpResponseRedirect('/cms/posts/')
+            
 
 
 

@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Add New Post</h1>
+                    <h1 class="m-0 text-dark">{% if stage == 'update' %} Update{% else %} Add New{% endif %} Post</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -25,7 +25,8 @@
     <section class="content">
         <div class="w-100 p-3">
 
-            <form action="" method="post" class="">
+            <form action="/cms/posts/add/" method="post" class="">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
@@ -40,10 +41,6 @@
                             <label for="title">Post Content <span class="text-danger">*</span></label>
                             {{ form.body }}
                         </div>
-                        <!-- <div class="form-group">
-                            <textarea class="textarea" placeholder="Place some text here"
-                                style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                        </div> -->
                     </div>
                     <div class="col-md-4">
                         <div class="form-group w-75 mx-auto">
