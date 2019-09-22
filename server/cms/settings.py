@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cms_admin',
     'blog',
     'users',
+    'page',
     'sites'
 ]
 
