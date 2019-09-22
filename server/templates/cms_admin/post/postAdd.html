@@ -24,43 +24,44 @@
     <!-- Main content -->
     <section class="content">
         <div class="w-100 p-3">
+
             <form action="" method="post" class="">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="title">Post Title</label>
-                            <input type="text" class="form-control">
+                            <label for="title">Post Title <span class="text-danger">*</span></label>
+                            {{ form.title }}
                         </div>
                         <div class="form-group">
+                            <label for="title">Post Subitle</label>
+                            {{ form.subtitle }}
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Post Content <span class="text-danger">*</span></label>
+                            {{ form.body }}
+                        </div>
+                        <!-- <div class="form-group">
                             <textarea class="textarea" placeholder="Place some text here"
                                 style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-4">
-                        <div class="form-check mt-4 w-75 mx-auto">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Publish The Post</label>
+                        <div class="form-group w-75 mx-auto">
+                            <label for="exampleCheck1">Publish Status <span class="text-danger">*</span></label>
+                            {{ form.published }}
+
                         </div>
                         <div class="form-group mt-4 w-75 mx-auto">
                             <button class="btn btn-secondary w-100">Submit</button>
                         </div>
                         <div class="form-group mt-4 w-75 mx-auto">
-                            <label for="inputStatus">Select Category</label>
-                            <select class="form-control custom-select">
-                                <option selected disabled>Select one</option>
-                                {% for category in categories %}
-                                <option value="{{ category.id }}">{{ category.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <label for="inputStatus">Select Category <span class="text-danger">*</span></label>
+                            {{ form.category }}
                         </div>
 
                         <div class="form-group mt-4 w-75 mx-auto">
-                            <label>Select Tags</label>
-                            <select multiple class="custom-select">
-                                {% for tag in tags %}
-                                <option>{{ tag.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <label>Select Tags <span class="text-danger">*</span></label>
+                            {{ form.tags }}
                         </div>
                     </div>
                 </div>
@@ -83,6 +84,6 @@
 <script>
     $(function () {
         // Summernote
-        $('.textarea').summernote()
+        $('Textarea').summernote()
     })
 </script>

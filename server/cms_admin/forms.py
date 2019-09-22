@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm,Form
 from blog.models import *
 
 
@@ -10,7 +11,7 @@ def get_category_list():
     return
 
 
-class CategoryForm(forms.Form):
+class CategoryForm(Form):
     category = forms.CharField(label='Category', max_length=100)
 
     def clean_category(self):
@@ -18,27 +19,33 @@ class CategoryForm(forms.Form):
         return data
 
 
-class TagForm(forms.Form):
+class TagForm(Form):
     tag = forms.CharField(label='Tag', max_length=100)
 
     def clean_category(self):
         data = self.cleaned_data['tag']
         return data
 
-class PostForm(forms.Form):
-    title = forms.CharField(label='Title', max_length=150)
-    subtitle = forms.CharField(label='Subtitle', max_length=250)
-    body = forms.CharField(label='Title', widget=forms.Textarea)
-    # category = forms.ChoiceField(label='Category', widget=forms.Select, choices=get_category_list())
+class PostForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['body'].widget.attrs['class'] = 'textarea'
+        self.fields['category'].widget.attrs['class'] = 'form-control custom-select'
+        self.fields['tags'].widget.attrs['class'] = 'custom-select'
+        self.fields['published'].widget.attrs['class'] = 'custom-select'
 
-class UserBasicForm(forms.Form):
+    class Meta:
+        model = Post
+        fields = ['title', 'subtitle', 'body', 'category','tags','published']
+
+class UserBasicForm(Form):
     first_name = forms.CharField(label="First Name", max_length=100)
     last_name = forms.CharField(label="Last Name", max_length=100)
     email = forms.CharField(label="Email")
     username = forms.CharField(label="Username", max_length=100)
     password = forms.CharField(label="Password")
 
-class UserForm(forms.Form):
+class UserForm(Form):
     first_name = forms.CharField(label="First Name", max_length=100)
     last_name = forms.CharField(label="Last Name", max_length=100)
     email = forms.CharField(label="Email", max_length=200)
@@ -46,8 +53,8 @@ class UserForm(forms.Form):
     bio = forms.CharField(label="Bio", max_length=250)
     about = forms.CharField(label="About", widget=forms.Textarea)
 
-class SiteForm(forms.Form):
+class SiteForm(Form):
     site_name = forms.CharField(label="Site Name", max_length=120)
 
-class PermissionForm(forms.Form):
+class PermissionForm(Form):
     permission_name = forms.CharField(label="Permission Name", max_length=250)

@@ -385,7 +385,16 @@ class PostAddView(TemplateView):
         context["user"] = request.user.username
         context["categories"] = Category.objects.all().order_by("id")
         context["tags"] = Tag.objects.all().order_by("id")
+        form = PostForm()
+        context["form"] = form
         return render(request,  self.template_name, context)
+    
+    def post(self, request):
+        context = {}
+        context["user"] = request.user.username
+        form = UserBasicForm(request.POST)
+
+
 
 
 class APIUrlListView(TemplateView):
