@@ -15,6 +15,22 @@ from .forms import *
 from .models import *
 # Create your views here.
 
+def error_404_view(request, exception):
+    template_name = "cms_admin/error/e404.html"
+    data = {"name": "ThePythonDjango.com"}
+    return render(request,template_name, data)
+
+
+class Error404Page(TemplateView):
+    template_name = "cms_admin/error/e404.html"
+
+    def get(self, request):
+        context = {}
+        response = render_to_response(self.template_name,context_instance=RequestContext(request))
+        response.status_code = 404
+        return response
+        # return render(request, self.template_name, context)
+
 class LoginView(TemplateView):
     """docstring for LoginView."""
     template_name = "registration/login.html"

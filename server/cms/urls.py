@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
-from django.conf.urls.static import static  
+from django.conf.urls.static import static
+from django.conf.urls import handler404,handler500
 from rest_framework.routers import DefaultRouter
 from users import views as u_views
 from blog import views as b_views
@@ -37,6 +38,9 @@ urlpatterns = [
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]
+
+handler404 = 'cms_admin.views.error_404_view'
+handler500 = 'cms_admin.views.Error404Page'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
