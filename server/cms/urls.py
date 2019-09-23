@@ -21,6 +21,7 @@ from django.conf.urls import handler404,handler500
 from rest_framework.routers import DefaultRouter
 from users import views as u_views
 from blog import views as b_views
+from cms_admin import views as a_views
 
 admin_router = DefaultRouter()
 public_router = DefaultRouter()
@@ -30,6 +31,7 @@ public_router.register(r'profile',u_views.PublicProfileViewSet)
 public_router.register(r'categories',b_views.PublicCategoryViewSet)
 public_router.register(r'tags',b_views.PublicTagViewSet)
 public_router.register(r'posts',b_views.PublicPostViewSet)
+public_router.register(r'menus',a_views.PublicMenuItemAPIView)
 
 urlpatterns = [
     path('django/admin/', admin.site.urls),

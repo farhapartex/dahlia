@@ -7,12 +7,14 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse,HttpResponseRedirect
 from django.urls.resolvers import RegexPattern,RoutePattern
 from rest_framework.routers import DefaultRouter
+from rest_framework import generics, viewsets
 import re
 from cms import urls
 from blog.models import *
 from sites.models import *
 from .forms import *
 from .models import *
+from .serializers import *
 # Create your views here.
 
 def error_404_view(request, exception):
@@ -522,3 +524,15 @@ class PermissionDeleteView(TemplateView):
         if permission:
             permission.delete()
             return HttpResponseRedirect('/cms/permissions/')
+
+
+
+
+"""
+API Views
+"""
+
+class PublicMenuItemAPIView(viewsets.ReadOnlyModelViewSet):
+    queryset = MenuItem.objects.all()
+    serializer_class = PublicMenuSerializer
+

@@ -5,3 +5,8 @@ from .models import *
 @admin.register(SystemPermission)
 class SystemPermissionAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    pass
