@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.resolvers import RegexPattern, RoutePattern
+from django.http import HttpResponse
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
-import re
+import re, json
 from cms import urls
 from blog.models import *
 from sites.models import *
@@ -397,7 +398,10 @@ class PostListView(TemplateView):
     def get(self, request):
         context = {}
         context["user"] = request.user.username
-        context["posts"] = Post.objects.all().order_by("-id")
+        posts = Post.objects.all().order_by("-id")
+        context["posts"] = posts
+
+        # return HttpResponse(json.dumps(posts), content_type="application/json")
 
         return render(request, self.template_name, context)
 
