@@ -530,3 +530,14 @@ class PermissionDeleteView(TemplateView):
             permission.delete()
             return HttpResponseRedirect("/cms/permissions/")
 
+
+class MenuItemView(TemplateView):
+    template_name = "cms_admin/menu/menuAdd.html"
+
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        context["form"] = MenuForm()
+
+        return render(request, self.template_name, context)
+
