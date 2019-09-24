@@ -9,5 +9,6 @@ verify_ssl = true
 Django = "*"
 psycopg2-binary = "*"
 djangorestframework = "*"
+django-filter = "*"
 
 [requires]

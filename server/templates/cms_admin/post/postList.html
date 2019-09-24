@@ -1,4 +1,5 @@
 {% extends 'cms_admin/base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Navbar -->
@@ -30,7 +31,22 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                            <!-- SEARCH FORM -->
+                            <nav class="navbar navbar-expand navbar-white navbar-light">
+                                <form class="form-inline ml-3">
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control form-control-navbar" type="search"
+                                            placeholder="Search" aria-label="Search" id="psearch"
+                                            onkeyup="postSearch()">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-navbar" type="submit">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </nav>
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

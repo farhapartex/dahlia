@@ -42,7 +42,7 @@ urlpatterns = [
 ]
 
 handler404 = "cms_admin.views.error_404_view"
-handler500 = "cms_admin.views.Error404Page"
+# handler500 = "cms_admin.views.Error404Page"
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
