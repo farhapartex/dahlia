@@ -579,3 +579,11 @@ class MenuItemUpdateView(TemplateView):
             menu = new_menu.save()
             return HttpResponseRedirect("/cms/menus/")
 
+
+class MenuItemDeleteView(TemplateView):
+    def get(self, request, mid):
+        menu = MenuItem.objects.get(id=mid)
+        if menu:
+            menu.delete()
+            return HttpResponseRedirect("/cms/menus/")
+
