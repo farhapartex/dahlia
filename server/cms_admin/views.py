@@ -538,8 +538,44 @@ class MenuItemView(TemplateView):
         context = {}
         context["user"] = request.user.username
         context["form"] = MenuForm()
-        menus = MenuItem.objects.all()
+        menus = MenuItem.objects.order_by("-id")
         context["menus"] = menus
 
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        context["user"] = request.user.username
+        form = MenuForm(request.POST)
+        if form.is_valid():
+            site = SiteInformation.objects.all()[0]
+            new_menu = form.save(commit=False)
+            new_menu.site = site
+            menu = new_menu.save()
+            return HttpResponseRedirect("/cms/menus/")
+
+
+class MenuItemUpdateView(TemplateView):
+    template_name = "cms_admin/menu/menuUpdate.html"
+
+    def get(self, request, mid):
+        context = {}
+        context["user"] = request.user.username
+        menu = MenuItem.objects.get(id=mid)
+        context["form"] = MenuForm(instance=menu)
+        context["menu"] = menu
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, mid):
+        context = {}
+        context["user"] = request.user.username
+        menu = MenuItem.objects.get(id=mid)
+        form = MenuForm(instance=menu, data=request.POST)
+        if form.is_valid():
+            site = SiteInformation.objects.all()[0]
+            new_menu = form.save(commit=False)
+            new_menu.site = site
+            menu = new_menu.save()
+            return HttpResponseRedirect("/cms/menus/")
 

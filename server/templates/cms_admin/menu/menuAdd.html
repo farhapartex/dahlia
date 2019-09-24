@@ -37,7 +37,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cms/tags/add/" method="post">
+                    <form action="/cms/menus/" method="post">
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
@@ -105,9 +105,9 @@
                                         <td>{{ menu.url}}</td>
                                         <td>{{ menu.allow_submenu}}</td>
                                         <td>{{ menu.parent_menu}}</td>
-                                        <td><a href="/cms/tags/{{ tag.id }}/change/" class="text-warning">Edit <span
+                                        <td><a href="/cms/menus/{{ menu.id }}/change/" class="text-warning">Edit <span
                                                     class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
-                                            <a href="/cms/tags/{{ tag.id }}/delete/" class="text-danger">Delete
+                                            <a href="/cms/menus/{{ menu.id }}/delete/" class="text-danger">Delete
                                                 <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
                                     </tr>
                                     {% endfor %}

@@ -47,6 +47,11 @@ urlpatterns = [
         name="site_update",
     ),
     path("menus/", login_required(MenuItemView.as_view()), name="menus"),
+    path(
+        "menus/<int:mid>/change/",
+        login_required(MenuItemUpdateView.as_view()),
+        name="menu_update",
+    ),
     path("posts/", login_required(PostListView.as_view()), name="posts"),
     path("posts/add/", login_required(PostAddView.as_view()), name="post_add"),
     path(
