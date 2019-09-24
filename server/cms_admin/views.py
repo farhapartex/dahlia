@@ -538,6 +538,8 @@ class MenuItemView(TemplateView):
         context = {}
         context["user"] = request.user.username
         context["form"] = MenuForm()
+        menus = MenuItem.objects.all()
+        context["menus"] = menus
 
         return render(request, self.template_name, context)
 

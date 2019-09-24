@@ -85,24 +85,26 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            {% if tags.count > 0 %}
+                            {% if menus.count > 0 %}
                             <table id="example2" class="table table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th># ID</th>
-                                        <th>Tag Name</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
+                                        <th>Menu Text</th>
+                                        <th>Menu URL</th>
+                                        <th>Allow Sub-menu</th>
+                                        <th>Parent Menu</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for tag in tags %}
+                                    {% for menu in menus %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        <td>{{ tag.name }}</td>
-                                        <td>{{ tag.created_at| timesince }}</td>
-                                        <td>{{ tag.updated_at | timesince}}</td>
+                                        <td>{{ menu.name }}</td>
+                                        <td>{{ menu.url}}</td>
+                                        <td>{{ menu.allow_submenu}}</td>
+                                        <td>{{ menu.parent_menu}}</td>
                                         <td><a href="/cms/tags/{{ tag.id }}/change/" class="text-warning">Edit <span
                                                     class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
                                             <a href="/cms/tags/{{ tag.id }}/delete/" class="text-danger">Delete
@@ -114,7 +116,7 @@
                             {% else %}
                             <div class="w-75 mx-auto">
                                 <div class="alert alert-warning " role="alert">
-                                    Currently there are no tags found!
+                                    Currently there are no menus found!
                                 </div>
                             </div>
                             {% endif %}
