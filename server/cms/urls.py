@@ -17,32 +17,32 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import handler404,handler500
+from django.conf.urls import handler404, handler500
 from rest_framework.routers import DefaultRouter
 from users import views as u_views
 from blog import views as b_views
-from cms_admin import views as a_views
+from sites import views as s_views
 
 admin_router = DefaultRouter()
 public_router = DefaultRouter()
 
 # public routers
-public_router.register(r'profile',u_views.PublicProfileViewSet)
-public_router.register(r'categories',b_views.PublicCategoryViewSet)
-public_router.register(r'tags',b_views.PublicTagViewSet)
-public_router.register(r'posts',b_views.PublicPostViewSet)
-public_router.register(r'menus',a_views.PublicMenuItemAPIView)
+public_router.register(r"profile", u_views.PublicProfileViewSet)
+public_router.register(r"categories", b_views.PublicCategoryViewSet)
+public_router.register(r"tags", b_views.PublicTagViewSet)
+public_router.register(r"posts", b_views.PublicPostViewSet)
+public_router.register(r"site", s_views.PublicSiteAPIView)
 
 urlpatterns = [
-    path('django/admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('cms/', include("cms_admin.urls")),
+    path("django/admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("cms/", include("cms_admin.urls")),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]
 
-handler404 = 'cms_admin.views.error_404_view'
-handler500 = 'cms_admin.views.Error404Page'
+handler404 = "cms_admin.views.error_404_view"
+handler500 = "cms_admin.views.Error404Page"
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
