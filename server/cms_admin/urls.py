@@ -64,6 +64,11 @@ urlpatterns = [
         login_required(PostUpdateView.as_view()),
         name="post_update",
     ),
+    path(
+        "posts/<int:pid>/delete/",
+        login_required(PostDeleteView.as_view()),
+        name="post_delete",
+    ),
     path("apis/", login_required(APIUrlListView.as_view()), name="apis"),
     path(
         "permissions/", login_required(PermissionListView.as_view()), name="permissions"

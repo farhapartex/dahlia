@@ -52,7 +52,14 @@
                             <button class="btn btn-secondary w-100">
                                 {% if stage == 'update' %}Update{% else %}Create{% endif %} Post
                             </button>
+
                         </div>
+                        {% if stage == 'update' %}
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <a href="/cms/posts/{{ post.id }}/delete/" class="text-danger mt-3">Move To Trash <span><i
+                                        class="far fa-trash-alt"></i></span></a>
+                        </div>
+                        {% endif %}
                         <div class="form-group mt-4 w-75 mx-auto">
                             <label for="inputStatus">Select Category <span class="text-danger">*</span></label>
                             {{ form.category }}

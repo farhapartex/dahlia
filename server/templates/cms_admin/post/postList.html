@@ -54,9 +54,8 @@
                                         <td>{{ post.category }}</td>
                                         <td>{{ post.created_at| timesince }} ago</td>
                                         <td>{{ post.updated_at | timesince}} ago</td>
-                                        <td><a href="/cms/posts/{{ post.id }}/change/"
-                                                class="text-warning">Edit <span class="ml-1"><i
-                                                        class="far fa-edit"></i></span></a></td>
+                                        <td><a href="/cms/posts/{{ post.id }}/change/" class="text-warning">Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -73,7 +72,7 @@
                             {% else %}
                             <div class="w-75 mx-auto">
                                 <div class="alert alert-warning " role="alert">
-                                    Currently there are no category list found!
+                                    Currently there are no post found!
                                 </div>
                             </div>
                             {% endif %}

@@ -432,10 +432,21 @@ class PostUpdateView(TemplateView):
             post = Post.objects.get(id=pid)
             form = PostForm(instance=post)
             context["form"] = form
+            context["post"] = post
             context["stage"] = "update"
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/posts/")
+
+
+class PostDeleteView(TemplateView):
+    def get(self, request, pid):
+        post = Post.objects.get(id=pid)
+        if post:
+            post.delete()
+            return HttpResponseRedirect("/cms/posts/")
+        else:
+            return HttpResponseRedirect("/cms/admin/")
 
 
 class APIUrlListView(TemplateView):
