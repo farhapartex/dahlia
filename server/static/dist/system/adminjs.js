@@ -1,11 +1,10 @@
 // $(document).ready(function () {
+//     var host = $(location).attr('host');
 //     $("#psearch").keydown(function () {
-//         var host = $(location).attr('host');
-//         var purl = host + "/api/v1/public/posts";
+//         var purl = host + "/cms/admin/posts/admin/";
+//         console.log(purl);
 //         $.ajax({
-//             type: "get",
 //             url: purl,
-//             dataType: "json",
 //             success: function (result) {
 //                 console.log(result);
 //             },

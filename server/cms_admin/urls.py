@@ -58,6 +58,11 @@ urlpatterns = [
         name="menu_delete",
     ),
     path("posts/", login_required(PostListView.as_view()), name="posts"),
+    path(
+        "posts/admin/",
+        login_required(PostListAdminAPIView.as_view()),
+        name="admin_posts",
+    ),
     path("posts/add/", login_required(PostAddView.as_view()), name="post_add"),
     path(
         "posts/<int:pid>/change/",

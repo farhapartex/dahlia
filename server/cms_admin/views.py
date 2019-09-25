@@ -407,6 +407,16 @@ class PostListView(TemplateView):
         return render(request, self.template_name, context)
 
 
+class PostListAdminAPIView(View):
+    def get(self, request):
+        # context = {}
+        # context["user"] = request.user.username
+        posts = Post.objects.all().order_by("-id").values("id","title","category","created_at")
+        # context["posts"] = posts
+
+        return JsonResponse({"posts": list(posts)})
+
+
 class PostAddView(TemplateView):
     template_name = "cms_admin/post/postAdd.html"
 
