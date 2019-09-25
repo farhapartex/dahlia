@@ -17,28 +17,3 @@
 //     });
 // });
 http://127.0.0.1:8000/cms/posts/
-var app5 = new Vue({
-    el: '#cms',
-    data: {
-        host: location.host,
-        public_api: "/api/v1/public/"
-    },
-    methods: {
-        getPostList() {
-            axios
-                .get('http://' + this.host + this.public_api + "posts/")
-                .then(response => (
-                    console.log(response.data)
-                ))
-                .catch(error => console.log(error))
-        },
-        postSearch: function () {
-            console.log("Working..");
-            console.log(this.host);
-
-        }
-    },
-    mounted() {
-        this.getPostList();
-    },
-})

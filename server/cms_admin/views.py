@@ -3,10 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView
+from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.resolvers import RegexPattern, RoutePattern
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 import re, json
