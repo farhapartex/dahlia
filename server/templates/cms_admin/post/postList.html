@@ -36,7 +36,8 @@
                                 <form class="form-inline ml-3">
                                     <div class="input-group input-group-sm">
                                         <input class="form-control form-control-navbar" type="search"
-                                            placeholder="Search" aria-label="Search" id="psearch">
+                                            placeholder="Search" aria-label="Search" id="psearch"
+                                            v-on:keyup="postSearch">
                                         <div class="input-group-append">
                                             <button class="btn btn-navbar" type="submit">
                                                 <i class="fas fa-search"></i>
