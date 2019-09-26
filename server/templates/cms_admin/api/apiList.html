@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h6>Private API List</h6>
+                                <h6>Public API List</h6>
                                 <h6>Allow: <span class="text-info">GET, HEAD, OPTIONS</span></h6>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <pre>
 {
-    {% for url in url_list %}
+    {% for url in public_urls %}
     <a href="/api/v1/public/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/public/{{ url }}</a>
     {% endfor %}
 }
@@ -67,8 +67,8 @@
                         <div class="card-body">
                             <pre>
     {
-        {% for url in url_list %}
-        <a href="/api/v1/public/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/public/{{ url }}</a>
+        {% for url in admin_urls %}
+        <a href="/api/v1/admin/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/admin/{{ url }}</a>
         {% endfor %}
     }
     </pre>

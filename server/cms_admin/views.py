@@ -454,25 +454,29 @@ class PostDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/admin/")
 
 
+def get_url_list(urls):
+    url_list = []
+    for index in range(0, len(urls), 4):
+        url_text = (
+            urls[index].pattern._regex
+            if isinstance(urls[index].pattern, RegexPattern)
+            else urls[index].pattern._route
+        )
+        url_text = re.sub("[^A-Za-z0-9]+", "", url_text)
+        url_list.append(url_text)
+    del url_list[-1]
+    return url_list
+
 class APIUrlListView(TemplateView):
     template_name = "cms_admin/api/apiList.html"
 
     def get(self, request):
         context = {}
         context["user"] = request.user.username
-        url_list = []
-        all_url = urls.public_router.get_urls()
-
-        for url_indx in range(0, len(all_url), 4):
-            url_txt = (
-                all_url[url_indx].pattern._regex
-                if isinstance(all_url[url_indx].pattern, RegexPattern)
-                else uall_url[url_indx].pattern._route
-            )
-            url_txt = re.sub("[^A-Za-z0-9]+", "", url_txt)
-            url_list.append(url_txt)
-        del url_list[-1]
-        context["url_list"] = url_list
+        public_urls = urls.public_router.get_urls()
+        admin_urls = urls.admin_router.get_urls()
+        context["public_urls"] = get_url_list(public_urls)
+        context["admin_urls"] = get_url_list(admin_urls)
         return render(request, self.template_name, context)
 
 
