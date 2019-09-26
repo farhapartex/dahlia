@@ -22,6 +22,7 @@ from rest_framework.routers import DefaultRouter
 from users import views as u_views
 from blog import views as b_views
 from sites import views as s_views
+from media_browser import views as media_views
 
 admin_router = DefaultRouter()
 public_router = DefaultRouter()
@@ -32,6 +33,8 @@ public_router.register(r"categories", b_views.PublicCategoryViewSet)
 public_router.register(r"tags", b_views.PublicTagViewSet)
 public_router.register(r"posts", b_views.PublicPostViewSet)
 public_router.register(r"site", s_views.PublicSiteAPIView)
+
+admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
 
 urlpatterns = [
     path("django/admin/", admin.site.urls),
