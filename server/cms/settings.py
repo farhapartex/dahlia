@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'cms_admin',
+    'media_browser',
     'blog',
     'users',
     'page',
