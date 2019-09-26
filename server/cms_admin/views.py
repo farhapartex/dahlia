@@ -1,3 +1,4 @@
+import re, json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -10,8 +11,8 @@ from django.urls.resolvers import RegexPattern, RoutePattern
 from django.http import HttpResponse, JsonResponse
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
-import re, json
 from cms import urls
+from media_browser.models import *
 from blog.models import *
 from sites.models import *
 from .forms import *
@@ -300,17 +301,6 @@ class TagDeleteView(TemplateView):
         if tag:
             tag.delete()
             return HttpResponseRedirect("/cms/tags/")
-
-
-class MediaListView(TemplateView):
-    template_name = "cms_admin/media/mediaList.html"
-
-    def get(self, request):
-        context = {}
-        context["user"] = request.user.username
-
-        return render(request, self.template_name, context)
-
 
 class UserListView(TemplateView):
     template_name = "cms_admin/user/user.html"
@@ -612,4 +602,14 @@ class MenuItemDeleteView(TemplateView):
         if menu:
             menu.delete()
             return HttpResponseRedirect("/cms/menus/")
+
+
+class MediaBrowserView(TemplateView):
+    template_name = "cms_admin/media/mediaList.html"
+    def get(self, request):
+        context = {}
+        context["user"] = request.user.username
+        context["medias"] = MediaImage.objects.all()
+
+        return render(request,self.template_name, context)
 

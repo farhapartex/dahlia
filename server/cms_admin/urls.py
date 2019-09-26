@@ -32,7 +32,7 @@ urlpatterns = [
         login_required(TagDeleteView.as_view()),
         name="tag_delete",
     ),
-    path("medias/", login_required(MediaListView.as_view()), name="medias"),
+    path("medias/", login_required(MediaBrowserView.as_view()), name="medias"),
     path("users/", login_required(UserListView.as_view()), name="user"),
     path("users/add/", login_required(UserListView.as_view()), name="user_add"),
     path(
