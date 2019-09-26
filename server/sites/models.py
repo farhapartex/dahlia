@@ -34,3 +34,12 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.name
 
+
+class Contact(models.Model):
+    name = models.CharField(max_length=120)
+    email = models.EmailField(max_length=254)
+    message = models.TextField()
+
+    def __str__(self):
+        return f'{self.name} - {self.email}'
+

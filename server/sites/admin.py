@@ -12,3 +12,7 @@ class SiteInformationAdmin(admin.ModelAdmin):
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    pass

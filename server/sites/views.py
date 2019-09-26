@@ -8,11 +8,10 @@ from .serializers import *
 """
 API Views
 """
-
-
 class PublicSiteAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = SiteInformation.objects.all()
     serializer_class = PublicSiteInformationSerializer
 
-    # def get_queryset(self):
-    #     return MenuItem.objects.filter(parent_menu=None)
+class ContactCreateAPIView(generics.CreateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer

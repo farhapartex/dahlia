@@ -28,3 +28,9 @@ class PublicSiteInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteInformation
         fields = ("id", "site_name", "menus")
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ("__all__")

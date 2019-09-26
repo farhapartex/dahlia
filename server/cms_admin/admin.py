@@ -8,3 +8,4 @@ from .models import *
 class SystemPermissionAdmin(admin.ModelAdmin):
     pass
 
+

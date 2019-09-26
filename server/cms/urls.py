@@ -40,6 +40,7 @@ urlpatterns = [
     path("django/admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("cms/", include("cms_admin.urls")),
+    re_path(r"^api/v1/public/contact/", s_views.ContactCreateAPIView.as_view()),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]
