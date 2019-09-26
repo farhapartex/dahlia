@@ -42,12 +42,12 @@
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Media Description</label>
-                                {{ form.description }}
+                                <label for="exampleInputEmail1">Image Title</label>
+                                {{ form.title }}
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload <span class="ml-1 text-danger">*</span></span>
                                 </div>
                                 <div class="custom-file">
                                         {{ form.image }}
@@ -74,7 +74,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary">Submit</button>
+                            <button type="submit" class="btn btn-secondary">Add Image</button>
                             <a href="#" class="btn btn-warning" data-dismiss="modal">Back</a>
                         </div>
                     </form>

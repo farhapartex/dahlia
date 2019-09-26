@@ -82,12 +82,12 @@ class MenuForm(ModelForm):
 class MediaBrowserForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(MediaBrowserForm, self).__init__(*args, **kwargs)
-        self.fields["description"].widget.attrs["class"] = "form-control"
+        self.fields["title"].widget.attrs["class"] = "form-control"
         self.fields["height"].widget.attrs["class"] = "form-control"
         self.fields["width"].widget.attrs["class"] = "form-control"
         self.fields["image"].widget.attrs["class"] = "custom-file-input"
 
     class Meta:
         model = MediaImage
-        fields = ["description", "height", "width", "image"]
+        fields = ["title", "height", "width", "image"]
 
