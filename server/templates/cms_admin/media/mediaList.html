@@ -32,7 +32,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Media</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -42,11 +42,34 @@
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Category Name</label>
+                                <label for="exampleInputEmail1">Media Description</label>
+                                {{ form.description }}
                             </div>
-                            <div class="form-group">
-                                {{ form.category }}
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                        {{ form.image }}
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Image Height</label>
+                                        {{ form.height }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Image Width</label>
+                                        {{ form.width }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
                         </div>
                         <!-- /.card-body -->
 

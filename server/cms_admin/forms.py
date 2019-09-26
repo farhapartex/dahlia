@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm, Form
 from blog.models import *
 from sites.models import *
+from media_browser.models import *
 
 
 def get_category_list():
@@ -77,4 +78,16 @@ class MenuForm(ModelForm):
     class Meta:
         model = MenuItem
         fields = ["name", "url", "allow_submenu", "parent_menu"]
+
+class MediaBrowserForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(MediaBrowserForm, self).__init__(*args, **kwargs)
+        self.fields["description"].widget.attrs["class"] = "form-control"
+        self.fields["height"].widget.attrs["class"] = "form-control"
+        self.fields["width"].widget.attrs["class"] = "form-control"
+        self.fields["image"].widget.attrs["class"] = "custom-file-input"
+
+    class Meta:
+        model = MediaImage
+        fields = ["description", "height", "width", "image"]
 

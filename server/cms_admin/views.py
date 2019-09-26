@@ -610,6 +610,7 @@ class MediaBrowserView(TemplateView):
         context = {}
         context["user"] = request.user.username
         context["medias"] = MediaImage.objects.all()
+        context["form"] = MediaBrowserForm()
 
         return render(request,self.template_name, context)
 
