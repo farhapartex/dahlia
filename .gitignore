@@ -1,6 +1,7 @@
 **/__pycache__
 */__pycache__
 */**/__pycache__
+/server/media
 server/media
 server/media/*
 .vscode*
