@@ -1,5 +1,6 @@
 ## Blog CMS 1.0
-[![GitHub version](https://codeclimate.com/github/{{farhapartex}}/{{blog-cms.png}})](https://codeclimate.com/github/{{farhapartex}}/{{blog-cms}})
+[![star this repo](http://githubbadges.com/star.svg?user=farhapartex&repo=blog-cms&style=default)](https://github.com/farhapartex/blog-cms)
+[![fork this repo](http://githubbadges.com/fork.svg?user=farhapartex&repo=blog-cms&style=default)](https://github.com/farhapartex/blog-cms/fork)github/{{farhapartex}}/{{blog-cms}})
 
 
 `Blog-CMS` is for creating blog just by adding contents. `Blog-CMS` provide various type of API such which is essential for a blog website.
