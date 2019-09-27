@@ -44,7 +44,12 @@
                 <tbody>
                   {% for contact in contact_list %}
                   <tr>
-                    <td>{{ forloop.counter }}</td>
+                    <td>
+                      {{ forloop.counter }}
+                      {% if contact.seen == False %}
+                      <span class="badge badge-pill badge-danger">new</span>
+                      {% endif %}
+                    </td>
                     <td>{{ contact.name }}</td>
                     <td>{{ contact.email }}</td>
                     <td>{{ contact.created_at| timesince }} ago</td>

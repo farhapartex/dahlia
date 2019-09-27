@@ -669,7 +669,11 @@ class ContactView(TemplateView):
 
     def get(self, request, cid):
         context = get_default_context(request)
-        context["contact"] = Contact.objects.get(id=cid)
+        contact = Contact.objects.get(id=cid)
+        if contact.seen is False:
+             contact.seen = True
+             contact.save()
+        context["contact"] = contact
 
         return render(request, self.template_name, context)
 
