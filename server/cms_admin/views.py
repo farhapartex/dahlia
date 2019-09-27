@@ -78,6 +78,7 @@ class SiteView(TemplateView):
     def get(self, request):
         context = {}
         context["user"] = request.user.username
+        context["contacts"] = get_new_contacts()
         try:
             site = SiteInformation.objects.all()[0]
             context["site"] = site
@@ -99,6 +100,7 @@ class SiteUpdateView(TemplateView):
     def post(self, request, siteid):
         context = {}
         context["user"] = request.user.username
+        context["contacts"] = get_new_contacts()
         form = SiteForm(request.POST)
         if form.is_valid():
             siteValue = form.cleaned_data["site_name"]
@@ -139,6 +141,7 @@ class CategoryView(TemplateView):
         context["categories"] = categories
         form = CategoryForm()
         context["form"] = form
+        context["contacts"] = get_new_contacts()
         return render(request, self.template_name, context)
 
 
@@ -150,6 +153,7 @@ class CategoryAddView(TemplateView):
         form = CategoryForm()
         context["user"] = request.user.username
         context["form"] = form
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -172,6 +176,7 @@ class CategoryAddView(TemplateView):
             form = CategoryForm()
             context["user"] = request.user.username
             context["form"] = form
+            context["contacts"] = get_new_contacts()
             context["form_error"] = "Data is not valid!"
             return render(request, self.template_name, context)
 
@@ -196,6 +201,7 @@ class CategoryUpdateView(TemplateView):
                 context["user"] = request.user.username
                 context["category"] = category
                 context["form"] = form
+                context["contacts"] = get_new_contacts()
                 return render(request, self.template_name, context)
 
         else:
@@ -204,6 +210,7 @@ class CategoryUpdateView(TemplateView):
 
     def get(self, request, catid):
         context = {}
+        context["contacts"] = get_new_contacts()
         category = Category.objects.get(id=catid)
         if category:
             form = CategoryForm(initial={"category": category.name})
@@ -232,6 +239,7 @@ class TagListView(TemplateView):
         context["user"] = request.user.username
         form = TagForm()
         context["form"] = form
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -244,6 +252,7 @@ class TagAddView(TemplateView):
         context["user"] = request.user.username
         form = TagForm()
         context["form"] = form
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -267,6 +276,7 @@ class TagAddView(TemplateView):
             form = TagForm()
             context["user"] = request.user.username
             context["form"] = form
+            context["contacts"] = get_new_contacts()
             context["form_error"] = "Data is not valid!"
             return render(request, self.template_name, context)
 
@@ -282,6 +292,7 @@ class TagUpdateView(TemplateView):
             context["tag"] = tag
             context["user"] = request.user.username
             context["form"] = form
+            context["contacts"] = get_new_contacts()
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/tags/")
@@ -316,6 +327,7 @@ class UserListView(TemplateView):
         context["user"] = request.user.username
         context["form"] = UserBasicForm()
         context["users"] = users
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -339,6 +351,7 @@ class UserListView(TemplateView):
                 form = UserBasicForm()
                 context["user"] = request.user.username
                 context["form"] = form
+                context["contacts"] = get_new_contacts()
                 context["form_error"] = "You can not submit empty field!"
                 return render(request, self.template_name, context)
             else:
@@ -351,6 +364,7 @@ class UserListView(TemplateView):
             form = UserBasicForm()
             context["user"] = request.user.username
             context["form"] = form
+            context["contacts"] = get_new_contacts()
             context["form_error"] = "Data is not valid!"
             return render(request, self.template_name, context)
 
@@ -381,6 +395,7 @@ class ProfileView(TemplateView):
 
             user_form = UserForm(initial=user_data)
             context["user_form"] = user_form
+            context["contacts"] = get_new_contacts()
         except:
             user_form = UserForm()
             context["user_form"] = user_form
@@ -396,6 +411,7 @@ class PostListView(TemplateView):
         context["user"] = request.user.username
         posts = Post.objects.all().order_by("-id")
         context["posts"] = posts
+        context["contacts"] = get_new_contacts()
 
         # return HttpResponse(json.dumps(posts), content_type="application/json")
 
@@ -420,6 +436,7 @@ class PostAddView(TemplateView):
         context["user"] = request.user.username
         form = PostForm()
         context["form"] = form
+        context["contacts"] = get_new_contacts()
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -444,6 +461,7 @@ class PostUpdateView(TemplateView):
             context["form"] = form
             context["post"] = post
             context["stage"] = "update"
+            context["contacts"] = get_new_contacts()
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/posts/")
@@ -482,6 +500,7 @@ class APIUrlListView(TemplateView):
         admin_urls = urls.admin_router.get_urls()
         context["public_urls"] = get_url_list(public_urls)
         context["admin_urls"] = get_url_list(admin_urls)
+        context["contacts"] = get_new_contacts()
         return render(request, self.template_name, context)
 
 
@@ -494,6 +513,7 @@ class PermissionListView(TemplateView):
         permissions = SystemPermission.objects.all().order_by("-id")
         context["permissions"] = permissions
         context["form"] = PermissionForm()
+        context["contacts"] = get_new_contacts()
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -507,6 +527,7 @@ class PermissionListView(TemplateView):
                 form = PermissionForm()
                 context["user"] = request.user.username
                 context["form"] = form
+                context["contacts"] = get_new_contacts()
                 context["form_error"] = "You can not submit empty field!"
                 return render(request, self.template_name, context)
             else:
@@ -532,6 +553,7 @@ class PermissionUpdateView(TemplateView):
             context["permission"] = permission
             context["user"] = request.user.username
             context["form"] = form
+            context["contacts"] = get_new_contacts()
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/permissions/")
@@ -565,6 +587,7 @@ class MenuItemView(TemplateView):
         context["form"] = MenuForm()
         menus = MenuItem.objects.order_by("-id")
         context["menus"] = menus
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -589,6 +612,7 @@ class MenuItemUpdateView(TemplateView):
         menu = MenuItem.objects.get(id=mid)
         context["form"] = MenuForm(instance=menu)
         context["menu"] = menu
+        context["contacts"] = get_new_contacts()
 
         return render(request, self.template_name, context)
 
@@ -620,6 +644,7 @@ class MediaBrowserView(TemplateView):
         context["user"] = request.user.username
         context["medias"] = MediaImage.objects.all()
         context["form"] = MediaBrowserForm()
+        context["contacts"] = get_new_contacts()
 
         return render(request,self.template_name, context)
 
