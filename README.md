@@ -1,4 +1,6 @@
 ## Blog CMS 1.0
+[![GitHub version](V.1.0.0)](https://github.com/farhapartex/blog-cms.git)
+
 
 `Blog-CMS` is for creating blog just by adding contents. `Blog-CMS` provide various type of API such which is essential for a blog website.
 
