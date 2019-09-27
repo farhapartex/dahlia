@@ -673,3 +673,14 @@ class ContactView(TemplateView):
 
         return render(request, self.template_name, context)
 
+
+class ContactDeleteView(TemplateView):
+
+    def get(self, request, cid):
+        try:
+            contact = Contact.objects.get(id=cid)
+            contact.delete()
+            return HttpResponseRedirect("/cms/contacts/")
+        except:
+            return HttpResponseRedirect("/cms/contacts/")
+

@@ -98,6 +98,11 @@ urlpatterns = [
         login_required(ContactView.as_view()),
         name="contact",
     ),
+    path(
+        "contacts/<int:cid>/delete/",
+        login_required(ContactDeleteView.as_view()),
+        name="contact_delete",
+    ),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]

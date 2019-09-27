@@ -37,7 +37,7 @@
               </div>
 
               <div class="w-100 mt-5">
-                <a href="{% url 'contacts' %}" class="btn btn-sm btn-danger float-right"><span><i class="far fa-trash-alt"></i></span> Delete</a>
+                <a href="{% url 'contact_delete' contact.id %}" class="btn btn-sm btn-danger float-right"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                 <a href="{% url 'contacts' %}" class="btn btn-sm btn-warning"><span><i class="fas fa-angle-left"></i></span> Back</a>
                 
               </div>
