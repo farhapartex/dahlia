@@ -88,6 +88,11 @@ urlpatterns = [
         login_required(PermissionDeleteView.as_view()),
         name="permission_delete",
     ),
+     path(
+        "contacts/",
+        login_required(ContactListView.as_view()),
+        name="contacts",
+    ),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]

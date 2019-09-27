@@ -30,6 +30,12 @@ def get_new_contacts():
     contacts = Contact.objects.filter(seen=False).order_by("-id")
     return contacts
 
+def get_default_context(request):
+    context = {}
+    context["user"] = request.user.username
+    context["contacts"] = get_new_contacts()
+    return context
+
 
 class Error404Page(TemplateView):
     template_name = "cms_admin/error/e404.html"
@@ -647,4 +653,13 @@ class MediaBrowserView(TemplateView):
         context["contacts"] = get_new_contacts()
 
         return render(request,self.template_name, context)
+
+class ContactListView(TemplateView):
+    template_name = "cms_admin/contact/contactList.html"
+
+    def get(self, request):
+        context = get_default_context(request)
+        context["contact_list"] = Contact.objects.all().order_by("-id")
+
+        return render(request, self.template_name, context)
 
