@@ -1,0 +1,64 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Contact View</h1>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title float-right text-sm"><span class="mr-1"><i class="fas fa-history"></i></span> {{ contact.created_at | timesince }} ago</h5>
+              <h3 class="card-title"><span>{{ contact.name }}</span> <span class="text-sm"> [{{ contact.email }}] </span></h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="w-100">
+                  {{ contact.message | safe }}
+              </div>
+
+              <div class="w-100 mt-3">
+                <a href="{% url 'contacts' %}" class="btn btn-sm btn-warning"><span><i class="fas fa-angle-left"></i></span> Back</a>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+    </div>
+  </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

@@ -663,3 +663,13 @@ class ContactListView(TemplateView):
 
         return render(request, self.template_name, context)
 
+
+class ContactView(TemplateView):
+    template_name = "cms_admin/contact/contact-view.html"
+
+    def get(self, request, cid):
+        context = get_default_context(request)
+        context["contact"] = Contact.objects.get(id=cid)
+
+        return render(request, self.template_name, context)
+
