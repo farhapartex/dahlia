@@ -26,6 +26,10 @@ def error_404_view(request, exception):
     data = {"name": "ThePythonDjango.com"}
     return render(request, template_name, data)
 
+def get_new_contacts():
+    contacts = Contact.objects.filter(seen=False).order_by("-id")
+    return contacts
+
 
 class Error404Page(TemplateView):
     template_name = "cms_admin/error/e404.html"
@@ -121,6 +125,7 @@ class HomeView(TemplateView):
         context["user"] = request.user.username
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
+        context["contacts"] = get_new_contacts()
         return render(request, self.template_name, context)
 
 
