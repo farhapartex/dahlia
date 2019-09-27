@@ -36,8 +36,10 @@
                   {{ contact.message | safe }}
               </div>
 
-              <div class="w-100 mt-3">
+              <div class="w-100 mt-5">
+                <a href="{% url 'contacts' %}" class="btn btn-sm btn-danger float-right"><span><i class="far fa-trash-alt"></i></span> Delete</a>
                 <a href="{% url 'contacts' %}" class="btn btn-sm btn-warning"><span><i class="fas fa-angle-left"></i></span> Back</a>
+                
               </div>
             </div>
             <!-- /.card-body -->
