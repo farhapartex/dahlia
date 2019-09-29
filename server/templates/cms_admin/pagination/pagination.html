@@ -1,0 +1,22 @@
+{% if is_paginated %}
+<div class="mt-5">
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item {% if page_obj.has_previous == False %} disabled {% endif %}">
+                <a class="page-link"
+                    href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}">Previous</a>
+            </li>
+            {% for pageCounter in paginator.page_range %}
+            <li class="page-item"><a class="page-link" href="?page={{ pageCounter }}">{{ pageCounter }}</a></li>
+            {% endfor %}
+
+            <li class="page-item {% if page_obj.has_next == False %} disabled {% endif %}">
+                <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}
+                                        {% endif %}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}

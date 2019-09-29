@@ -238,19 +238,19 @@ class CategoryDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/categories/")
 
 
-class TagListView(TemplateView):
+class TagListView(generic.ListView):
+    queryset = Tag.objects.all().order_by("-updated_at")
     template_name = "cms_admin/tag/tagList.html"
+    paginate_by = 10
 
-    def get(self, request):
-        tags = Tag.objects.all().order_by("-updated_at")
-        context = {}
-        context["tags"] = tags
-        context["user"] = request.user.username
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user.username
+        context["contacts"] = get_new_contacts()
         form = TagForm()
         context["form"] = form
-        context["contacts"] = get_new_contacts()
 
-        return render(request, self.template_name, context)
+        return context
 
 
 class TagAddView(TemplateView):
@@ -418,20 +418,9 @@ class PostListView(generic.ListView):
     template_name = "cms_admin/post/postList.html"
     paginate_by = 10
 
-    # def get(self, request):
-    #     context = {}
-    #     context["user"] = request.user.username
-    #     posts = Post.objects.all().order_by("-id")
-    #     context["posts"] = posts
-    #     context["contacts"] = get_new_contacts()
-
-    #     return render(request, self.template_name, context)
-
 
 class PostListAdminAPIView(View):
     def get(self, request):
-        # context = {}
-        # context["user"] = request.user.username
         posts = (
             Post.objects.all()
             .order_by("-id")
