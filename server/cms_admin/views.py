@@ -140,18 +140,17 @@ class HomeView(TemplateView):
         return render(request, self.template_name, context)
 
 
-class CategoryView(TemplateView):
+class CategoryView(generic.ListView):
+    queryset = Category.objects.all().order_by("-updated_at")
     template_name = "cms_admin/category/categoryList.html"
+    paginate_by = 10
 
-    def get(self, request):
-        context = {}
-        categories = Category.objects.all().order_by("-updated_at")
-        context["user"] = request.user.username
-        context["categories"] = categories
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user.username
         form = CategoryForm()
         context["form"] = form
-        context["contacts"] = get_new_contacts()
-        return render(request, self.template_name, context)
+        return context
 
 
 class CategoryAddView(TemplateView):
@@ -246,7 +245,6 @@ class TagListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
-        context["contacts"] = get_new_contacts()
         form = TagForm()
         context["form"] = form
 

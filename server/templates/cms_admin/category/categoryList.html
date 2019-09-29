@@ -75,7 +75,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              {% if categories.count > 0 %}
+              {% if object_list.count > 0 %}
               <table id="example2" class="table table-bordered table-hover text-center">
                 <thead>
                   <tr>
@@ -87,7 +87,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for category in categories %}
+                  {% for category in object_list %}
                   <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ category.name }}</td>
@@ -100,16 +100,8 @@
                   </tr>
                   {% endfor %}
                 </tbody>
-                <!-- <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                </tfoot> -->
               </table>
+              {% include 'cms_admin/pagination/pagination.html' %}
               {% else %}
               <div class="w-75 mx-auto">
                 <div class="alert alert-warning " role="alert">
