@@ -126,5 +126,10 @@ textarea{
     font-size: 0.8rem !important;
   }
 
+  .cms-warning{
+    background: #ffecb3 !important;
+    border-color: #ffecb3 !important;
+  }
+
 
 

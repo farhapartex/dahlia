@@ -53,16 +53,17 @@
                     <td>{{ contact.name }}</td>
                     <td>{{ contact.email }}</td>
                     <td>{{ contact.created_at| timesince }} ago</td>
-                    <td><a href="{% url 'contact' contact.id %}" class="text-warning">View <span
-                          class="ml-1"><i class="far fa-eye"></i></span></a> <span class="ml-1 mr-1">|</span>
-                          <a href="{% url 'contact_delete' contact.id %}" class="text-danger">Delete <span><i class="far fa-trash-alt"></i></span></a></td>
+                    <td><a href="{% url 'contact' contact.id %}" class="text-warning">View <span class="ml-1"><i
+                            class="far fa-eye"></i></span></a> <span class="ml-1 mr-1">|</span>
+                      <a href="{% url 'contact_delete' contact.id %}" class="text-danger">Delete <span><i
+                            class="far fa-trash-alt"></i></span></a></td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
               {% else %}
               <div class="w-75 mx-auto">
-                <div class="alert alert-warning " role="alert">
+                <div class="alert cms-warning " role="alert">
                   Currently there are no contacts found!
                 </div>
               </div>
