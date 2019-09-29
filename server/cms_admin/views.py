@@ -5,10 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
-from django.views import View
+from django.views import View, generic
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.resolvers import RegexPattern, RoutePattern
 from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 from cms import urls
@@ -26,9 +27,11 @@ def error_404_view(request, exception):
     data = {"name": "ThePythonDjango.com"}
     return render(request, template_name, data)
 
+
 def get_new_contacts():
     contacts = Contact.objects.filter(seen=False).order_by("-id")
     return contacts
+
 
 def get_default_context(request):
     context = {}
@@ -324,6 +327,7 @@ class TagDeleteView(TemplateView):
             tag.delete()
             return HttpResponseRedirect("/cms/tags/")
 
+
 class UserListView(TemplateView):
     template_name = "cms_admin/user/user.html"
 
@@ -409,26 +413,30 @@ class ProfileView(TemplateView):
         return render(request, self.template_name, context)
 
 
-class PostListView(TemplateView):
+class PostListView(generic.ListView):
+    queryset = Post.objects.all().order_by("-id")
     template_name = "cms_admin/post/postList.html"
+    paginate_by = 2
 
-    def get(self, request):
-        context = {}
-        context["user"] = request.user.username
-        posts = Post.objects.all().order_by("-id")
-        context["posts"] = posts
-        context["contacts"] = get_new_contacts()
+    # def get(self, request):
+    #     context = {}
+    #     context["user"] = request.user.username
+    #     posts = Post.objects.all().order_by("-id")
+    #     context["posts"] = posts
+    #     context["contacts"] = get_new_contacts()
 
-        # return HttpResponse(json.dumps(posts), content_type="application/json")
-
-        return render(request, self.template_name, context)
+    #     return render(request, self.template_name, context)
 
 
 class PostListAdminAPIView(View):
     def get(self, request):
         # context = {}
         # context["user"] = request.user.username
-        posts = Post.objects.all().order_by("-id").values("id","title","category","created_at")
+        posts = (
+            Post.objects.all()
+            .order_by("-id")
+            .values("id", "title", "category", "created_at")
+        )
         # context["posts"] = posts
 
         return JsonResponse({"posts": list(posts)})
@@ -495,6 +503,7 @@ def get_url_list(urls):
         url_list.append(url_text)
     del url_list[-1]
     return url_list
+
 
 class APIUrlListView(TemplateView):
     template_name = "cms_admin/api/apiList.html"
@@ -645,6 +654,7 @@ class MenuItemDeleteView(TemplateView):
 
 class MediaBrowserView(TemplateView):
     template_name = "cms_admin/media/mediaList.html"
+
     def get(self, request):
         context = {}
         context["user"] = request.user.username
@@ -652,7 +662,8 @@ class MediaBrowserView(TemplateView):
         context["form"] = MediaBrowserForm()
         context["contacts"] = get_new_contacts()
 
-        return render(request,self.template_name, context)
+        return render(request, self.template_name, context)
+
 
 class ContactListView(TemplateView):
     template_name = "cms_admin/contact/contactList.html"
@@ -671,15 +682,14 @@ class ContactView(TemplateView):
         context = get_default_context(request)
         contact = Contact.objects.get(id=cid)
         if contact.seen is False:
-             contact.seen = True
-             contact.save()
+            contact.seen = True
+            contact.save()
         context["contact"] = contact
 
         return render(request, self.template_name, context)
 
 
 class ContactDeleteView(TemplateView):
-
     def get(self, request, cid):
         try:
             contact = Contact.objects.get(id=cid)

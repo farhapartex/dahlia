@@ -88,11 +88,7 @@ urlpatterns = [
         login_required(PermissionDeleteView.as_view()),
         name="permission_delete",
     ),
-     path(
-        "contacts/",
-        login_required(ContactListView.as_view()),
-        name="contacts",
-    ),
+    path("contacts/", login_required(ContactListView.as_view()), name="contacts"),
     path(
         "contacts/<int:cid>/view/",
         login_required(ContactView.as_view()),
