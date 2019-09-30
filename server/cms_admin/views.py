@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.views import View, generic
+from django.views.generic import DetailView, ListView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.resolvers import RegexPattern, RoutePattern
 from django.http import HttpResponse, JsonResponse
@@ -237,7 +238,7 @@ class CategoryDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/categories/")
 
 
-class TagListView(generic.ListView):
+class TagListView(ListView):
     queryset = Tag.objects.all().order_by("-updated_at")
     template_name = "cms_admin/tag/tagList.html"
     paginate_by = 10
@@ -326,7 +327,7 @@ class TagDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/tags/")
 
 
-class UserListView(generic.ListView):
+class UserListView(ListView):
     template_name = "cms_admin/user/user.html"
     queryset = User.objects.all()
     paginate_by = 10
@@ -410,7 +411,7 @@ class ProfileView(TemplateView):
         return render(request, self.template_name, context)
 
 
-class PostListView(generic.ListView):
+class PostListView(ListView):
     queryset = Post.objects.all().order_by("-id")
     template_name = "cms_admin/post/postList.html"
     paginate_by = 10
@@ -505,7 +506,7 @@ class APIUrlListView(TemplateView):
         return render(request, self.template_name, context)
 
 
-class PermissionListView(generic.ListView):
+class PermissionListView(ListView):
     queryset = SystemPermission.objects.all().order_by("-id")
     template_name = "cms_admin/permissions/permissionList.html"
     paginate_by = 10
