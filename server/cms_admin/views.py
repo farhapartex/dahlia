@@ -677,7 +677,12 @@ class MediaBrowserUpdateView(TemplateView):
     def get(self, request, mid):
         context = {}
         context["user"] = request.user.username
-        context["media"] = MediaImage.objects.get(id=mid)
+        media = MediaImage.objects.get(id=mid)
+        context["media"] = media
+        context["media_size"] = media.image.size * (10 ** -6)
+        form = MediaBrowserForm(instance=media)
+        form.image = None
+        context["form"] = form
 
         return render(request, self.template_name, context)
 
