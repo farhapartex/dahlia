@@ -1,0 +1,91 @@
+{% extends 'cms_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Edit Media Images</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="col-11 mx-auto pt-5 pb-5">
+                                <form action="" method="post">
+                                    <div class="row">
+                                        <div class="col-md-5 col-lg-5">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Image Title</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">File Name</label>
+                                                <p><span><i class="far fa-image"></i></span> file name.jpg</p>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload
+                                                        <span class="ml-1 text-danger">*</span></span>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="text" class="custom-file-input">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                        file</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <button class="btn btn-sm btn-secondary">Update</button>
+                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                <a href="{% url 'medias' %}" class="btn btn-sm btn-warning">Back</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-lg-7">
+                                            <div class="mx-auto" style="width: 80%;">
+                                                <img src="/media/{{ media.image }}" class="img-detail mx-auto" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

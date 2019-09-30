@@ -671,14 +671,15 @@ class MediaBrowserView(ListView):
             return HttpResponseRedirect("/cms/medias/")
 
 
-class MediaBrowserAddView(TemplateView):
-    def post(self, request):
+class MediaBrowserUpdateView(TemplateView):
+    template_name = "cms_admin/media/mediaUpdate.html"
+
+    def get(self, request, mid):
         context = {}
         context["user"] = request.user.username
-        form = MediaBrowserForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_media = form.save()
-            return HttpResponseRedirect("/cms/medias/")
+        context["media"] = MediaImage.objects.get(id=mid)
+
+        return render(request, self.template_name, context)
 
 
 class ContactListView(TemplateView):

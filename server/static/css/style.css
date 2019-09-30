@@ -61,6 +61,13 @@ textarea{
   font-size: 12px;
 }
 
+.img-detail{
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  max-height: 550px;
+}
+
 .box:before {
   content: "";
   display: block;

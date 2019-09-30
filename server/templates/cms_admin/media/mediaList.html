@@ -102,8 +102,8 @@
                                 {% for media in object_list %}
                                 <div class="filtr-item col-md-3 img-box" data-category="3" data-sort="red sample">
                                     <div class="inner-img-box">
-                                        <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3"
-                                            data-toggle="lightbox" data-title="sample 3 - red">
+                                        <a href="{% url 'media_update' media.id %}" data-toggle="lightbox"
+                                            data-title="sample 3 - red">
                                             <img src="/media/{{ media.image }}" class="img-fluid mb-2 media-img"
                                                 alt="red sample" />
                                         </a>
