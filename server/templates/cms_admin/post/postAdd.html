@@ -25,7 +25,9 @@
     <section class="content">
         <div class="w-100 p-3">
 
-            <form action="/cms/posts/add/" method="post" class="">
+            <form
+                action="{% if stage == 'update' %}/cms/posts/{{ post.id }}/change/{% else %}/cms/posts/add/{% endif %}"
+                method="post" class="">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-8">

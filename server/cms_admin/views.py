@@ -467,6 +467,16 @@ class PostUpdateView(TemplateView):
         except:
             return HttpResponseRedirect("/cms/posts/")
 
+    def post(self, request, pid):
+        context = {}
+        context["user"] = request.user.username
+        post = Post.objects.get(id=pid)
+        form = PostForm(instance=post, data=request.POST)
+        if form.is_valid():
+            update_post = form.save()
+            if update_post:
+                return HttpResponseRedirect("/cms/posts/")
+
 
 class PostDeleteView(TemplateView):
     def get(self, request, pid):
