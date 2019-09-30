@@ -33,6 +33,9 @@ urlpatterns = [
         name="tag_delete",
     ),
     path("medias/", login_required(MediaBrowserView.as_view()), name="medias"),
+    # path(
+    #     "medias/add/", login_required(MediaBrowserView.as_view()), name="media_add"
+    # ),
     path("users/", login_required(UserListView.as_view()), name="users"),
     path("users/add/", login_required(UserListView.as_view()), name="user_add"),
     path(

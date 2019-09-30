@@ -38,7 +38,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cms/category/add/" method="post">
+                    <form action="{% url 'medias' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
@@ -47,10 +47,11 @@
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload <span class="ml-1 text-danger">*</span></span>
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload <span
+                                            class="ml-1 text-danger">*</span></span>
                                 </div>
                                 <div class="custom-file">
-                                        {{ form.image }}
+                                    {{ form.image }}
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
@@ -68,8 +69,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
                         <!-- /.card-body -->
 
@@ -99,9 +100,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            {% if object_list.count > 0 %}
                             <div class="filter-container p-0 row">
-                                {% for media in medias %}
-                                <div class="filtr-item col-sm-2 img-box" data-category="3" data-sort="red sample">
+                                {% for media in object_list %}
+                                <div class="filtr-item col-md-3 img-box" data-category="3" data-sort="red sample">
                                     <div class="inner-img-box">
                                         <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3"
                                             data-toggle="lightbox" data-title="sample 3 - red">
@@ -110,11 +112,19 @@
                                         </a>
                                     </div>
                                     <div class="pt-1 pb-3">
-                                        <p class="mo-p0 text-center">{{ media.image.name }}</p>
+                                        <p class="mo-p0 text-center">{% if media.title %}{{ media.title }} {% else %}
+                                            {{ media.image.name }}{% endif %}</p>
                                     </div>
                                 </div>
                                 {% endfor %}
                             </div>
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert cms-warning " role="alert">
+                                    Currently there are no images found!
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                         <!-- /.card-body -->
                     </div>
