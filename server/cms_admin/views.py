@@ -326,18 +326,27 @@ class TagDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/tags/")
 
 
-class UserListView(TemplateView):
+class UserListView(generic.ListView):
     template_name = "cms_admin/user/user.html"
+    queryset = User.objects.all()
+    paginate_by = 10
 
-    def get(self, request):
-        users = User.objects.all()
-        context = {}
-        context["user"] = request.user.username
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user.username
         context["form"] = UserBasicForm()
-        context["users"] = users
-        context["contacts"] = get_new_contacts()
+        # context["contacts"] = get_new_contacts()
 
-        return render(request, self.template_name, context)
+        return context
+
+    # def get(self, request):
+    #     users = User.objects.all()
+    #     context = {}
+    #     context["user"] = request.user.username
+    #     context["form"] = UserBasicForm()
+    #     context["users"] = users
+
+    #     return render(request, self.template_name, context)
 
     def post(self, request):
         context = {}
