@@ -41,10 +41,16 @@
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Permission Name</label>
+                                <label for="id_name">Permission Name</label>
+                                {{ form.name }}
                             </div>
                             <div class="form-group">
-                                {{ form.permission_name }}
+                                <label for="id_content_type">Content Types</label>
+                                {{ form.content_type }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_codename">Codename</label>
+                                {{ form.codename }}
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -71,42 +77,65 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                            <ul class="nav nav-pills">
+
+                                <li class="nav-item"><a class="nav-link active" href="#permissions"
+                                        data-toggle="tab">Permission List</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#set_permission" data-toggle="tab">Set Permission</a>
+                                </li>
+                            </ul>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            {% if object_list.count > 0 %}
-                            <table id="example2" class="table table-bordered table-hover text-center">
-                                <thead>
-                                    <tr>
-                                        <th># ID</th>
-                                        <th>Permission Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for permission in object_list %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ permission.codename }}</td>
-                                        <td><a href="/cms/permissions/{{ permission.id }}/change/"
-                                                class="text-warning">Edit <span class="ml-1"><i
-                                                        class="far fa-edit"></i></span></a> <span> | </span>
-                                            <a href="/cms/permissions/{{ permission.id }}/delete/"
-                                                class="text-danger">Delete
-                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                            {% include 'cms_admin/pagination/pagination.html' %}
-                            {% else %}
-                            <div class="w-75 mx-auto">
-                                <div class="alert cms-warning " role="alert">
-                                    Currently there are no permissions found!
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="permissions">
+                                    {% if object_list.count > 0 %}
+                                    <table id="example2" class="table table-bordered table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th># ID</th>
+                                                <th>Permission Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for permission in object_list %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ permission.codename }}</td>
+                                                <td><a href="/cms/permissions/{{ permission.id }}/change/"
+                                                        class="text-warning">Edit <span class="ml-1"><i
+                                                                class="far fa-edit"></i></span></a> <span> | </span>
+                                                    <a href="/cms/permissions/{{ permission.id }}/delete/"
+                                                        class="text-danger">Delete
+                                                        <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% include 'cms_admin/pagination/pagination.html' %}
+                                    {% else %}
+                                    <div class="w-75 mx-auto">
+                                        <div class="alert cms-warning " role="alert">
+                                            Currently there are no permissions found!
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="tab-pane" id="set_permission">
+                                    <form action="" method="post">
+                                        <div class="form-group">
+                                            <label for="users">User Lists</label>
+                                            <select class="form-control custom-select" id="users">
+                                                <option value="">-------</option>
+                                            </select>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            {% endif %}
+                           
                         </div>
                         <!-- /.card-body -->
                     </div>

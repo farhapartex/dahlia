@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import Permission
 from django.forms import ModelForm, Form
 from blog.models import *
 from sites.models import *
@@ -42,6 +43,18 @@ class PostForm(ModelForm):
         fields = ["title", "subtitle", "body", "category", "tags", "published"]
 
 
+class PermissionForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PermissionForm, self).__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs["class"] = "form-control"
+        self.fields["content_type"].widget.attrs["class"] = "form-control custom-select"
+        self.fields["codename"].widget.attrs["class"] = "form-control"
+    
+    class Meta:
+        model = Permission
+        fields = ['name','content_type','codename',]
+
+
 class UserBasicForm(Form):
     first_name = forms.CharField(label="First Name", max_length=100)
     last_name = forms.CharField(label="Last Name", max_length=100)
@@ -61,10 +74,6 @@ class UserForm(Form):
 
 class SiteForm(Form):
     site_name = forms.CharField(label="Site Name", max_length=120)
-
-
-class PermissionForm(Form):
-    permission_name = forms.CharField(label="Permission Name", max_length=250)
 
 
 class MenuForm(ModelForm):

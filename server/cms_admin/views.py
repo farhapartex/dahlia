@@ -524,6 +524,7 @@ class PermissionListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
+        context["users"] = User.objects.all()
         context["form"] = PermissionForm()
         return context
 
