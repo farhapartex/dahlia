@@ -28,7 +28,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h6>Public API List <span class="text-sm">[ Allow: <span class="text-info">GET, HEAD, OPTIONS</span> ]</span></h6>
+                                <h6>Public API List <span class="text-sm">[ Allow: <span class="text-info">GET, HEAD,
+                                            OPTIONS</span> ]</span></h6>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -40,36 +41,6 @@
     {% endfor %}
 }
 </pre>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-
-
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
-            </div>
-
-            <div class="row">
-                <div class="col-10 mx-auto">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h6>Private API List <span class="text-sm">[ Allow: <span class="text-info">GET, HEAD, OPTIONS</span> ]</span></h6>
-                            </div>
-
-
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <pre>
-    {
-        {% for url in admin_urls %}
-        <a href="/api/v1/admin/{{ url }}" class="text-danger">{{ request.get_host }}/api/v1/admin/{{ url }}</a>
-        {% endfor %}
-    }
-    </pre>
                         </div>
                         <!-- /.card-body -->
                     </div>
