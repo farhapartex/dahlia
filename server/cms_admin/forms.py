@@ -32,7 +32,7 @@ class TagForm(Form):
 class PostForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
-        # self.fields["body"].widget.attrs["class"] = "editor"
+        self.fields["body"].widget.attrs["rows"] = "5"
         self.fields["category"].widget.attrs["class"] = "form-control custom-select"
         self.fields["tags"].widget.attrs["class"] = "custom-select"
         self.fields["published"].widget.attrs["class"] = "custom-select"

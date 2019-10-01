@@ -108,7 +108,12 @@
             },
             theme: 'snow'
         };
-        var quill = new Quill('#id_body', options);
+        var quill = new Quill('#text_body', options);
+
+        function copyText(){
+            var output = document.getElementById("text_body").innerHTML;
+            document.getElementById("id_body").value = output;
+        }
     </script>
 </body>
 
