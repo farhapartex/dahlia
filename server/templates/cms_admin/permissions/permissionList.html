@@ -128,10 +128,30 @@
                                     <form action="" method="post">
                                         <div class="form-group">
                                             <label for="users">User Lists</label>
-                                            <select class="form-control custom-select" id="users">
+                                            <select class="form-control custom-select user-select" id="users">
                                                 <option value="">-------</option>
+                                                {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.username }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
+
+                                        <table id="example2" class="table table-bordered table-hover text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th># ID</th>
+                                                        <th>Permission Name</th>
+                                                        <th>Permission Content</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Post View</td>
+                                                        <td>Post</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                     </form>
                                 </div>
                             </div>

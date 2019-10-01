@@ -528,30 +528,24 @@ class PermissionListView(ListView):
         context["form"] = PermissionForm()
         return context
 
-    # def post(self, request):
-    #     context = {}
-    #     context["user"] = request.user.username
-    #     form = PermissionForm(request.POST)
+    def post(self, request):
+        context = {}
+        context["user"] = request.user.username
+        form = PermissionForm(request.POST)
 
-    #     if form.is_valid():
-    #         permission_name = form.cleaned_data["permission_name"]
-    #         if len(permission_name) == 0:
-    #             form = PermissionForm()
-    #             context["user"] = request.user.username
-    #             context["form"] = form
-    #             context["contacts"] = get_new_contacts()
-    #             context["form_error"] = "You can not submit empty field!"
-    #             return render(request, self.template_name, context)
-    #         else:
-    #             permissionObj = SystemPermission(name=permission_name)
-    #             permissionObj.save()
-    #             return HttpResponseRedirect("/cms/permissions/")
-    #     else:
-    #         form = PermissionForm()
-    #         context["user"] = request.user.username
-    #         context["form"] = form
-    #         context["form_error"] = "Data is not valid!"
-    #         return render(request, self.template_name, context)
+        if form.is_valid():
+            form = PermissionForm(request.POST)
+            if form.is_valid():
+                new_permission = form.save()
+                if new_permission:
+                    return HttpResponseRedirect("/cms/permissions/")
+            
+        else:
+            form = PermissionForm()
+            context["user"] = request.user.username
+            context["form"] = form
+            context["form_error"] = "Data is not valid!"
+            return render(request, self.template_name, context)
 
 
 class PermissionUpdateView(TemplateView):
