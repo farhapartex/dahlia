@@ -36,12 +36,15 @@
                             {{ form.title }}
                         </div>
                         <div class="form-group">
-                            <label for="title">Post Subitle</label>
+                            <label for="subtitle">Post Subitle</label>
                             {{ form.subtitle }}
                         </div>
                         <div class="form-group">
-                            <label for="title">Post Content <span class="text-danger">*</span></label>
-                            {{ form.body }}
+                            <label for="content">Post Content <span class="text-danger">*</span></label>
+
+                            <div id="id_body">
+                                {{ form.body }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -91,10 +94,3 @@
     <!-- Control sidebar content goes here -->
 </aside>
 {% endblock content %}
-
-<script>
-    $(function () {
-        // Summernote
-        $('Textarea').summernote()
-    })
-</script>
