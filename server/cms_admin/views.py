@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.views.generic import DetailView, ListView, CreateView, edit
@@ -516,7 +517,7 @@ class APIUrlListView(TemplateView):
 
 
 class PermissionListView(ListView):
-    queryset = SystemPermission.objects.all().order_by("-id")
+    queryset = Permission.objects.all()
     template_name = "cms_admin/permissions/permissionList.html"
     paginate_by = 10
 

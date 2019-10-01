@@ -88,7 +88,7 @@
                                     {% for permission in object_list %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        <td>{{ permission.name }}</td>
+                                        <td>{{ permission.codename }}</td>
                                         <td><a href="/cms/permissions/{{ permission.id }}/change/"
                                                 class="text-warning">Edit <span class="ml-1"><i
                                                         class="far fa-edit"></i></span></a> <span> | </span>
