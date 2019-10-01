@@ -88,7 +88,7 @@ class PublicPostViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_class = PostListFilter
 
     def get_queryset(self):
-        return Post.objects.filter(published=True)
+        return Post.objects.filter(published=True).order_by("-id")
 
     def get_serializer_class(self):
         if self.action == "list":

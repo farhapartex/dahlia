@@ -29,7 +29,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-11 mx-auto pt-5 pb-5">
-                                <form action="" method="post">
+                                <form action="{% url 'media_update' media.id %}" method="post">
                                     <div class="row">
                                         <div class="col-md-5 col-lg-5">
                                             <div class="form-group">
@@ -67,9 +67,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <button class="btn btn-sm btn-secondary">Update</button>
-                                                <button class="btn btn-sm btn-danger">Delete</button>
-                                                <a href="{% url 'medias' %}" class="btn btn-sm btn-warning">Back</a>
+                                                <button class="btn btn-secondary"><span class="mr-1"><i
+                                                            class="far fa-edit"></i></span> Update</button>
+                                                <button class="btn btn-danger"><span class="mr-1"><i
+                                                            class="far fa-trash-alt"></i></span> Delete</button>
+                                                <a href="{% url 'medias' %}" class="btn btn-warning"><span
+                                                        class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                         <div class="col-md-7 col-lg-7">
