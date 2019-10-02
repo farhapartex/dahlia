@@ -386,33 +386,17 @@ class ProfileView(TemplateView):
 
     def get(self, request, uid):
         context = {}
-        context["user"] = request.user.username
+        user = request.user
+        context["user"] = user.username
         try:
-            userobj = User.objects.get(id=uid)
-            context["userobj"] = userobj
-            user_data = {
-                "first_name": userobj.first_name,
-                "last_name": userobj.last_name,
-                "email": userobj.email,
-            }
-            if userobj.is_superuser:
-                user_data["mobile"] = userobj.profile.mobile
-                user_data["bio"] = userobj.profile.bio
-                user_data["about"] = userobj.profile.about
-                context["educations"] = userobj.profile.educations.all().order_by("id")
-                context["skills"] = userobj.profile.skills.all()
-                context["socialMedias"] = userobj.profile.socialMedias.all().order_by(
-                    "id"
-                )
-
-            user_form = UserForm(initial=user_data)
-            context["user_form"] = user_form
+            user = User.objects.get(id=uid)
+            form = UserForm(instance=user)
+            context["form"] = form
+            context["stage"] = "update"
             context["contacts"] = get_new_contact_message()
+            return render(request, self.template_name, context)
         except:
-            user_form = UserForm()
-            context["user_form"] = user_form
-
-        return render(request, self.template_name, context)
+            return HttpResponseRedirect("/cms/users/") 
 
 
 class PostListView(ListView):

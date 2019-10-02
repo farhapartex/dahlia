@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import User, Permission
 from django.forms import ModelForm, Form
 from blog.models import *
 from sites.models import *
@@ -62,14 +62,17 @@ class UserBasicForm(Form):
     username = forms.CharField(label="Username", max_length=100)
     password = forms.CharField(label="Password")
 
+class UserForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields["first_name"].widget.attrs["class"] = "form-control"
+        self.fields["last_name"].widget.attrs["class"] = "form-control"
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["is_superuser"].widget.attrs["class"] = "form-check-input"
 
-class UserForm(Form):
-    first_name = forms.CharField(label="First Name", max_length=100)
-    last_name = forms.CharField(label="Last Name", max_length=100)
-    email = forms.CharField(label="Email", max_length=200)
-    mobile = forms.CharField(label="Mobile", max_length=15)
-    bio = forms.CharField(label="Bio", max_length=250)
-    about = forms.CharField(label="About", widget=forms.Textarea)
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email","is_superuser"]
 
 
 class SiteForm(Form):
