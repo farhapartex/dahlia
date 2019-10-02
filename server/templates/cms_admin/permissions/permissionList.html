@@ -79,10 +79,10 @@
                         <div class="card-header">
                             <ul class="nav nav-pills">
 
-                                <li class="nav-item"><a class="nav-link active" href="#permissions"
+                                <li class="nav-item"><a class="nav-link cms-tab active" href="#permissions"
                                         data-toggle="tab">Permission List</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#set_permission" data-toggle="tab">Set
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#set_permission" data-toggle="tab">Set
                                         Permission</a>
                                 </li>
                             </ul>
@@ -100,7 +100,7 @@
                                                 <ul class="list-group">
                                                     {% for role in user_roles  %}
                                                     <li class="list-group-item">
-                                                        <a href="{% url 'permissions_filter' role.id %}">
+                                                        <a href="{% url 'permissions_filter' role.id %}" class="text-secondary">
                                                             {% if role.role == 1 %}
                                                             Administrator
                                                             {% elif role.role == 2 %}

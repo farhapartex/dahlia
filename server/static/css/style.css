@@ -151,5 +151,12 @@ textarea{
     border-color: #ffecb3 !important;
   }
 
+  .cms-tab{
+    padding: .3rem .6rem !important;
+  }
+  .nav-item > .active{
+    background: #343a40 !important;
+  }
+
 
 
