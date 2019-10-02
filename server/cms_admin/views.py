@@ -12,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.resolvers import RegexPattern, RoutePattern
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
+from django.core import serializers
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 from cms import urls
@@ -21,6 +22,7 @@ from sites.models import *
 from users.models import *
 from .forms import *
 from .models import *
+from users.serializers import PermissionSerializer
 
 # Create your views here.
 
@@ -550,6 +552,24 @@ class PermissionListView(ListView):
             return render(request, self.template_name, context)
 
 
+class PermissionRoleWiseListView(ListView):
+    queryset = Permission.objects.all()
+    template_name = "cms_admin/permissions/permissionList.html"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return UserRole.objects.get(id=self.kwargs["role_id"]).permissions.all()
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user.username
+        context["users"] = User.objects.all()
+        context["user_roles"] = UserRole.objects.all().order_by("role")
+        context["form"] = PermissionForm()
+        return context
+
+
 class PermissionUpdateView(TemplateView):
     template_name = "cms_admin/permissions/permissionUpdate.html"
 
@@ -716,4 +736,27 @@ class ContactDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/contacts/")
         except:
             return HttpResponseRedirect("/cms/contacts/")
+
+
+"""
+PRIVATE APIs
+"""
+
+
+# class UserRolePermissionAPIView(ListView):
+#     paginate_by = 10
+
+#     def get(self, request, role_id):
+#         role_permissions = UserRole.objects.get(id=role_id).permissions.all()
+#         qs_json = serializers.serialize("json", role_permissions)
+#         # return JsonResponse(role_permissions, safe=False)
+#         return HttpResponse(qs_json, status=200, content_type="application/json")
+
+
+# class UserRolePermissionAPIView(generics.RetrieveAPIView):
+#     queryset = UserRole.objects.all().permissions.all()
+#     serializer_class = PermissionSerializer
+
+#     # def get_queryset(self):
+#     #     return self.queryset.permissions.all()
 

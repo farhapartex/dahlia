@@ -34,7 +34,9 @@ urlpatterns = [
     ),
     path("medias/", login_required(MediaBrowserView.as_view()), name="medias"),
     path(
-        "medias/<int:mid>/change", login_required(MediaBrowserUpdateView.as_view()), name="media_update"
+        "medias/<int:mid>/change",
+        login_required(MediaBrowserUpdateView.as_view()),
+        name="media_update",
     ),
     path("users/", login_required(UserListView.as_view()), name="users"),
     path("users/add/", login_required(UserListView.as_view()), name="user_add"),
@@ -82,6 +84,16 @@ urlpatterns = [
         "permissions/", login_required(PermissionListView.as_view()), name="permissions"
     ),
     path(
+        "permissions/role/<int:role_id>/",
+        login_required(PermissionRoleWiseListView.as_view()),
+        name="permissions_filter",
+    ),
+    # url(
+    #     r"^(?P<role_id>\w+)/$",
+    #     login_required(PermissionListView.as_view()),
+    #     name="permissions_filter",
+    # ),
+    path(
         "permissions/<int:permission_id>/change/",
         login_required(PermissionUpdateView.as_view()),
         name="permission_update",
@@ -91,6 +103,11 @@ urlpatterns = [
         login_required(PermissionDeleteView.as_view()),
         name="permission_delete",
     ),
+    # path(
+    #     "permissions/<int:role_id>/json-view/",
+    #     login_required(UserRolePermissionAPIView.as_view()),
+    #     name="permission_list",
+    # ),
     path("contacts/", login_required(ContactListView.as_view()), name="contacts"),
     path(
         "contacts/<int:cid>/view/",
