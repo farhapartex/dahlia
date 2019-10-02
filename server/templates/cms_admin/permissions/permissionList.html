@@ -98,42 +98,26 @@
                                             </div>
                                             <div class="w-100 mt-4">
                                                 <ul class="list-group">
+                                                    {% for role in user_roles  %}
                                                     <li class="list-group-item">
                                                         <div class=" form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="exampleRadios" id="Administrator" value="option2">
+                                                                name="exampleRadios" id="Administrator"
+                                                                value="{{ role.id }}">
                                                             <label class="form-check-label" for="Administrator">
+                                                                {% if role.role == 1 %}
                                                                 Administrator
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <div class=" form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="exampleRadios" id="Moderator" value="option2">
-                                                            <label class="form-check-label" for="Moderator">
+                                                                {% elif role.role == 2 %}
                                                                 Moderator
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <div class=" form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="exampleRadios" id="Editor" value="option2">
-                                                            <label class="form-check-label" for="Editor">
+                                                                {% elif role.role == 3 %}
                                                                 Editor
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <div class=" form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="exampleRadios" id="Subscriber" value="option2">
-                                                            <label class="form-check-label" for="Subscriber">
+                                                                {% elif role.role == 4 %}
                                                                 Subscriber
+                                                                {% endif %}
                                                             </label>
                                                         </div>
                                                     </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </div>
                                         </div>

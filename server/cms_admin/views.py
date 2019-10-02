@@ -18,6 +18,7 @@ from cms import urls
 from media_browser.models import *
 from blog.models import *
 from sites.models import *
+from users.models import *
 from .forms import *
 from .models import *
 
@@ -525,6 +526,7 @@ class PermissionListView(ListView):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
         context["users"] = User.objects.all()
+        context["user_roles"] = UserRole.objects.all().order_by("role")
         context["form"] = PermissionForm()
         return context
 
@@ -539,7 +541,7 @@ class PermissionListView(ListView):
                 new_permission = form.save()
                 if new_permission:
                     return HttpResponseRedirect("/cms/permissions/")
-            
+
         else:
             form = PermissionForm()
             context["user"] = request.user.username
