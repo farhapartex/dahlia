@@ -82,7 +82,8 @@
                                 <li class="nav-item"><a class="nav-link active" href="#permissions"
                                         data-toggle="tab">Permission List</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#set_permission" data-toggle="tab">Set Permission</a>
+                                <li class="nav-item"><a class="nav-link" href="#set_permission" data-toggle="tab">Set
+                                        Permission</a>
                                 </li>
                             </ul>
                         </div>
@@ -90,38 +91,96 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="permissions">
-                                    {% if object_list.count > 0 %}
-                                    <table id="example2" class="table table-bordered table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th># ID</th>
-                                                <th>Permission Name</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for permission in object_list %}
-                                            <tr>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>{{ permission.codename }}</td>
-                                                <td><a href="/cms/permissions/{{ permission.id }}/change/"
-                                                        class="text-warning">Edit <span class="ml-1"><i
-                                                                class="far fa-edit"></i></span></a> <span> | </span>
-                                                    <a href="/cms/permissions/{{ permission.id }}/delete/"
-                                                        class="text-danger">Delete
-                                                        <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                    {% include 'cms_admin/pagination/pagination.html' %}
-                                    {% else %}
-                                    <div class="w-75 mx-auto">
-                                        <div class="alert cms-warning " role="alert">
-                                            Currently there are no permissions found!
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3">
+                                            <div class="w-100">
+                                                <h5 class="text-center">Primary Role</h5>
+                                            </div>
+                                            <div class="w-100 mt-4">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">
+                                                        <div class=" form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="exampleRadios" id="Administrator" value="option2">
+                                                            <label class="form-check-label" for="Administrator">
+                                                                Administrator
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <div class=" form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="exampleRadios" id="Moderator" value="option2">
+                                                            <label class="form-check-label" for="Moderator">
+                                                                Moderator
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <div class=" form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="exampleRadios" id="Editor" value="option2">
+                                                            <label class="form-check-label" for="Editor">
+                                                                Editor
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <div class=" form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="exampleRadios" id="Subscriber" value="option2">
+                                                            <label class="form-check-label" for="Subscriber">
+                                                                Subscriber
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9">
+                                            <div class="w-100">
+                                                <h5 class="text-center">Role Wise Permissions</h5>
+                                            </div>
+                                            <div class="w-100 mt-4">
+                                                {% if object_list.count > 0 %}
+                                                <table id="example2"
+                                                    class="table table-bordered table-hover text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th># ID</th>
+                                                            <th>Permission Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for permission in object_list %}
+                                                        <tr>
+                                                            <td>{{ forloop.counter }}</td>
+                                                            <td>{{ permission.codename }}</td>
+                                                            <td><a href="/cms/permissions/{{ permission.id }}/change/"
+                                                                    class="text-warning">Edit <span class="ml-1"><i
+                                                                            class="far fa-edit"></i></span></a> <span> |
+                                                                </span>
+                                                                <a href="/cms/permissions/{{ permission.id }}/delete/"
+                                                                    class="text-danger">Delete
+                                                                    <span class="ml-1"><i
+                                                                            class="far fa-trash-alt"></i></span></a>
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                {% include 'cms_admin/pagination/pagination.html' %}
+                                                {% else %}
+                                                <div class="w-75 mx-auto">
+                                                    <div class="alert cms-warning " role="alert">
+                                                        Currently there are no permissions found!
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
-                                    {% endif %}
                                 </div>
 
                                 <div class="tab-pane" id="set_permission">
@@ -137,25 +196,25 @@
                                         </div>
 
                                         <table id="example2" class="table table-bordered table-hover text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th># ID</th>
-                                                        <th>Permission Name</th>
-                                                        <th>Permission Content</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Post View</td>
-                                                        <td>Post</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <thead>
+                                                <tr>
+                                                    <th># ID</th>
+                                                    <th>Permission Name</th>
+                                                    <th>Permission Content</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Post View</td>
+                                                    <td>Post</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </form>
                                 </div>
                             </div>
-                           
+
                         </div>
                         <!-- /.card-body -->
                     </div>
