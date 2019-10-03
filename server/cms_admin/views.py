@@ -393,6 +393,7 @@ class ProfileView(TemplateView):
         context["form"] = form
         context["userobj"] = user
         context["social_form"] = SocialMediaForm()
+        context["education_form"] = EducationForm()
         context["contacts"] = get_new_contact_message()
         try:
             profile = Profile.objects.get(id=uid)

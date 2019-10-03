@@ -290,6 +290,43 @@
                                         </div>
                                     </form>
                                 </div>
+                                <div class="tab-pane" id="education">
+                                    <form class="form-horizontal" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName"
+                                                        class="col-sm-12 control-label">Degree</label>
+                                                    {{ education_form.degree }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName"
+                                                        class="col-sm-12 control-label">Institution</label>
+                                                    {{ education_form.institution }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName"
+                                                        class="col-sm-12 control-label">Session</label>
+                                                    {{ education_form.session }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
+                                                            class="fas fa-angle-left"></i></span> Back</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="tab-pane" id="social">
                                     <form class="form-horizontal" method="post">
                                         {% csrf_token %}

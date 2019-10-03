@@ -101,6 +101,18 @@ class SocialMediaForm(ModelForm):
         fields = ["type", "url"]
 
 
+class EducationForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EducationForm, self).__init__(*args, **kwargs)
+        self.fields["degree"].widget.attrs["class"] = "form-control"
+        self.fields["institution"].widget.attrs["class"] = "form-control"
+        self.fields["session"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = Education
+        fields = ["degree", "institution", "session"]
+
+
 class SiteForm(Form):
     site_name = forms.CharField(label="Site Name", max_length=120)
 
