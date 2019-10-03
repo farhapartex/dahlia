@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Permission
 from django.forms import ModelForm, Form
 from blog.models import *
 from sites.models import *
+from users.models import *
 from media_browser.models import *
 
 
@@ -80,7 +81,7 @@ class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields["bio"].widget.attrs["class"] = "form-control"
-        self.fields["about"].widget.attrs["class"] = "form-control"
+        self.fields["about"].widget.attrs["rows"] = "5"
         self.fields["mobile"].widget.attrs["class"] = "form-control"
         self.fields["user_role"].widget.attrs["class"] = "form-control custom-select"
 

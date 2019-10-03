@@ -36,20 +36,19 @@
 
                             <h3 class="profile-username text-center">{{ userobj.first_name }} {{ userobj.last_name }}
                             </h3>
-                            {% if userobj.profile.bio %}
-                            <p class="text-muted text-center">Bio: {{ userobj.profile.bio }}</p>
+                            {% if profile.bio %}
+                            <p class="text-muted text-center">Bio: {{ profile.bio }}</p>
                             {% endif %}
                             <p class="text-muted text-center"><span><i class="far fa-envelope"></i></span>
                                 {{ userobj.email }}</p>
-                            {% if userobj.profile.bio %}
+                            {% if profile.bio %}
                             <p class="text-muted text-center"><span><i class="fas fa-mobile-alt"></i></span>
-                                {{ userobj.profile.mobile }}</p>
+                                {{ profile.mobile }}</p>
                             {% endif %}
                         </div>
                     </div>
 
                     <!-- About Me Box -->
-                    {% if request.user.is_superuser and userobj.is_superuser %}
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">Profile Information</h3>
@@ -93,7 +92,6 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    {% endif %}
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
@@ -127,7 +125,6 @@
                                         </div>
                                     </div>
                                     {% endif %}
-                                    {% if request.user.is_superuser and userobj.is_superuser%}
                                     <div class="w-100 mb-5">
                                         <h4>Social Medias</h4>
                                         <div class="mt-3">
@@ -136,46 +133,49 @@
                                                 {% for social in socialMedias %}
                                                 {% if social.type == 1 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#"
+                                                    <a href="{{ social.url }}"
                                                         class="social-list-item border-primary text-primary text-center">
                                                         <i class="fab fa-facebook-f"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 2 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#"
+                                                    <a href="{{ social.url }}"
                                                         class="social-list-item border-info text-info text-center">
                                                         <i class="fab fa-linkedin"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 3 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#"
+                                                    <a href="{{ social.url }}"
                                                         class="social-list-item border-secondary text-secondary text-center">
                                                         <i class="fab fa-github-square"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 4 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#" class="social-list-item stackoverflow text-center">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item stackoverflow text-center">
                                                         <i class="fab fa-stack-overflow"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 5 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#" class="social-list-item behance text-center">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item behance text-center">
                                                         <i class="fab fa-behance"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 6 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#" class="social-list-item kaggle text-center">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item kaggle text-center">
                                                         <i class="fab fa-kaggle"></i>
                                                     </a>
                                                 </li>
                                                 {% elif social.type == 7 %}
                                                 <li class="list-inline-item">
-                                                    <a href="#"
+                                                    <a href="{{ social.url }}"
                                                         class="social-list-item border-danger text-danger text-center">
                                                         <i class="fab fa-google"></i>
                                                     </a>
@@ -192,7 +192,6 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    {% endif %}
                                 </div>
 
                                 <!-- /.tab-pane -->
@@ -240,20 +239,31 @@
                                         </div>
                                     </form>
                                 </div>
-                                {% if request.user.is_superuser %}
                                 <div class="tab-pane" id="advance">
                                     <form class="form-horizontal" method="POST">
                                         <div class="form-group">
-                                            <div class="row">
+                                            <div class="row mb-2">
                                                 <div class="col-sm-5">
-                                                    <label for="inputName" class="col-sm-12 control-label">First
-                                                        Name</label>
-                                                    {{ user_form.first_name }}
+                                                    <label for="inputName" class="col-sm-12 control-label">Bio</label>
+                                                    {{ profile_form.bio }}
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <label for="inputName" class="col-sm-12 control-label">Last
-                                                        Name</label>
-                                                    {{ user_form.last_name }}
+                                                    <label for="inputName" class="col-sm-12 control-label">Mobile
+                                                        Number</label>
+                                                    {{ profile_form.mobile }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-10">
+                                                    <label for="inputName" class="col-sm-12 control-label">About</label>
+                                                    {{ profile_form.about }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">User
+                                                        Role</label>
+                                                    {{ profile_form.user_role }}
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +276,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                {% endif %}
                                 <!-- /.tab-pane -->
                             </div>
                             <!-- /.tab-content -->

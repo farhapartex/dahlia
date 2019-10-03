@@ -390,13 +390,21 @@ class ProfileView(TemplateView):
         context["user"] = user.username
         try:
             user = User.objects.get(id=uid)
+            profile = Profile.objects.get(id=uid)
             form = UserForm(instance=user)
+            profile_form = ProfileForm(instance=profile)
             context["form"] = form
+            context["profile_form"] = profile_form
+            context["userobj"] = user
+            context["profile"] = profile
+            context["educations"] = profile.educations.all()
+            context["skills"] = profile.skills.all()
+            context["socialMedias"] = profile.socialMedias.all()
             context["stage"] = "update"
             context["contacts"] = get_new_contact_message()
             return render(request, self.template_name, context)
         except:
-            return HttpResponseRedirect("/cms/users/") 
+            return HttpResponseRedirect("/cms/users/")
 
 
 class PostListView(ListView):
@@ -543,7 +551,6 @@ class PermissionRoleWiseListView(ListView):
 
     def get_queryset(self):
         return UserRole.objects.get(id=self.kwargs["role_id"]).permissions.all()
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
