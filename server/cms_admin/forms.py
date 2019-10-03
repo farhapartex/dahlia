@@ -90,6 +90,17 @@ class ProfileForm(ModelForm):
         fields = ["avatar", "bio", "about", "mobile", "user_role"]
 
 
+class SocialMediaForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SocialMediaForm, self).__init__(*args, **kwargs)
+        self.fields["type"].widget.attrs["class"] = "form-control custom-select"
+        self.fields["url"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = SocialMediaInfo
+        fields = ["type", "url"]
+
+
 class SiteForm(Form):
     site_name = forms.CharField(label="Site Name", max_length=120)
 

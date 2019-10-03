@@ -388,23 +388,27 @@ class ProfileView(TemplateView):
         context = {}
         user = request.user
         context["user"] = user.username
+        user = User.objects.get(id=uid)
+        form = UserForm(instance=user)
+        context["form"] = form
+        context["userobj"] = user
+        context["social_form"] = SocialMediaForm()
+        context["contacts"] = get_new_contact_message()
         try:
-            user = User.objects.get(id=uid)
             profile = Profile.objects.get(id=uid)
-            form = UserForm(instance=user)
-            profile_form = ProfileForm(instance=profile)
-            context["form"] = form
-            context["profile_form"] = profile_form
-            context["userobj"] = user
-            context["profile"] = profile
-            context["educations"] = profile.educations.all()
-            context["skills"] = profile.skills.all()
-            context["socialMedias"] = profile.socialMedias.all()
-            context["stage"] = "update"
-            context["contacts"] = get_new_contact_message()
+            if not profile:
+                context["profile"] = profile
+                context["educations"] = profile.educations.all()
+                context["skills"] = profile.skills.all()
+                context["socialMedias"] = profile.socialMedias.all()
+                context["profile_stage"] = "update"
+                profile_form = ProfileForm(instance=profile)
+
             return render(request, self.template_name, context)
         except:
-            return HttpResponseRedirect("/cms/users/")
+            profile_form = ProfileForm()
+            context["profile_form"] = profile_form
+            return render(request, self.template_name, context)
 
 
 class PostListView(ListView):

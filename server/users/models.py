@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, Permission
+from media_browser.models import MediaImage
 
 # Create your models here.
 
@@ -37,8 +38,13 @@ class Profile(models.Model):
         related_name="profile",
         on_delete=models.CASCADE,
     )
-    avatar = models.ImageField(
-        _("Avatar"), upload_to=profile_photo_upload_path, blank=True, null=True
+
+    avatar = models.ForeignKey(
+        MediaImage,
+        verbose_name=_("Profile Image"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     bio = models.CharField(_("Bio"), max_length=150, blank=True, null=True)
     about = models.TextField(_("About"))

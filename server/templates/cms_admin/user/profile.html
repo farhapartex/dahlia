@@ -106,8 +106,14 @@
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#basic" data-toggle="tab">Basic
                                         Information</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#advance"
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#profile"
                                         data-toggle="tab">Profile Information</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#education"
+                                        data-toggle="tab">Education Information</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#social" data-toggle="tab">Social
+                                        Information</a>
                                 </li>
                             </ul>
                         </div><!-- /.card-header -->
@@ -236,14 +242,14 @@
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
-                                                    {% if stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
                                                 <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
                                                             class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="advance">
+                                <div class="tab-pane" id="profile">
                                     <form class="form-horizontal" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
@@ -277,7 +283,34 @@
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
-                                                    {% if stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
+                                                            class="fas fa-angle-left"></i></span> Back</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="social">
+                                    <form class="form-horizontal" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Type</label>
+                                                    {{ social_form.type }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">URL</label>
+                                                    {{ social_form.url }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
                                                 <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
                                                             class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
