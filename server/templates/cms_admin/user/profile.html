@@ -106,13 +106,11 @@
                                         data-toggle="tab">Overview</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#basic" data-toggle="tab">Basic
-                                        Profile</a>
+                                        Information</a>
                                 </li>
-                                {% if request.user.is_superuser and userobj.is_superuser %}
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#advance" data-toggle="tab">Advance
-                                        Profile</a>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#advance"
+                                        data-toggle="tab">Profile Information</a>
                                 </li>
-                                {% endif %}
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -228,7 +226,8 @@
                                                 <div class="col-sm-5">
                                                     <div class="form-group form-check">
                                                         {{ form.is_superuser }}
-                                                        <label class="form-check-label" for="exampleCheck1">SuperAdmin</label>
+                                                        <label class="form-check-label"
+                                                            for="exampleCheck1">SuperAdmin</label>
                                                     </div>
                                                 </div>
                                             </div>

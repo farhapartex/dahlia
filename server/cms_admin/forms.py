@@ -49,10 +49,10 @@ class PermissionForm(ModelForm):
         self.fields["name"].widget.attrs["class"] = "form-control"
         self.fields["content_type"].widget.attrs["class"] = "form-control custom-select"
         self.fields["codename"].widget.attrs["class"] = "form-control"
-    
+
     class Meta:
         model = Permission
-        fields = ['name','content_type','codename',]
+        fields = ["name", "content_type", "codename"]
 
 
 class UserBasicForm(Form):
@@ -61,6 +61,7 @@ class UserBasicForm(Form):
     email = forms.CharField(label="Email")
     username = forms.CharField(label="Username", max_length=100)
     password = forms.CharField(label="Password")
+
 
 class UserForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -72,7 +73,20 @@ class UserForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email","is_superuser"]
+        fields = ["first_name", "last_name", "email", "is_superuser"]
+
+
+class ProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields["bio"].widget.attrs["class"] = "form-control"
+        self.fields["about"].widget.attrs["class"] = "form-control"
+        self.fields["mobile"].widget.attrs["class"] = "form-control"
+        self.fields["user_role"].widget.attrs["class"] = "form-control custom-select"
+
+    class Meta:
+        model = Profile
+        fields = ["avatar", "bio", "about", "mobile", "user_role"]
 
 
 class SiteForm(Form):
