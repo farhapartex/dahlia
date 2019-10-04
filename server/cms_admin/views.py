@@ -445,7 +445,8 @@ class UserUpdateView(View):
         form = UserForm(instance=user, data=request.POST)
         if form.is_valid():
             form = form.save()
-            return HttpResponseRedirect("/cms/users/")
+            messages.success(request, 'User Updated successfully')
+            return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 class PostListView(ListView):
     queryset = Post.objects.all().order_by("-id")
