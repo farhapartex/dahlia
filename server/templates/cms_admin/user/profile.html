@@ -317,23 +317,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal fade media-browser-modal" tabindex="-1" role="dialog"
-                                    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Media Images</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">close</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {% include 'cms_admin/component/media/mediaList.html' %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include 'cms_admin/component/media/mediaList.html' %}
                                 <div class="tab-pane" id="education">
                                     <form class="form-horizontal" method="post">
                                         {% csrf_token %}
