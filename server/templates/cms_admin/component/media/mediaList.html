@@ -1,0 +1,24 @@
+{% if medias.count > 0 %}
+<div class="filter-container p-0 row">
+    {% for media in medias %}
+    <div class="filtr-item col-md-3 img-box" data-category="3" data-sort="red sample">
+        <div class="inner-img-modalbox">
+            <img src="/media/{{ media.image }}" class="img-fluid mb-2 media-img modal-img" id="{{ media.id }}"
+                alt="red sample" />
+        </div>
+        <div class="pt-1 pb-3">
+            <p class="mo-p0 text-center media-img-text">
+                {% if media.title %}{{ media.title }} {% else %}
+                {{ media.image.name }}{% endif %}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'cms_admin/pagination/pagination.html' %}
+{% else %}
+<div class="w-75 mx-auto">
+    <div class="alert cms-warning " role="alert">
+        Currently there are no images found!
+    </div>
+</div>
+{% endif %}

@@ -44,7 +44,7 @@ textarea{
     
 }
 
-.inner-img-box{
+.inner-img-box, .inner-img-modalbox{
     /* max-height: 200px;
     min-height: 180px; */
     padding: 20px;
@@ -56,6 +56,13 @@ textarea{
   display: inline-block;
   vertical-align: middle;
   max-height: 150px;
+}
+
+.inner-img-modalbox .media-img{
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 150px;
+  cursor: pointer;
 }
 .media-img-text{
   font-size: 12px;
