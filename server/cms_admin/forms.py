@@ -83,11 +83,12 @@ class ProfileForm(ModelForm):
         self.fields["bio"].widget.attrs["class"] = "form-control"
         self.fields["about"].widget.attrs["rows"] = "5"
         self.fields["mobile"].widget.attrs["class"] = "form-control"
+        self.fields["avatar"].widget.attrs["class"] = "form-control custom-select"
         self.fields["user_role"].widget.attrs["class"] = "form-control custom-select"
 
     class Meta:
         model = Profile
-        fields = ["avatar", "bio", "about", "mobile", "user_role"]
+        fields = ["avatar", "bio", "about", "mobile", "avatar", "user_role"]
 
 
 class SocialMediaForm(ModelForm):

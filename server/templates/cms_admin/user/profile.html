@@ -250,7 +250,9 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="profile">
-                                    <form class="form-horizontal" method="post">
+                                    <form class="form-horizontal" method="post"
+                                        {% if profile_stage == "update" %}action="{% url 'profile_update' userobj.id %}"
+                                        {% else %}action="{% url 'profile_post' userobj.id %}" {% endif %}>
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
@@ -266,7 +268,8 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-10">
-                                                    <label for="inputName" class="col-sm-12 control-label">About</label>
+                                                    <label for="inputName" class="col-sm-12 control-label">About <span
+                                                            class="text-danger">*</span></label>
                                                     {{ profile_form.about }}
                                                 </div>
                                             </div>
@@ -275,6 +278,12 @@
                                                     <label for="inputName" class="col-sm-12 control-label">User
                                                         Role</label>
                                                     {{ profile_form.user_role }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="id_avatar">User Image</label>
+                                                        {{ profile_form.avatar }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -13,6 +13,7 @@ from django.urls.resolvers import RegexPattern, RoutePattern
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from django.core import serializers
+from django.urls import reverse
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 from cms import urls
@@ -396,20 +397,42 @@ class ProfileView(TemplateView):
         context["education_form"] = EducationForm()
         context["contacts"] = get_new_contact_message()
         try:
-            profile = Profile.objects.get(id=uid)
-            if not profile:
+            profile = Profile.objects.get(user=uid)
+            if profile:
                 context["profile"] = profile
                 context["educations"] = profile.educations.all()
                 context["skills"] = profile.skills.all()
                 context["socialMedias"] = profile.socialMedias.all()
                 context["profile_stage"] = "update"
                 profile_form = ProfileForm(instance=profile)
-
-            return render(request, self.template_name, context)
+                context["profile_form"] = profile_form
+                context["profile_stage"] = "update"
+                return render(request, self.template_name, context)
         except:
             profile_form = ProfileForm()
             context["profile_form"] = profile_form
             return render(request, self.template_name, context)
+
+
+class ProfilePostView(View):
+    def post(self, request, uid):
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            user = User.objects.get(id=uid)
+            if user:
+                profile.user = user
+                profile = profile.save()
+                return HttpResponseRedirect("/cms/users/")
+
+
+class ProfileUpdateView(View):
+    def post(self, request, uid):
+        profile = Profile.objects.get(user=uid)
+        form = ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            profile = form.save()
+            return HttpResponseRedirect("/cms/users/")
 
 
 class PostListView(ListView):
