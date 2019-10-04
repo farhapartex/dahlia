@@ -108,11 +108,11 @@
                     <div class="card">
                         <div class="card-header p-2">
                             {% if messages %}
-                            <div class="alert alert-{% if messages.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
-                                    {% for message in messages %}
-                                    {{ message }}
-                                   {% endfor %}
+                            {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                                {{ message }}
                             </div>
+                            {% endfor %}
                             <div class="w-100 pt-1 pb-1">
                                 
                             </div>
@@ -374,7 +374,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="social">
-                                    <form class="form-horizontal" method="post" action="">
+                                    <form class="form-horizontal" method="post" action="{% url 'social_post' userobj.id %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
@@ -393,7 +393,7 @@
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
-                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                    Submit</button>
                                                 <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
                                                             class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
