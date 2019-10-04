@@ -107,6 +107,16 @@
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-header p-2">
+                            {% if messages %}
+                            <div class="alert alert-success" role="alert">
+                                    {% for message in messages %}
+                                    {{ message }}
+                                   {% endfor %}
+                            </div>
+                            <div class="w-100 pt-1 pb-1">
+                                
+                            </div>
+                            {% endif %}
                             <ul class="nav nav-pills">
 
                                 <li class="nav-item"><a class="nav-link cms-tab active" href="#overview"
@@ -212,7 +222,7 @@
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="basic">
-                                    <form class="form-horizontal" method="post">
+                                    <form class="form-horizontal" action="{% url 'user_update' userobj.id %}" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row">
@@ -231,11 +241,16 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-5">
-                                                    <label for="inputName" class="col-sm-12 control-label">Email</label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Email <span class="text-danger">*</span></label>
                                                     {{ form.email }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Username <span class="text-danger">*</span></label>
+                                                    {{ form.username }}
                                                 </div>
                                             </div>
                                         </div>
+                                        {% if userobj.is_superuser %}
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-5">
@@ -247,6 +262,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {% endif %}
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
@@ -283,11 +299,13 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
+                                                {% if userobj.is_superuser %}
                                                 <div class="col-sm-5">
                                                     <label for="inputName" class="col-sm-12 control-label">User
                                                         Role</label>
                                                     {{ profile_form.user_role }}
                                                 </div>
+                                                {% endif %}
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
 

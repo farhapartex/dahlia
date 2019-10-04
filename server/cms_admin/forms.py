@@ -70,11 +70,12 @@ class UserForm(ModelForm):
         self.fields["first_name"].widget.attrs["class"] = "form-control"
         self.fields["last_name"].widget.attrs["class"] = "form-control"
         self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["is_superuser"].widget.attrs["class"] = "form-check-input"
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email", "is_superuser"]
+        fields = ["first_name", "last_name", "email","username", "is_superuser"]
 
 
 class ProfileForm(ModelForm):

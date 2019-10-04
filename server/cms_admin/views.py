@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.views.generic import DetailView, ListView, CreateView, edit
@@ -424,7 +425,8 @@ class ProfilePostView(View):
             if user:
                 profile.user = user
                 profile = profile.save()
-                return HttpResponseRedirect("/cms/users/")
+                messages.success(request, 'Profile Created successfully')
+                return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 
 class ProfileUpdateView(View):
@@ -433,8 +435,17 @@ class ProfileUpdateView(View):
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
             profile = form.save()
-            return HttpResponseRedirect("/cms/users/")
+            messages.success(request, 'Profile Updated successfully')
+            return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
+
+class UserUpdateView(View):
+    def post(self, request, uid):
+        user = User.objects.get(id=uid)
+        form = UserForm(instance=user, data=request.POST)
+        if form.is_valid():
+            form = form.save()
+            return HttpResponseRedirect("/cms/users/")
 
 class PostListView(ListView):
     queryset = Post.objects.all().order_by("-id")
