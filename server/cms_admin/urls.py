@@ -56,6 +56,11 @@ urlpatterns = [
         login_required(ProfileUpdateView.as_view()),
         name="profile_update",
     ),
+    path(
+        "users/<int:uid>/education/post/",
+        login_required(EducationPostView.as_view()),
+        name="education_post",
+    ),
     path("site/", login_required(SiteView.as_view()), name="site"),
     path(
         "site/<int:siteid>/change/",

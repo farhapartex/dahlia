@@ -108,7 +108,7 @@
                     <div class="card">
                         <div class="card-header p-2">
                             {% if messages %}
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-{% if messages.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
                                     {% for message in messages %}
                                     {{ message }}
                                    {% endfor %}
@@ -337,18 +337,18 @@
                                 </div>
                                 {% include 'cms_admin/component/media/mediaList.html' %}
                                 <div class="tab-pane" id="education">
-                                    <form class="form-horizontal" method="post">
+                                    <form class="form-horizontal" action="{% url 'education_post' userobj.id %}" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
                                                 <div class="col-sm-5">
                                                     <label for="inputName"
-                                                        class="col-sm-12 control-label">Degree</label>
+                                                        class="col-sm-12 control-label">Degree <span class="text-danger">*</span></label>
                                                     {{ education_form.degree }}
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <label for="inputName"
-                                                        class="col-sm-12 control-label">Institution</label>
+                                                        class="col-sm-12 control-label">Institution <span class="text-danger">*</span></label>
                                                     {{ education_form.institution }}
                                                 </div>
                                             </div>
@@ -357,7 +357,7 @@
                                             <div class="row mb-2">
                                                 <div class="col-sm-5">
                                                     <label for="inputName"
-                                                        class="col-sm-12 control-label">Session</label>
+                                                        class="col-sm-12 control-label">Session <span class="text-danger">*</span></label>
                                                     {{ education_form.session }}
                                                 </div>
                                             </div>
@@ -366,7 +366,7 @@
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
-                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                                    Submit</button>
                                                 <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
                                                             class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
@@ -374,7 +374,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="social">
-                                    <form class="form-horizontal" method="post">
+                                    <form class="form-horizontal" method="post" action="">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
