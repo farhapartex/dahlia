@@ -158,5 +158,9 @@ textarea{
     background: #343a40 !important;
   }
 
+  .hide{
+      display: none!important;
+  }
+
 
 

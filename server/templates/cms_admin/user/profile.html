@@ -30,8 +30,14 @@
                     <div class="card card-secondary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="{% static 'images/user.jpg' %}"
+                                {% if profile.avatar %}
+                                <img class="profile-user-img img-fluid img-circle"
+                                    src="/media/{{ profile.avatar.image }}" alt="User profile picture">
+                                {% else %}
+                                <img class="profile-user-img img-fluid img-circle" src="{% static 'images/user.svg' %}"
                                     alt="User profile picture">
+                                {% endif %}
+
                             </div>
 
                             <h3 class="profile-username text-center">{{ userobj.first_name }} {{ userobj.last_name }}
@@ -45,6 +51,9 @@
                             <p class="text-muted text-center"><span><i class="fas fa-mobile-alt"></i></span>
                                 {{ profile.mobile }}</p>
                             {% endif %}
+                            <p class="text-center"><a href="{% url 'users' %}" class="text-secondary"><span
+                                        class="mr-1"><i class="fas fa-angle-left"></i></span>
+                                    Back To List</a></p>
                         </div>
                     </div>
 
@@ -281,7 +290,15 @@
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
-                                                        <label for="id_avatar">User Image</label>
+
+                                                        <div class="open-media">
+                                                            <p class="text-center" style="font-weight: 700;">Select
+                                                                Image</p>
+                                                            <img class="img-fluid"
+                                                                style="max-width: 30px;display:block; margin:auto;"
+                                                                src="{% static 'images/image.png' %}"
+                                                                alt="User profile picture">
+                                                        </div>
                                                         {{ profile_form.avatar }}
                                                     </div>
                                                 </div>
