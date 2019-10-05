@@ -486,6 +486,25 @@ class SocialPostView(View):
             messages.error(request, 'Profile does not created yet')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
+
+class SkillPostView(View):
+    def post(self, request, uid):
+        try:
+            profile = Profile.objects.get(user=uid)
+            if profile:
+                form = SkillForm(request.POST)
+                form = form.save(commit=False)
+                form.profile = profile
+                form = form.save()
+                messages.success(request, 'Skill Added successfully')
+                return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+            else:
+                messages.error(request, 'Profile does not created yet!')
+                return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+        except:
+            messages.error(request, 'Profile does not created yet')
+            return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+
 class PostListView(ListView):
     queryset = Post.objects.all().order_by("-id")
     template_name = "cms_admin/post/postList.html"

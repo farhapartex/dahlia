@@ -268,8 +268,6 @@
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
                                                     {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
-                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
-                                                            class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
@@ -329,8 +327,6 @@
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
                                                     {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
-                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
-                                                            class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
@@ -367,8 +363,6 @@
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
-                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
-                                                            class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
@@ -394,19 +388,17 @@
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
-                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
-                                                            class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="skill">
-                                    <form class="form-horizontal" method="post" action="{% url 'social_post' userobj.id %}">
+                                    <form class="form-horizontal" method="post" action="{% url 'skill_post' userobj.id %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
                                                 <div class="col-sm-10 col-lg-10">
-                                                    <label for="inputName" class="col-sm-12 control-label">Skill (Type Skill by using comma. Ex: Programming,Reading)</label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Skill</label>
                                                     {{ skill_form.name }}
                                                 </div>
                                             </div>
@@ -417,8 +409,6 @@
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
-                                                <a href="/cms/users/" class="btn btn-sm btn-warning"><span><i
-                                                            class="fas fa-angle-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                     </form>
