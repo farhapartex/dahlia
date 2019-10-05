@@ -90,6 +90,15 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        {% if messages %}
+                        <div class="card-header">
+                            {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <!-- /.card-header -->
                         <div class="card-body">
                             {% if object_list.count > 0 %}

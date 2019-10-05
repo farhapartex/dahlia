@@ -38,6 +38,11 @@ urlpatterns = [
         login_required(MediaBrowserUpdateView.as_view()),
         name="media_update",
     ),
+    path(
+        "medias/<int:mid>/delete",
+        login_required(MediaDeleteView.as_view()),
+        name="media_delete",
+    ),
     path("users/", login_required(UserListView.as_view()), name="users"),
     path("users/add/", login_required(UserListView.as_view()), name="user_add"),
     path("users/<int:uid>/update/", login_required(UserUpdateView.as_view()), name="user_update"),

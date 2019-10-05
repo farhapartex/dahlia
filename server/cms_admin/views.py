@@ -753,6 +753,7 @@ class MediaBrowserView(ListView):
             new_media = form.save(commit=False)
             new_media.owner = request.user
             new_media.save()
+            messages.success(request, 'New media image created successfully')
             return HttpResponseRedirect("/cms/medias/")
 
 
@@ -783,6 +784,18 @@ class MediaBrowserUpdateView(TemplateView):
             messages.error(request, 'Server Error')
             return HttpResponseRedirect("/cms/medias/{0}/change/".format(mid))
 
+
+class MediaDeleteView(View):
+    def get(self, request, mid):
+        try:
+            media = MediaImage.objects.get(id=mid)
+            if media:
+                media.delete()
+                return HttpResponseRedirect("/cms/medias/")
+
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/medias/{0}/change/".format(mid))
 
 class ContactListView(TemplateView):
     template_name = "cms_admin/contact/contactList.html"
