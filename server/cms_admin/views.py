@@ -197,37 +197,33 @@ class CategoryUpdateView(TemplateView):
     def post(self, request, catid):
         context = {}
         context["user"] = request.user.username
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            catValue = form.cleaned_data["category"]
+        try:
             category = Category.objects.get(id=catid)
-            if len(catValue) > 0:
-                category.name = catValue
-                category.save()
-                return HttpResponseRedirect("/cms/categories/")
-            else:
-                form = CategoryForm(initial={"category": category.name})
-                context["user"] = request.user.username
-                context["category"] = category
-                context["form"] = form
-                context["contacts"] = get_new_contact_message()
-                return render(request, self.template_name, context)
-
-        else:
-            form = CategoryForm()
-            return render(request, self.template_name, context)
+            if category:
+                form = CategoryForm(instance=category, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect("/cms/categories/")
+        except:
+            messages.error(request, 'Data is not valid')
+            return HttpResponseRedirect("/cms/categories/{0}/change/".format(catid))
 
     def get(self, request, catid):
         context = {}
         context["contacts"] = get_new_contact_message()
-        category = Category.objects.get(id=catid)
-        if category:
-            form = CategoryForm(initial={"category": category.name})
-            context["user"] = request.user.username
-            context["category"] = category
+        context["user"] = request.user.username
+        try:
+             category = Category.objects.get(id=catid)
+             form = CategoryForm(instance=category)
+             context["form"] = form
+             context["category"] = category
+             return render(request, self.template_name, context)
+        except:
+            form = CategoryForm()
             context["form"] = form
-
             return render(request, self.template_name, context)
+
+            
 
 
 class CategoryDeleteView(TemplateView):

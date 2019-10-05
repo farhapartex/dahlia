@@ -15,6 +15,15 @@
                 <div class="col-sm-6">
                     <h1>Update Category</h1>
                 </div>
+                {% if messages %}
+                <div class="w-100">
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -32,22 +41,24 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="/cms/categories/{{ category.id }}/change/" method="post">
+                        <form action="{% url 'category_update' category.id %}" method="post">
                             {% csrf_token %}
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
                                 </div>
                                 <div class="form-group">
-                                    {{ form.category }}
+                                    {{ form.name }}
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-secondary">Update</button>
-                                <a href="/cms/categories/{{ category.id }}/delete/" class="btn btn-danger">Delete</a>
-                                <a href="/cms/categories/" class="btn btn-warning">Back</a>
+                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                    class="far fa-edit"></i></span> Update</button>
+                                <a href="/cms/categories/{{ category.id }}/delete/" class="btn btn-sm btn-danger"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                                <a href="/cms/categories/" class="btn btn-sm btn-warning"><span
+                                    class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
                             </div>
                         </form>
                     </div>
