@@ -114,6 +114,15 @@ class EducationForm(ModelForm):
         model = Education
         fields = ["degree", "institution", "session"]
 
+class SkillForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SkillForm, self).__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = Skill
+        fields = ["name",]
+
 
 class SiteForm(Form):
     site_name = forms.CharField(label="Site Name", max_length=120)

@@ -396,6 +396,7 @@ class ProfileView(TemplateView):
         context["userobj"] = user
         context["social_form"] = SocialMediaForm()
         context["education_form"] = EducationForm()
+        context["skill_form"] = SkillForm()
         context["medias"] = MediaImage.objects.all()
         context["contacts"] = get_new_contact_message()
         try:
