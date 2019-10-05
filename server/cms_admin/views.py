@@ -185,8 +185,7 @@ class CategoryAddView(TemplateView):
             context["user"] = request.user.username
             context["form"] = form
             context["contacts"] = get_new_contact_message()
-            context["form_error"] = "Data is not valid!"
-            messages.error(request, 'Profile does not created!')
+            messages.error(request, 'Profile is not created!')
             return render(request, self.template_name, context)
 
 
@@ -222,9 +221,6 @@ class CategoryUpdateView(TemplateView):
             form = CategoryForm()
             context["form"] = form
             return render(request, self.template_name, context)
-
-            
-
 
 class CategoryDeleteView(TemplateView):
     def get(self, request, catid):
@@ -265,24 +261,13 @@ class TagAddView(TemplateView):
         context["user"] = request.user.username
         form = TagForm(request.POST)
         if form.is_valid():
-            tagValue = form.cleaned_data["tag"]
-            if len(tagValue) == 0:
-                form = TagForm()
-                context["user"] = request.user.username
-                context["form"] = form
-                context["form_error"] = "You can not submit empty field!"
-                return render(request, self.template_name, context)
-            else:
-                tagObj = Tag(name=tagValue)
-                tagObj.save()
-                return HttpResponseRedirect("/cms/tags/")
+            form.save()
+            tag = Tag.objects.all().order_by("-created_at")[0]
+            messages.success(request, 'Tag "{0}" created successfully'.format(tag.name))
+            return HttpResponseRedirect("/cms/tags/")
         else:
-            form = TagForm()
-            context["user"] = request.user.username
-            context["form"] = form
-            context["contacts"] = get_new_contact_message()
-            context["form_error"] = "Data is not valid!"
-            return render(request, self.template_name, context)
+            messages.error(request, 'Tag is not created successfully'.format(tag.name))
+            return HttpResponseRedirect("/cms/tags/")
 
 
 class TagUpdateView(TemplateView):
@@ -290,13 +275,13 @@ class TagUpdateView(TemplateView):
 
     def get(self, request, tagid):
         context = {}
+        context["user"] = request.user.username
+        context["contacts"] = get_new_contact_message()
         try:
             tag = Tag.objects.get(id=tagid)
-            form = TagForm(initial={"tag": tag.name})
-            context["tag"] = tag
-            context["user"] = request.user.username
+            form = TagForm(instance=tag)
             context["form"] = form
-            context["contacts"] = get_new_contacts()
+            context["tag"] = tag
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/tags/")
@@ -305,14 +290,18 @@ class TagUpdateView(TemplateView):
 
     def post(self, request, tagid):
         context = {}
-        form = TagForm(request.POST)
-        if form.is_valid():
-            tagValue = form.cleaned_data["tag"]
+        try:
             tag = Tag.objects.get(id=tagid)
-            if len(tagValue) > 0:
-                tag.name = tagValue
-                tag.save()
+            form = TagForm(instance=tag, data=request.POST)
+            if form.is_valid():
+                form.save()
                 return HttpResponseRedirect("/cms/tags/")
+            else:
+                messages.error(request, 'Data is not valid')
+                return HttpResponseRedirect("/cms/tags/{0}/change/".format(tagid))
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/tags/{0}/change/".format(tagid))
 
 
 class TagDeleteView(TemplateView):

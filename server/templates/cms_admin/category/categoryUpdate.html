@@ -56,26 +56,32 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
                                     class="far fa-edit"></i></span> Update</button>
-                                <a href="/cms/categories/{{ category.id }}/delete/" class="btn btn-sm btn-danger"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                                <a href="/cms/categories/{{ category.id }}/delete/" class="btn btn-sm btn-danger objDelete"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
                                 <a href="/cms/categories/" class="btn btn-sm btn-warning"><span
                                     class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
                             </div>
                         </form>
                     </div>
-                    <!-- /.card -->
-
-
-                    <!-- /.card -->
 
                 </div>
-                <!--/.col (left) -->
-                <!-- right column -->
-
-                <!--/.col (right) -->
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
+
+        <!-- Modal -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p>Are you sure, want to delete this category?</p>
+              <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+              <button class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>
 <!-- /.content-wrapper -->

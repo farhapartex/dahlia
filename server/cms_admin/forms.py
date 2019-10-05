@@ -23,12 +23,15 @@ class CategoryForm(ModelForm):
         model = Category
         fields = ["name"]
 
-class TagForm(Form):
-    tag = forms.CharField(label="Tag", max_length=100)
 
-    def clean_category(self):
-        data = self.cleaned_data["tag"]
-        return data
+class TagForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TagForm, self).__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = Tag
+        fields = ["name"]
 
 
 class PostForm(ModelForm):
