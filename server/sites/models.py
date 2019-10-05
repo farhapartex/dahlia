@@ -29,6 +29,7 @@ class MenuItem(models.Model):
         verbose_name=_("Site"),
         related_name="menus",
         on_delete=models.CASCADE,
+        blank=True, null=True
     )
 
     def __str__(self):

@@ -1,0 +1,92 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update Site</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Site Form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="{% url 'site_update' site.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Site Name</label>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.site_name }}
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                    <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                        class="far fa-edit"></i></span> Update</button>
+                                <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger objDelete"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                                <a href="{% url 'tags' %}" class="btn btn-sm btn-warning"><span
+                                    class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-body">
+                <p>Are you sure, want to delete this site information?</p>
+                <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                <button class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

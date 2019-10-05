@@ -14,61 +14,117 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Site Information</h1>
-                    {% if success %}
-                    <div class="alert alert-success mt-3" role="alert">
-                        {{ success }}
-                    </div>
-                    {% endif %}
                 </div>
+                {% if object_list.count == 0 %}
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
+                        data-target="#addModal">Add Site
+                        <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
+                </div>
+                {% endif %}
 
             </div>
         </div><!-- /.container-fluid -->
     </section>
 
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Site</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'site' %}" method="post">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Site Name</label>
+                        </div>
+                        <div class="form-group">
+                            {{ form.site_name }}
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                            class="far fa-edit"></i></span> Submit</button>
+                        <a href="#" class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                            class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
+    </div> -->
+        </div>
+    </div>
+</div>
+
 
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- left column -->
-                <div class="col-md-6">
-                    <!-- general form elements -->
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">Site Information Form</h3>
-                        </div>
+                <div class="col-12">
+                    <div class="card">
+                            {% if messages %}
+                            <div class="card-header">
+                                {% for message in messages %}
+                                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         <!-- /.card-header -->
-                        <!-- form start -->
-
-                        <form action="/cms/site/{{ site.id }}/change/" method="post">
-                            {% csrf_token %}
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="site_name">Site Name</label>
-                                </div>
-                                <div class="form-group">
-                                    {{ form.site_name }}
+                        <div class="card-body">
+                            {% if object_list.count > 0 %}
+                            <table id="example2" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>site Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for site in object_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ site.site_name }}</td>
+                                        <td><a href="{% url 'site_update' site.id %}" class="text-warning">Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
+                                            <a href="/cms/tags/{{ tag.id }}/delete/" class="text-danger objDelete">Delete
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% include 'cms_admin/pagination/pagination.html' %}
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert cms-warning " role="alert">
+                                    Currently there are no site information found!
                                 </div>
                             </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-secondary">Update</button>
-                            </div>
-                        </form>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
 
 
                     <!-- /.card -->
-
                 </div>
-                <!--/.col (left) -->
-                <!-- right column -->
-
-                <!--/.col (right) -->
+                <!-- /.col -->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+
+        </div>
     </section>
 
 </div>

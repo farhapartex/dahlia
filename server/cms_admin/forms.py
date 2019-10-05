@@ -127,8 +127,14 @@ class SkillForm(ModelForm):
         fields = ["name",]
 
 
-class SiteForm(Form):
-    site_name = forms.CharField(label="Site Name", max_length=120)
+class SiteForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SiteForm, self).__init__(*args, **kwargs)
+        self.fields["site_name"].widget.attrs["class"] = "form-control"
+    
+    class Meta:
+        model = SiteInformation
+        fields = ["site_name",]
 
 
 class MenuForm(ModelForm):

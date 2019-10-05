@@ -88,30 +88,47 @@ class LogoutView(TemplateView):
         return HttpResponseRedirect("/accounts/login/")
 
 
-class SiteView(TemplateView):
+class SiteView(generic.ListView):
+    queryset = SiteInformation.objects.all().order_by("-id")
     template_name = "cms_admin/site/site.html"
+    paginate_by = 10
 
-    def get(self, request):
-        context = {}
-        context["user"] = request.user.username
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user.username
         context["contacts"] = get_new_contact_message()
+        context["form"] = SiteForm()
+        return context
+    
+    def post(self, request):
         try:
-            site = SiteInformation.objects.all()[0]
-            context["site"] = site
-            site_data = {"site_name": site.site_name}
-            form = SiteForm(initial=site_data)
-            context["form"] = form
-
-            return render(request, self.template_name, context)
+            form = SiteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Site created successfully')
+                return HttpResponseRedirect("/cms/site/")
         except:
-            form = SiteForm()
-            context["form"] = form
-            return render(request, self.template_name, context)
+            messages.error(request, 'Site not created!')
+            return HttpResponseRedirect("/cms/site/")
 
 
 class SiteUpdateView(TemplateView):
 
-    template_name = "cms_admin/site/site.html"
+    template_name = "cms_admin/site/siteUpdate.html"
+
+    def get(self, request, siteid):
+        context = {}
+        context["user"] = request.user.username
+        context["contacts"] = get_new_contact_message()
+
+        try:
+            site = SiteInformation.objects.get(id=siteid)
+            form = SiteForm(instance=site)
+            context["form"] = form
+            context["site"] = site
+            return render(request, self.template_name, context)
+        except:
+            return HttpResponseRedirect("/cms/site/")
 
     def post(self, request, siteid):
         context = {}
@@ -690,15 +707,19 @@ class MenuItemView(TemplateView):
     def post(self, request):
         context = {}
         context["user"] = request.user.username
-        form = MenuForm(request.POST)
-        if form.is_valid():
-            site = SiteInformation.objects.all()[0]
-            new_menu = form.save(commit=False)
-            new_menu.site = site
-            menu = new_menu.save()
+        
+        try:
+            form = MenuForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Menu created successfully')
+                return HttpResponseRedirect("/cms/menus/")
+        except:
+            messages.error(request, 'Server error/Site is not created')
             return HttpResponseRedirect("/cms/menus/")
-
-
+            
+            
+        
 class MenuItemUpdateView(TemplateView):
     template_name = "cms_admin/menu/menuUpdate.html"
 
