@@ -150,7 +150,7 @@ class MediaBrowserForm(ModelForm):
         self.fields["title"].widget.attrs["class"] = "form-control"
         self.fields["height"].widget.attrs["class"] = "form-control"
         self.fields["width"].widget.attrs["class"] = "form-control"
-        self.fields["image"].widget.attrs["class"] = "custom-file-input"
+        self.fields["image"].widget.attrs["class"] = "form-control-file"
 
     class Meta:
         model = MediaImage

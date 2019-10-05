@@ -30,6 +30,7 @@
                         <div class="card-body">
                             <div class="col-11 mx-auto pt-5 pb-5">
                                 <form action="{% url 'media_update' media.id %}" method="post">
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-5 col-lg-5">
                                             <div class="form-group">
@@ -37,20 +38,8 @@
                                                 {{ form.title }}
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">File Name</label>
-                                                <p style="color: #737373"><span><i class="far fa-image"></i></span>
-                                                    {{ media.image.name }}</p>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload
-                                                        <span class="ml-1 text-danger">*</span></span>
-                                                </div>
-                                                <div class="custom-file">
+                                                    <!-- <label for="exampleFormControlFile1">Choose File</label> -->
                                                     {{ form.image }}
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose
-                                                        file</label>
-                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
@@ -67,11 +56,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <button class="btn btn-secondary"><span class="mr-1"><i
+                                                <button class="btn btn-sm btn-secondary"><span class="mr-1"><i
                                                             class="far fa-edit"></i></span> Update</button>
-                                                <button class="btn btn-danger"><span class="mr-1"><i
+                                                <button class="btn btn-sm btn-danger"><span class="mr-1"><i
                                                             class="far fa-trash-alt"></i></span> Delete</button>
-                                                <a href="{% url 'medias' %}" class="btn btn-warning"><span
+                                                <a href="{% url 'medias' %}" class="btn btn-sm btn-warning"><span
                                                         class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
                                             </div>
                                         </div>

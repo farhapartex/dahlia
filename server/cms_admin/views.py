@@ -734,7 +734,7 @@ class MenuItemDeleteView(TemplateView):
 
 
 class MediaBrowserView(ListView):
-    queryset = MediaImage.objects.all()
+    queryset = MediaImage.objects.all().order_by("-id")
     template_name = "cms_admin/media/mediaList.html"
     paginate_by = 12
 
@@ -770,6 +770,18 @@ class MediaBrowserUpdateView(TemplateView):
         context["form"] = form
 
         return render(request, self.template_name, context)
+    
+
+    def post(self, request, mid):
+        try:
+            media = MediaImage.objects.get(id=mid)
+            form = MediaBrowserForm(instance=media, data=request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect("/cms/medias/")
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/medias/{0}/change/".format(mid))
 
 
 class ContactListView(TemplateView):

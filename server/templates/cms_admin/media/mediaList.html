@@ -45,15 +45,9 @@
                                 <label for="exampleInputEmail1">Image Title</label>
                                 {{ form.title }}
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload <span
-                                            class="ml-1 text-danger">*</span></span>
-                                </div>
-                                <div class="custom-file">
-                                    {{ form.image }}
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                </div>
+                            <div class="form-group">
+                                <label for="id_image">Choose File</label>
+                                {{ form.image }}
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -75,8 +69,9 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary">Add Image</button>
-                            <a href="#" class="btn btn-warning" data-dismiss="modal">Back</a>
+                            <button type="submit" class="btn btn-sm btn-secondary">Add Image</button>
+                            <a href="#" class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                                class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
                         </div>
                     </form>
                 </div>
