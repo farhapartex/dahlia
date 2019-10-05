@@ -426,7 +426,7 @@ class ProfilePostView(View):
             if user:
                 profile.user = user
                 profile = profile.save()
-                messages.success(request, 'Profile Created successfully')
+                messages.success(request, 'Profile created successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 
@@ -436,7 +436,7 @@ class ProfileUpdateView(View):
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
             profile = form.save()
-            messages.success(request, 'Profile Updated successfully')
+            messages.success(request, 'Profile updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 
@@ -446,7 +446,7 @@ class UserUpdateView(View):
         form = UserForm(instance=user, data=request.POST)
         if form.is_valid():
             form = form.save()
-            messages.success(request, 'User Updated successfully')
+            messages.success(request, 'User updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 class EducationPostView(View):
@@ -458,7 +458,7 @@ class EducationPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
-                messages.success(request, 'Education Created successfully')
+                messages.success(request, 'Education created successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
                 messages.error(request, 'Profile does not created yet')
@@ -477,7 +477,7 @@ class SocialPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
-                messages.success(request, 'Social Path Saved successfully')
+                messages.success(request, 'Social path saved successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
                 messages.error(request, 'Profile does not created yet!')
@@ -496,7 +496,7 @@ class SkillPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
-                messages.success(request, 'Skill Added successfully')
+                messages.success(request, 'Skill added successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
                 messages.error(request, 'Profile does not created yet!')
