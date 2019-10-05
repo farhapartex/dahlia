@@ -176,8 +176,9 @@ class CategoryAddView(TemplateView):
         context = {}
         form = CategoryForm(request.POST)
         if form.is_valid():
-            catObj.save()
-            messages.success(request, 'Category created successfully')
+            form.save()
+            cat = Category.objects.all().order_by("-created_at")[0]
+            messages.success(request, 'Category "{0}" created successfully'.format(cat.name))
             return HttpResponseRedirect("/cms/categories/")
         else:
             form = CategoryForm()
