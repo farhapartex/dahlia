@@ -14,14 +14,14 @@ def get_category_list():
     data = tuple(data)
     return
 
+class CategoryForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs["class"] = "form-control"
 
-class CategoryForm(Form):
-    category = forms.CharField(label="Category", max_length=100)
-
-    def clean_category(self):
-        data = self.cleaned_data["category"]
-        return data
-
+    class Meta:
+        model = Category
+        fields = ["name"]
 
 class TagForm(Form):
     tag = forms.CharField(label="Tag", max_length=100)

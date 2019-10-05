@@ -176,23 +176,16 @@ class CategoryAddView(TemplateView):
         context = {}
         form = CategoryForm(request.POST)
         if form.is_valid():
-            catValue = form.cleaned_data["category"]
-            if len(catValue) == 0:
-                form = CategoryForm()
-                context["user"] = request.user.username
-                context["form"] = form
-                context["form_error"] = "You can not submit empty field!"
-                return render(request, self.template_name, context)
-            else:
-                catObj = Category(name=catValue)
-                catObj.save()
-                return HttpResponseRedirect("/cms/categories/")
+            catObj.save()
+            messages.success(request, 'Category created successfully')
+            return HttpResponseRedirect("/cms/categories/")
         else:
             form = CategoryForm()
             context["user"] = request.user.username
             context["form"] = form
             context["contacts"] = get_new_contact_message()
             context["form_error"] = "Data is not valid!"
+            messages.error(request, 'Profile does not created!')
             return render(request, self.template_name, context)
 
 
