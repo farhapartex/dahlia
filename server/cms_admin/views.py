@@ -452,6 +452,8 @@ class ProfilePostView(View):
             if user:
                 profile.user = user
                 profile = profile.save()
+                profile = Profile.objects.all().order_by("-id")[0]
+                store_log_info(request,profile,1)
                 messages.success(request, 'Profile created successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
@@ -462,6 +464,7 @@ class ProfileUpdateView(View):
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
             profile = form.save()
+            store_log_info(request,profile,2)
             messages.success(request, 'Profile updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
@@ -510,7 +513,8 @@ class EducationPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
-                store_log_info(request,profile,1)
+                education = Education.objects.all().order_by("-id")[0]
+                store_log_info(request,education,1)
                 messages.success(request, 'Education created successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
@@ -631,6 +635,7 @@ class PostUpdateView(TemplateView):
             form = PostForm(instance=post, data=request.POST)
             if form.is_valid():
                 form.save()
+                store_log_info(request,post,2)
                 messages.success(request, 'Post "{0}" updated successfully'.format(post.title))
                 return HttpResponseRedirect("/cms/posts/")
             else:
@@ -646,6 +651,7 @@ class PostDeleteView(View):
         try:
             post = Post.objects.get(id=pid)
             if post:
+                store_log_info(request,post,3)
                 post.delete()
                 messages.success(request, 'Post deleted successfully')
                 return HttpResponseRedirect("/cms/posts/")
@@ -791,6 +797,8 @@ class MenuItemView(TemplateView):
             form = MenuForm(request.POST)
             if form.is_valid():
                 form.save()
+                menu = MenuItem.objects.all().order_by("-id")[0]
+                store_log_info(request,menu,1)
                 messages.success(request, 'Menu created successfully')
                 return HttpResponseRedirect("/cms/menus/")
         except:
@@ -822,6 +830,7 @@ class MenuItemUpdateView(TemplateView):
             form = MenuForm(instance=menu, data=request.POST)
             if form.is_valid():
                 form.save()
+                store_log_info(request,menu,2)
                 menu = MenuItem.objects.get(id=mid)
                 messages.success(request, 'Menu "{0}" Updated'.format(menu.name))
                 return HttpResponseRedirect("/cms/menus/")
@@ -836,6 +845,7 @@ class MenuItemDeleteView(View):
             menu = MenuItem.objects.get(id=mid)
             if menu:
                 menu_name = menu.name 
+                store_log_info(request,menu,3)
                 menu.delete()
                 messages.success(request, 'Menu "{0}" deleted'.format(menu_name))
                 return HttpResponseRedirect("/cms/menus/")
@@ -864,6 +874,8 @@ class MediaBrowserView(ListView):
             new_media = form.save(commit=False)
             new_media.owner = request.user
             new_media.save()
+            media = MediaImage.objects.all().order_by("-id")[0]
+            store_log_info(request,media,1)
             messages.success(request, 'New media image created successfully')
             return HttpResponseRedirect("/cms/medias/")
 
@@ -890,6 +902,7 @@ class MediaBrowserUpdateView(TemplateView):
             form = MediaBrowserForm(instance=media, data=request.POST)
             if form.is_valid():
                 form.save()
+                store_log_info(request,media,2)
                 return HttpResponseRedirect("/cms/medias/")
         except:
             messages.error(request, 'Server Error')
@@ -901,6 +914,7 @@ class MediaDeleteView(View):
         try:
             media = MediaImage.objects.get(id=mid)
             if media:
+                store_log_info(request,media,3)
                 media.delete()
                 return HttpResponseRedirect("/cms/medias/")
 
@@ -936,6 +950,7 @@ class ContactDeleteView(TemplateView):
     def get(self, request, cid):
         try:
             contact = Contact.objects.get(id=cid)
+            store_log_info(request,contact,3)
             contact.delete()
             return HttpResponseRedirect("/cms/contacts/")
         except:
