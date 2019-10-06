@@ -115,6 +115,11 @@ class SiteView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
         context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         context["form"] = SiteForm()
         return context
     
@@ -137,10 +142,7 @@ class SiteUpdateView(TemplateView):
     template_name = "cms_admin/site/siteUpdate.html"
 
     def get(self, request, siteid):
-        context = {}
-        context["user"] = request.user.username
-        context["contacts"] = get_new_contact_message()
-
+        context = get_default_context(request)
         try:
             site = SiteInformation.objects.get(id=siteid)
             form = SiteForm(instance=site)
@@ -182,13 +184,11 @@ class HomeView(TemplateView):
     template_name = "cms_admin/dashboard/dashboard.html"
 
     def get(self, request):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
         context["total_media"] = MediaImage.objects.all().count()
         context["logs"] =  get_logs_data(10)
-        context["contacts"] = get_new_contact_message()
         return render(request, self.template_name, context)
 
 
@@ -200,6 +200,12 @@ class CategoryView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
+        context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=self.request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         form = CategoryForm()
         context["form"] = form
         return context
@@ -209,12 +215,9 @@ class CategoryAddView(TemplateView):
     template_name = "cms_admin/category/categoryAdd.html"
 
     def get(self, request):
-        context = {}
+        context = get_default_context(request)
         form = CategoryForm()
-        context["user"] = request.user.username
         context["form"] = form
-        context["contacts"] = get_new_contact_message()
-
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -240,8 +243,7 @@ class CategoryUpdateView(TemplateView):
     template_name = "cms_admin/category/categoryUpdate.html"
 
     def post(self, request, catid):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         try:
             category = Category.objects.get(id=catid)
             if category:
@@ -256,9 +258,7 @@ class CategoryUpdateView(TemplateView):
             return HttpResponseRedirect("/cms/categories/{0}/change/".format(catid))
 
     def get(self, request, catid):
-        context = {}
-        context["contacts"] = get_new_contact_message()
-        context["user"] = request.user.username
+        context = get_default_context(request)
         try:
              category = Category.objects.get(id=catid)
              form = CategoryForm(instance=category)
@@ -287,6 +287,12 @@ class TagListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
+        context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=self.request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         form = TagForm()
         context["form"] = form
 
@@ -299,15 +305,17 @@ class TagAddView(TemplateView):
     def get(self, request):
         context = {}
         context["user"] = request.user.username
+        context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         form = TagForm()
         context["form"] = form
-        context["contacts"] = get_new_contact_message()
-
         return render(request, self.template_name, context)
 
     def post(self, request):
-        context = {}
-        context["user"] = request.user.username
         form = TagForm(request.POST)
         if form.is_valid():
             form.save()
@@ -325,8 +333,13 @@ class TagUpdateView(TemplateView):
 
     def get(self, request, tagid):
         context = {}
-        context["user"] = request.user.username
+        context["user"] = self.request.user.username
         context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         try:
             tag = Tag.objects.get(id=tagid)
             form = TagForm(instance=tag)
@@ -339,7 +352,6 @@ class TagUpdateView(TemplateView):
         # if tag:
 
     def post(self, request, tagid):
-        context = {}
         try:
             tag = Tag.objects.get(id=tagid)
             form = TagForm(instance=tag, data=request.POST)
@@ -372,6 +384,12 @@ class UserListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user.username
+        context["contacts"] = get_new_contact_message()
+        try:
+            profile = Profile.objects.get(user=self.request.user)
+        except:
+            profile = None
+        context["profile"] = profile
         context["form"] = UserBasicForm()
 
         return context
@@ -401,9 +419,7 @@ class ProfileView(TemplateView):
     template_name = "cms_admin/user/profile.html"
 
     def get(self, request, uid):
-        context = {}
-        user = request.user
-        context["user"] = user.username
+        context = get_default_context(request)
         user = User.objects.get(id=uid)
         form = UserForm(instance=user)
         context["form"] = form
@@ -413,7 +429,6 @@ class ProfileView(TemplateView):
         context["skill_form"] = SkillForm()
         context["password_form"] = UserPasswordForm()
         context["medias"] = MediaImage.objects.all()
-        context["contacts"] = get_new_contact_message()
         try:
             profile = Profile.objects.get(user=uid)
             if profile:
@@ -578,9 +593,7 @@ class PostAddView(TemplateView):
     template_name = "cms_admin/post/postAdd.html"
 
     def get(self, request):
-        context = {}
-        context["user"] = request.user.username
-        context["contacts"] = get_new_contact_message()
+        context = get_default_context(request)
         context["form"] = PostForm()
         return render(request, self.template_name, context)
 
@@ -605,15 +618,13 @@ class PostUpdateView(TemplateView):
     template_name = "cms_admin/post/postAdd.html"
 
     def get(self, request, pid):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         try:
             post = Post.objects.get(id=pid)
             form = PostForm(instance=post)
             context["form"] = form
             context["post"] = post
             context["stage"] = "update"
-            context["contacts"] = get_new_contact_message()
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/posts/")
@@ -670,12 +681,10 @@ class APIUrlListView(TemplateView):
     template_name = "cms_admin/api/apiList.html"
 
     def get(self, request):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         public_urls = urls.public_router.get_urls()
         admin_urls = urls.admin_router.get_urls()
         context["public_urls"] = get_url_list(public_urls)
-        context["contacts"] = get_new_contact_message()
         return render(request, self.template_name, context)
 
 
@@ -685,8 +694,7 @@ class PermissionListView(ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user.username
+        context = get_default_context(self.request)
         context["users"] = User.objects.all()
         context["user_roles"] = UserRole.objects.all().order_by("role")
         context["form"] = PermissionForm()
@@ -721,8 +729,7 @@ class PermissionRoleWiseListView(ListView):
         return UserRole.objects.get(id=self.kwargs["role_id"]).permissions.all()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user.username
+        context = get_default_context(self.request)
         context["users"] = User.objects.all()
         context["user_roles"] = UserRole.objects.all().order_by("role")
         context["form"] = PermissionForm()
@@ -734,13 +741,11 @@ class PermissionUpdateView(TemplateView):
 
     def get(self, request, permission_id):
         try:
-            context = {}
+            context = get_default_context(request)
             permission = SystemPermission.objects.get(id=permission_id)
             form = PermissionForm(initial={"permission_name": permission.name})
             context["permission"] = permission
-            context["user"] = request.user.username
             context["form"] = form
-            context["contacts"] = get_new_contact_message()
             return render(request, self.template_name, context)
         except:
             return HttpResponseRedirect("/cms/permissions/")
@@ -769,19 +774,14 @@ class MenuItemView(TemplateView):
     template_name = "cms_admin/menu/menuAdd.html"
 
     def get(self, request):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         context["form"] = MenuForm()
         menus = MenuItem.objects.order_by("-id")
         context["menus"] = menus
-        context["contacts"] = get_new_contact_message()
 
         return render(request, self.template_name, context)
 
     def post(self, request):
-        context = {}
-        context["user"] = request.user.username
-        
         try:
             form = MenuForm(request.POST)
             if form.is_valid():
@@ -800,9 +800,7 @@ class MenuItemUpdateView(TemplateView):
     template_name = "cms_admin/menu/menuUpdate.html"
 
     def get(self, request, mid):
-        context = {}
-        context["user"] = request.user.username
-        context["contacts"] = get_new_contact_message()
+        context = get_default_context(request)
         try:
             menu = MenuItem.objects.get(id=mid)
             context["form"] = MenuForm(instance=menu)
@@ -849,15 +847,12 @@ class MediaBrowserView(ListView):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user.username
+        context = get_default_context(request)
         context["form"] = MediaBrowserForm()
 
         return context
 
     def post(self, request):
-        context = {}
-        context["user"] = request.user.username
         form = MediaBrowserForm(request.POST, request.FILES)
         if form.is_valid():
             new_media = form.save(commit=False)
@@ -873,8 +868,7 @@ class MediaBrowserUpdateView(TemplateView):
     template_name = "cms_admin/media/mediaUpdate.html"
 
     def get(self, request, mid):
-        context = {}
-        context["user"] = request.user.username
+        context = get_default_context(request)
         media = MediaImage.objects.get(id=mid)
         context["media"] = media
         context["media_size"] = media.image.size * (10 ** -6)
