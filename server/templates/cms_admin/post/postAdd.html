@@ -33,7 +33,7 @@
         <div class="w-100 p-3">
 
             <form
-                action="{% if stage == 'update' %}/cms/posts/{{ post.id }}/change/{% else %}/cms/posts/add/{% endif %}"
+                action="{% if stage == 'update' %}{% url 'post_update' post.id %}{% else %}{% url 'post_add' %}{% endif %}"
                 method="post" class="">
                 {% csrf_token %}
                 <div class="row">
@@ -90,15 +90,17 @@
                             </button>
 
                         </div>
-                        {% if stage == 'update' %}
+
                         <div class="form-group mt-4 w-75 mx-auto">
-                            <a href="{% url 'posts' %}" class="text-primary mt-3"><span class="mr-1"><i
-                                        class="fas fa-arrow-left"></i></span> Back To List</a>
+                            <a href="{% url 'posts' %}" class="text-secondary mt-3 "><span class="mr-1"><i
+                                        class="fas fa-angle-left"></i></span> Back To List</a>
+                            {% if stage == 'update' %}
                             <span class="ml-1 mr-1">|</span>
-                            <a href="/cms/posts/{{ post.id }}/delete/" class="text-danger mt-3"><span class="mr-1"><i
+                            <a href="{% url 'post_delete' post.id %}" class="text-danger mt-3"><span class="mr-1"><i
                                         class="far fa-trash-alt"></i></span> Move To Trash</a>
+                            {% endif %}
                         </div>
-                        {% endif %}
+
                         <div class="form-group mt-4 w-75 mx-auto">
                             <label for="inputStatus">Select Category <span class="text-danger">*</span></label>
                             {{ form.category }}
