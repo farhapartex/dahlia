@@ -45,6 +45,11 @@ def get_default_context(request):
     context = {}
     context["user"] = request.user.username
     context["contacts"] = get_new_contact_message()
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except:
+        profile = None
+    context["profile"] = profile
     return context
 
 def get_logs_data(limit):
@@ -181,6 +186,7 @@ class HomeView(TemplateView):
         context["user"] = request.user.username
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
+        context["total_media"] = MediaImage.objects.all().count()
         context["logs"] =  get_logs_data(10)
         context["contacts"] = get_new_contact_message()
         return render(request, self.template_name, context)

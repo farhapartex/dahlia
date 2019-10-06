@@ -12,10 +12,16 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% if profile.avatar %}
+          <img class="img-circle elevation-2"
+              src="/media/{{ profile.avatar.image }}" alt="User Image">
+          {% else %}
+          <img class="img-circle elevation-2" src="{% static 'images/user.svg' %}"
+          alt="User Image" >
+          {% endif %}
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ user }}</a>
+        <a href="{% url 'profile' request.user.id %}" class="d-block">{{ user }}</a>
       </div>
     </div>
 
