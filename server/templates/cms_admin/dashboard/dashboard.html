@@ -102,6 +102,7 @@
                                     <th>content_type</th>
                                     <th>User</th>
                                     <th>Action</th>
+                                    <th>obj_rep</th>
                                     <th>Action Time</th>
                                 </tr>
                             </thead>
@@ -111,7 +112,9 @@
                                     <td>{{ forloop.counter }} # {{ log.id }}</td>
                                     <td>{{ log.content_type }}</td>
                                     <td>{{ log.user }}</td>
-                                    <td>{{ log.action_flag }}</td>
+                                    <td>{% if log.action_flag == 1 %}Addition{% elif log.action_flag == 2 %}Edition{% else %}Deletion{% endif %}
+                                    </td>
+                                    <td>{{ log.object_repr }}</td>
                                     <td>{{ log.action_time | timesince}} ago</td>
                                 </tr>
                                 {% endfor %}

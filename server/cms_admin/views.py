@@ -50,6 +50,9 @@ def get_default_context(request):
 def get_logs_data(limit):
     return LogEntry.objects.all().order_by("-id")[:limit]
 
+# def store_log_info(request,content_type):
+#     LogEntry(user=request.user,content_type=content_type)
+
 
 class Error404Page(TemplateView):
     template_name = "cms_admin/error/e404.html"
