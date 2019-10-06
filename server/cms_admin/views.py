@@ -50,8 +50,14 @@ def get_default_context(request):
 def get_logs_data(limit):
     return LogEntry.objects.all().order_by("-id")[:limit]
 
-# def store_log_info(request,content_type):
-#     LogEntry(user=request.user,content_type=content_type)
+def store_log_info(request,model, flag):
+    return LogEntry.objects.log_action(
+    user_id         = request.user.id, 
+    content_type_id = ContentType.objects.get_for_model(model).id,
+    object_id       = model.id,
+    object_repr     = "", 
+    action_flag     = flag
+)
 
 
 class Error404Page(TemplateView):
@@ -112,6 +118,8 @@ class SiteView(generic.ListView):
             form = SiteForm(request.POST)
             if form.is_valid():
                 form.save()
+                site = SiteInformation.objects.all()[0]
+                store_log_info(request,site,1)
                 messages.success(request, 'Site created successfully')
                 return HttpResponseRedirect("/cms/site/")
         except:
@@ -145,6 +153,7 @@ class SiteUpdateView(TemplateView):
                 form = SiteForm(instance=site, data=request.POST)
                 if form.is_valid():
                     form.save()
+                    store_log_info(request,site,2)
                     messages.success(request, 'Site Information Updated')
                     return HttpResponseRedirect("/cms/site/")
         except:
@@ -156,6 +165,7 @@ class SiteDeleteView(View):
     def get(self, request, siteid):
         try:
             site = SiteInformation.objects.get(id=siteid)
+            store_log_info(request,site,3)
             site.delete()
             messages.warning(request, 'Site Information deleted. Add information for better experience')
             return HttpResponseRedirect("/cms/site/")
@@ -171,7 +181,7 @@ class HomeView(TemplateView):
         context["user"] = request.user.username
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
-        context["logs"] =  get_logs_data(5)
+        context["logs"] =  get_logs_data(10)
         context["contacts"] = get_new_contact_message()
         return render(request, self.template_name, context)
 
@@ -207,6 +217,7 @@ class CategoryAddView(TemplateView):
         if form.is_valid():
             form.save()
             cat = Category.objects.all().order_by("-created_at")[0]
+            store_log_info(request,cat,1)
             messages.success(request, 'Category "{0}" created successfully'.format(cat.name))
             return HttpResponseRedirect("/cms/categories/")
         else:
@@ -231,6 +242,8 @@ class CategoryUpdateView(TemplateView):
                 form = CategoryForm(instance=category, data=request.POST)
                 if form.is_valid():
                     form.save()
+                    store_log_info(request,category,2)
+                    messages.success(request, 'Category updated successfully'.format(cat.name))
                     return HttpResponseRedirect("/cms/categories/")
         except:
             messages.error(request, 'Data is not valid')
@@ -255,6 +268,7 @@ class CategoryDeleteView(TemplateView):
     def get(self, request, catid):
         category = Category.objects.get(id=catid)
         if category:
+            store_log_info(request,category,3)
             category.delete()
             return HttpResponseRedirect("/cms/categories/")
 
@@ -292,6 +306,7 @@ class TagAddView(TemplateView):
         if form.is_valid():
             form.save()
             tag = Tag.objects.all().order_by("-created_at")[0]
+            store_log_info(request,tag,1)
             messages.success(request, 'Tag "{0}" created successfully'.format(tag.name))
             return HttpResponseRedirect("/cms/tags/")
         else:
@@ -324,6 +339,7 @@ class TagUpdateView(TemplateView):
             form = TagForm(instance=tag, data=request.POST)
             if form.is_valid():
                 form.save()
+                store_log_info(request,tag,2)
                 return HttpResponseRedirect("/cms/tags/")
             else:
                 messages.error(request, 'Data is not valid')
@@ -337,6 +353,7 @@ class TagDeleteView(TemplateView):
     def get(self, request, tagid):
         tag = Tag.objects.get(id=tagid)
         if tag:
+            store_log_info(request,tag,3)
             tag.delete()
             return HttpResponseRedirect("/cms/tags/")
 
@@ -455,6 +472,7 @@ class UserUpdateView(View):
         form = UserForm(instance=user, data=request.POST)
         if form.is_valid():
             form = form.save()
+            store_log_info(request,user,2)
             messages.success(request, 'User updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
@@ -468,6 +486,7 @@ class UserPasswordUpdateView(View):
                     form = form.save(commit=False)
                     user.set_password(form.password)
                     user.save()
+                    store_log_info(request,user,2)
                     messages.success(request, 'Password updated successfully')
                     return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
@@ -491,6 +510,7 @@ class EducationPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
+                store_log_info(request,profile,1)
                 messages.success(request, 'Education created successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
@@ -510,6 +530,8 @@ class SocialPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
+                social = SocialMediaInfo.objects.all().order_by("-id")[0]
+                store_log_info(request,social,1)
                 messages.success(request, 'Social path saved successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
@@ -529,6 +551,8 @@ class SkillPostView(View):
                 form = form.save(commit=False)
                 form.profile = profile
                 form = form.save()
+                skill = Skill.objects.all().order_by("-id")[0]
+                store_log_info(request,skill,1)
                 messages.success(request, 'Skill added successfully')
                 return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
             else:
@@ -572,7 +596,9 @@ class PostAddView(TemplateView):
             form = PostForm(request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Post created successfully')
+                post = Post.objects.all().order_by("-id")[0]
+                store_log_info(request,post,1)
+                messages.success(request, 'Post "{0}" created successfully'.format(post.title))
                 return HttpResponseRedirect("/cms/posts/")
             else:
                 messages.error(request, 'Post not created successfully')
