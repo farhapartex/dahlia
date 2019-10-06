@@ -730,23 +730,28 @@ class MenuItemUpdateView(TemplateView):
     def get(self, request, mid):
         context = {}
         context["user"] = request.user.username
-        menu = MenuItem.objects.get(id=mid)
-        context["form"] = MenuForm(instance=menu)
-        context["menu"] = menu
         context["contacts"] = get_new_contact_message()
-
-        return render(request, self.template_name, context)
-
+        try:
+            menu = MenuItem.objects.get(id=mid)
+            context["form"] = MenuForm(instance=menu)
+            context["menu"] = menu
+            return render(request, self.template_name, context)
+        except:
+            messages.error(request, 'Server error')
+            return HttpResponseRedirect("/cms/menus/")
+        
+        
     def post(self, request, mid):
-        context = {}
-        context["user"] = request.user.username
-        menu = MenuItem.objects.get(id=mid)
-        form = MenuForm(instance=menu, data=request.POST)
-        if form.is_valid():
-            site = SiteInformation.objects.all()[0]
-            new_menu = form.save(commit=False)
-            new_menu.site = site
-            menu = new_menu.save()
+        try:
+            menu = MenuItem.objects.get(id=mid)
+            form = MenuForm(instance=menu, data=request.POST)
+            if form.is_valid():
+                form.save()
+                menu = MenuItem.objects.get(id=mid)
+                messages.success(request, 'Menu "{0}" Updated'.format(menu.name))
+                return HttpResponseRedirect("/cms/menus/")
+        except:
+            messages.error(request, 'Server Error')
             return HttpResponseRedirect("/cms/menus/")
 
 
