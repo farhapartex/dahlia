@@ -563,10 +563,8 @@ class PostAddView(TemplateView):
         try:
             form = PostForm(request.POST)
             if form.is_valid():
-                form = form.save(commit=False)
-                form_title = form.title
                 form.save()
-                messages.success(request, 'Post "{0}" created successfully'.format(form_title))
+                messages.success(request, 'Post created successfully')
                 return HttpResponseRedirect("/cms/posts/")
             else:
                 messages.error(request, 'Post not created successfully')

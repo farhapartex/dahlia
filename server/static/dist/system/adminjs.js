@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+    url = window.location.pathname;
+    url_data = url.split("/");
+    if (url_data[2] == "posts" && url_data[4] == "change") {
+        let postContent = $("#id_body").text();
+        $("#postText").html(postContent);
+    }
+
+
     $(".user-select").change(function () {
         let apiUrl = "http://127.0.0.1:8000/api/v1/public/categories/";
         $.ajax({
