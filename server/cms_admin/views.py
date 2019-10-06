@@ -592,26 +592,37 @@ class PostUpdateView(TemplateView):
             return HttpResponseRedirect("/cms/posts/")
 
     def post(self, request, pid):
-        context = {}
-        context["user"] = request.user.username
-        post = Post.objects.get(id=pid)
-        form = PostForm(instance=post, data=request.POST)
-        if form.is_valid():
-            update_post = form.save()
-            if update_post:
+        try:
+            post = Post.objects.get(id=pid)
+            form = PostForm(instance=post, data=request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Post "{0}" updated successfully'.format(post.title))
                 return HttpResponseRedirect("/cms/posts/")
-
-
-class PostDeleteView(TemplateView):
-    def get(self, request, pid):
-        post = Post.objects.get(id=pid)
-        if post:
-            post.delete()
+            else:
+                messages.error(request, 'Validation error')
+                return HttpResponseRedirect("/cms/posts/")
+        except:
+            messages.error(request, 'Server error')
             return HttpResponseRedirect("/cms/posts/")
-        else:
-            return HttpResponseRedirect("/cms/admin/")
 
 
+class PostDeleteView(View):
+    def get(self, request, pid):
+        try:
+            post = Post.objects.get(id=pid)
+            if post:
+                post.delete()
+                messages.success(request, 'Post deleted successfully')
+                return HttpResponseRedirect("/cms/posts/")
+            else:
+                messages.error(request, 'Data not found')
+                return HttpResponseRedirect("/cms/posts/")
+        except:
+            messages.error(request, 'Server error')
+            return HttpResponseRedirect("/cms/posts/")
+        
+        
 def get_url_list(urls):
     url_list = []
     for index in range(0, len(urls), 4):

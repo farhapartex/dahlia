@@ -96,8 +96,8 @@
                                         class="fas fa-angle-left"></i></span> Back To List</a>
                             {% if stage == 'update' %}
                             <span class="ml-1 mr-1">|</span>
-                            <a href="{% url 'post_delete' post.id %}" class="text-danger mt-3"><span class="mr-1"><i
-                                        class="far fa-trash-alt"></i></span> Move To Trash</a>
+                            <a href="{% url 'post_delete' post.id %}" class="text-danger mt-3 objDelete"><span
+                                    class="mr-1"><i class="far fa-trash-alt"></i></span> Move To Trash</a>
                             {% endif %}
                         </div>
 
@@ -117,6 +117,21 @@
         </div>
         <!-- ./row -->
     </section>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this post?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span> Delete</a>
+                    <button class="btn btn-sm btn-warning" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <!-- /.content-wrapper -->
