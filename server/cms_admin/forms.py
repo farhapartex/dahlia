@@ -14,6 +14,7 @@ def get_category_list():
     data = tuple(data)
     return
 
+
 class CategoryForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
@@ -74,11 +75,32 @@ class UserForm(ModelForm):
         self.fields["last_name"].widget.attrs["class"] = "form-control"
         self.fields["email"].widget.attrs["class"] = "form-control"
         self.fields["username"].widget.attrs["class"] = "form-control"
-        self.fields["is_superuser"].widget.attrs["class"] = "form-check-input"
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email","username", "is_superuser"]
+        fields = ["first_name", "last_name", "email", "username"]
+
+
+class UserPasswordForm(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordForm, self).__init__(*args, **kwargs)
+        self.fields["password"].widget.attrs["class"] = "form-control"
+        self.fields["confirm_password"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = User
+        fields = ["password", "confirm_password"]
+
+    def clean(self):
+        cleaned_data = super(UserPasswordForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password != confirm_password:
+            raise forms.ValidationError("password and confirm_password does not match")
 
 
 class ProfileForm(ModelForm):
@@ -117,6 +139,7 @@ class EducationForm(ModelForm):
         model = Education
         fields = ["degree", "institution", "session"]
 
+
 class SkillForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SkillForm, self).__init__(*args, **kwargs)
@@ -124,17 +147,17 @@ class SkillForm(ModelForm):
 
     class Meta:
         model = Skill
-        fields = ["name",]
+        fields = ["name"]
 
 
 class SiteForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SiteForm, self).__init__(*args, **kwargs)
         self.fields["site_name"].widget.attrs["class"] = "form-control"
-    
+
     class Meta:
         model = SiteInformation
-        fields = ["site_name",]
+        fields = ["site_name"]
 
 
 class MenuForm(ModelForm):

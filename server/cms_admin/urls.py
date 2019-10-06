@@ -51,6 +51,11 @@ urlpatterns = [
         name="user_update",
     ),
     path(
+        "users/<int:uid>/password/update/",
+        login_required(UserPasswordUpdateView.as_view()),
+        name="password_update",
+    ),
+    path(
         "users/<int:uid>/profile/",
         login_required(ProfileView.as_view()),
         name="profile",

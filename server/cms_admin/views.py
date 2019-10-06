@@ -397,6 +397,7 @@ class ProfileView(TemplateView):
         context["social_form"] = SocialMediaForm()
         context["education_form"] = EducationForm()
         context["skill_form"] = SkillForm()
+        context["password_form"] = UserPasswordForm()
         context["medias"] = MediaImage.objects.all()
         context["contacts"] = get_new_contact_message()
         try:
@@ -448,6 +449,30 @@ class UserUpdateView(View):
             form = form.save()
             messages.success(request, 'User updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+
+class UserPasswordUpdateView(View):
+    def post(self, request, uid):
+        try:
+            user = User.objects.get(id=uid)
+            if user:
+                form = UserPasswordForm(request.POST)
+                if form.is_valid():
+                    form = form.save(commit=False)
+                    user.set_password(form.password)
+                    user.save()
+                    messages.success(request, 'Password updated successfully')
+                    return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+
+                else:
+                    messages.error(request, 'password and confirm_password must be same')
+                    return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+
+            else:
+                messages.success(request, '1Server Error')
+                return HttpResponseRedirect("/cms/users/")
+        except:
+            messages.success(request, '2Server Error')
+            return HttpResponseRedirect("/cms/users/")
 
 class EducationPostView(View):
     def post(self, request, uid):
@@ -755,11 +780,17 @@ class MenuItemUpdateView(TemplateView):
             return HttpResponseRedirect("/cms/menus/")
 
 
-class MenuItemDeleteView(TemplateView):
+class MenuItemDeleteView(View):
     def get(self, request, mid):
-        menu = MenuItem.objects.get(id=mid)
-        if menu:
-            menu.delete()
+        try:
+            menu = MenuItem.objects.get(id=mid)
+            if menu:
+                menu_name = menu.name 
+                menu.delete()
+                messages.success(request, 'Menu "{0}" deleted'.format(menu_name))
+                return HttpResponseRedirect("/cms/menus/")
+        except:
+            messages.error(request, 'Server Error')
             return HttpResponseRedirect("/cms/menus/")
 
 

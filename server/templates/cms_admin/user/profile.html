@@ -109,7 +109,8 @@
                         <div class="card-header p-2">
                             {% if messages %}
                             {% for message in messages %}
-                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                            <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
                                 {{ message }}
                             </div>
                             {% endfor %}
@@ -119,7 +120,8 @@
                                 <li class="nav-item"><a class="nav-link cms-tab active" href="#overview"
                                         data-toggle="tab">Overview</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#basic" data-toggle="tab">Basic</a>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#basic"
+                                        data-toggle="tab">Basic</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#profile"
                                         data-toggle="tab">Profile</a>
@@ -127,10 +129,13 @@
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#education"
                                         data-toggle="tab">Education</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#social" data-toggle="tab">Social</a>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#social"
+                                        data-toggle="tab">Social</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#skill" data-toggle="tab">Skill</a>
-                            </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#skill"
+                                        data-toggle="tab">Skill</a>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#password"
+                                        data-toggle="tab">Password</a>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -219,7 +224,8 @@
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="basic">
-                                    <form class="form-horizontal" action="{% url 'user_update' userobj.id %}" method="post">
+                                    <form class="form-horizontal" action="{% url 'user_update' userobj.id %}"
+                                        method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row">
@@ -238,28 +244,17 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-5">
-                                                    <label for="inputName" class="col-sm-12 control-label">Email <span class="text-danger">*</span></label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Email <span
+                                                            class="text-danger">*</span></label>
                                                     {{ form.email }}
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <label for="inputName" class="col-sm-12 control-label">Username <span class="text-danger">*</span></label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Username
+                                                        <span class="text-danger">*</span></label>
                                                     {{ form.username }}
                                                 </div>
                                             </div>
                                         </div>
-                                        {% if userobj.is_superuser %}
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group form-check">
-                                                        {{ form.is_superuser }}
-                                                        <label class="form-check-label"
-                                                            for="exampleCheck1">SuperAdmin</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" class="btn btn-sm btn-secondary"><span><i
@@ -330,18 +325,19 @@
                                 </div>
                                 {% include 'cms_admin/component/media/mediaList.html' %}
                                 <div class="tab-pane" id="education">
-                                    <form class="form-horizontal" action="{% url 'education_post' userobj.id %}" method="post">
+                                    <form class="form-horizontal" action="{% url 'education_post' userobj.id %}"
+                                        method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
                                                 <div class="col-sm-5">
-                                                    <label for="inputName"
-                                                        class="col-sm-12 control-label">Degree <span class="text-danger">*</span></label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Degree <span
+                                                            class="text-danger">*</span></label>
                                                     {{ education_form.degree }}
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <label for="inputName"
-                                                        class="col-sm-12 control-label">Institution <span class="text-danger">*</span></label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Institution
+                                                        <span class="text-danger">*</span></label>
                                                     {{ education_form.institution }}
                                                 </div>
                                             </div>
@@ -349,8 +345,8 @@
                                         <div class="form-group">
                                             <div class="row mb-2">
                                                 <div class="col-sm-5">
-                                                    <label for="inputName"
-                                                        class="col-sm-12 control-label">Session <span class="text-danger">*</span></label>
+                                                    <label for="inputName" class="col-sm-12 control-label">Session <span
+                                                            class="text-danger">*</span></label>
                                                     {{ education_form.session }}
                                                 </div>
                                             </div>
@@ -365,7 +361,8 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="social">
-                                    <form class="form-horizontal" method="post" action="{% url 'social_post' userobj.id %}">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'social_post' userobj.id %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
@@ -390,13 +387,44 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="skill">
-                                    <form class="form-horizontal" method="post" action="{% url 'skill_post' userobj.id %}">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'skill_post' userobj.id %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="row mb-2">
                                                 <div class="col-sm-10 col-lg-10">
                                                     <label for="inputName" class="col-sm-12 control-label">Skill</label>
                                                     {{ skill_form.name }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="password">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'password_update' userobj.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5 col-lg-5">
+                                                    <label for="id_password" class="col-sm-12 control-label">Password
+                                                        <span class="text-danger">*</span></label>
+                                                    {{ password_form.password }}
+                                                </div>
+                                                <div class="col-sm-5 col-lg-5">
+                                                    <label for="id_confirm_password"
+                                                        class="col-sm-12 control-label">Confirm Password <span
+                                                            class="text-danger">*</span></label>
+                                                    {{ password_form.confirm_password }}
                                                 </div>
                                             </div>
                                         </div>
