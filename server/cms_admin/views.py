@@ -132,25 +132,17 @@ class SiteUpdateView(TemplateView):
             return HttpResponseRedirect("/cms/site/")
 
     def post(self, request, siteid):
-        context = {}
-        context["user"] = request.user.username
-        context["contacts"] = get_new_contact_message()
-        form = SiteForm(request.POST)
-        if form.is_valid():
-            siteValue = form.cleaned_data["site_name"]
+        try:
             site = SiteInformation.objects.get(id=siteid)
-            if len(siteValue) > 0:
-                site.site_name = siteValue
-                site.save()
-                return HttpResponseRedirect("/cms/site/")
-            else:
-                return HttpResponseRedirect("/cms/site/")
-
-        else:
-            form = SiteForm()
-            context["user"] = request.user.username
-            context["form"] = form
-            return render(request, self.template_name, context)
+            if site:
+                form = SiteForm(instance=site, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Site Information Updated')
+                    return HttpResponseRedirect("/cms/site/")
+        except:
+            messages.success(request, 'Server Error')
+            return HttpResponseRedirect("/cms/site/")
 
 
 class HomeView(TemplateView):
