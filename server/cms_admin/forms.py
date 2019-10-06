@@ -60,12 +60,20 @@ class PermissionForm(ModelForm):
         fields = ["name", "content_type", "codename"]
 
 
-class UserBasicForm(Form):
-    first_name = forms.CharField(label="First Name", max_length=100)
-    last_name = forms.CharField(label="Last Name", max_length=100)
-    email = forms.CharField(label="Email")
-    username = forms.CharField(label="Username", max_length=100)
-    password = forms.CharField(label="Password")
+class UserBasicForm(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super(UserBasicForm, self).__init__(*args, **kwargs)
+        self.fields["first_name"].widget.attrs["class"] = "form-control"
+        self.fields["last_name"].widget.attrs["class"] = "form-control"
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["username"].widget.attrs["class"] = "form-control"
+        self.fields["password"].widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email", "username","password"]
 
 
 class UserForm(ModelForm):

@@ -377,41 +377,24 @@ class UserListView(ListView):
         return context
 
     def post(self, request):
-        context = {}
-        context["user"] = request.user.username
         form = UserBasicForm(request.POST)
         if form.is_valid():
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
-            email = form.cleaned_data["email"]
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-            if (
-                len(first_name) == 0
-                or len(last_name) == 0
-                or len(email) == 0
-                or len(username) == 0
-                or len(password) == 0
-            ):
-                form = UserBasicForm()
-                context["user"] = request.user.username
-                context["form"] = form
-                context["contacts"] = get_new_contact_message()
-                context["form_error"] = "You can not submit empty field!"
-                return render(request, self.template_name, context)
+            form = form.save(commit=False)
+            if len(form.email) == 0:
+                messages.error(request, 'User email could not be empty')
+                return HttpResponseRedirect("/cms/users/")
             else:
-                user = User.objects.create_user(username, email, password)
-                user.first_name = first_name
-                user.last_name = last_name
-                user.save()
+                form.set_password(form.password)
+                form.save()
+                user = User.objects.all().order_by("-id")[0]
+                store_log_info(request,user,1)
+                messages.success(request, 'User "{0}" created successfully'.format(user.username))
                 return HttpResponseRedirect("/cms/users/")
         else:
-            form = UserBasicForm()
-            context["user"] = request.user.username
-            context["form"] = form
-            context["contacts"] = get_new_contact_message()
-            context["form_error"] = "Data is not valid!"
-            return render(request, self.template_name, context)
+            messages.error(request, 'Data is not valid')
+            return HttpResponseRedirect("/cms/users/")
+
+
 
 
 class ProfileView(TemplateView):
