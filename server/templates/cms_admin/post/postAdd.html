@@ -23,6 +23,13 @@
     <!-- / Modal -->
     <!-- Main content -->
     <section class="content">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
         <div class="w-100 p-3">
 
             <form
@@ -42,25 +49,26 @@
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-    
+
                                     <li class="nav-item"><a class="nav-link active" href="#editor"
                                             data-toggle="tab">Editor</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="#plain_text" data-toggle="tab">Plain Text</a>
+                                    <li class="nav-item"><a class="nav-link" href="#plain_text" data-toggle="tab">Plain
+                                            Text</a>
                                     </li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
-    
+
                                     <div class="active tab-pane" id="editor">
-                                        <div id="text_body" ondblclick="copyText()">
-                                
+                                        <div id="postText">
+
                                         </div>
                                     </div>
-    
+
                                     <!-- /.tab-pane -->
-    
+
                                     <div class="tab-pane" id="plain_text">
                                         {{ form.body }}
                                     </div>

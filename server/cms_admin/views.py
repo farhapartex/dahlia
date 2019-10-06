@@ -468,10 +468,10 @@ class UserPasswordUpdateView(View):
                     return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
             else:
-                messages.success(request, '1Server Error')
+                messages.success(request, 'Server Error')
                 return HttpResponseRedirect("/cms/users/")
         except:
-            messages.success(request, '2Server Error')
+            messages.success(request, 'Server Error')
             return HttpResponseRedirect("/cms/users/")
 
 class EducationPostView(View):
@@ -549,24 +549,31 @@ class PostListAdminAPIView(View):
 
 
 class PostAddView(TemplateView):
+
     template_name = "cms_admin/post/postAdd.html"
 
     def get(self, request):
         context = {}
         context["user"] = request.user.username
-        form = PostForm()
-        context["form"] = form
         context["contacts"] = get_new_contact_message()
+        context["form"] = PostForm()
         return render(request, self.template_name, context)
 
     def post(self, request):
-        context = {}
-        context["user"] = request.user.username
-        form = PostForm(request.POST)
-        if form.is_valid():
-            new_post = form.save()
-            if new_post:
+        try:
+            form = PostForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form_title = form.title
+                form.save()
+                messages.success(request, 'Post "{0}" created successfully'.format(form_title))
                 return HttpResponseRedirect("/cms/posts/")
+            else:
+                messages.error(request, 'Post not created successfully')
+                return HttpResponseRedirect("/cms/posts/add/")
+        except:
+            messages.error(request, 'Server error')
+            return HttpResponseRedirect("/cms/posts/")
 
 
 class PostUpdateView(TemplateView):

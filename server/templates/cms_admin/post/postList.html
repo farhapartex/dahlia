@@ -30,23 +30,16 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        {% if messages %}
                         <div class="card-header">
-                            <!-- SEARCH FORM -->
-                            <!-- <nav class="navbar navbar-expand navbar-white navbar-light">
-                                <form class="form-inline ml-3">
-                                    <div class="input-group input-group-sm">
-                                        <input class="form-control form-control-navbar" type="search"
-                                            placeholder="Search" aria-label="Search" id="psearch">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-navbar" type="submit">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </nav> -->
-
+                            {% for message in messages %}
+                            <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
                         </div>
+                        {% endif %}
                         <!-- /.card-header -->
                         <div class="card-body">
                             {% if object_list.count > 0 %}

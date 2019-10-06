@@ -25,4 +25,9 @@ $(document).ready(function () {
         $(".cateDelete").attr("href", href);
         return false;
     });
+
+    $("#postText").keyup(function () {
+        let postContent = $(this).html();
+        $("#id_body").text(postContent);
+    });
 });
