@@ -72,11 +72,11 @@
           <div class="card">
             {% if messages %}
             <div class="card-header">
-                {% for message in messages %}
-                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
-                    {{ message }}
-                </div>
-                {% endfor %}
+              {% for message in messages %}
+              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+                {{ message }}
+              </div>
+              {% endfor %}
             </div>
             {% endif %}
             <!-- /.card-header -->
@@ -102,7 +102,8 @@
                     <td>
                       <a href="/cms/categories/{{ category.id }}/change/" class="text-warning">Edit <span
                           class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span> <a
-                        href="/cms/categories/{{ category.id }}/delete/" id="{{ category.id }}" class="text-danger objDelete">Delete
+                        href="/cms/categories/{{ category.id }}/delete/" id="{{ category.id }}"
+                        class="text-danger objDelete">Delete
                         <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
                     </td>
                   </tr>
@@ -127,25 +128,24 @@
         </div>
         <!-- /.col -->
       </div>
+    </div>
+  </section>
 
-      <!-- Modal -->
-  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <p>Are you sure, want to delete this category?</p>
-            <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-            <button class="btn btn-sm btn-warning" data-dismiss="modal"><span
-              class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Are you sure, want to delete this category?</p>
+          <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span>
+            Delete</a>
+          <button class="btn btn-sm btn-warning" data-dismiss="modal"><span class="mr-1"><i
+                class="fas fa-angle-left"></i></span> Back</button>
         </div>
       </div>
     </div>
-
-
-
-    </div>
-  </section>
+  </div>
 
 </div>
 <!-- /.content-wrapper -->

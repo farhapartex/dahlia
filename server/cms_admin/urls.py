@@ -86,6 +86,11 @@ urlpatterns = [
         login_required(SiteUpdateView.as_view()),
         name="site_update",
     ),
+    path(
+        "site/<int:siteid>/delete/",
+        login_required(SiteDeleteView.as_view()),
+        name="site_delete",
+    ),
     path("menus/", login_required(MenuItemView.as_view()), name="menus"),
     path(
         "menus/<int:mid>/change/",

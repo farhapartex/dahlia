@@ -145,6 +145,17 @@ class SiteUpdateView(TemplateView):
             return HttpResponseRedirect("/cms/site/")
 
 
+class SiteDeleteView(View):
+    def get(self, request, siteid):
+        try:
+            site = SiteInformation.objects.get(id=siteid)
+            site.delete()
+            messages.warning(request, 'Site Information deleted. Add information for better experience')
+            return HttpResponseRedirect("/cms/site/")
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/site/")
+
 class HomeView(TemplateView):
     template_name = "cms_admin/dashboard/dashboard.html"
 
