@@ -128,6 +128,7 @@ class SiteUpdateView(TemplateView):
             context["site"] = site
             return render(request, self.template_name, context)
         except:
+            messages.error(request, 'Server Error')
             return HttpResponseRedirect("/cms/site/")
 
     def post(self, request, siteid):
