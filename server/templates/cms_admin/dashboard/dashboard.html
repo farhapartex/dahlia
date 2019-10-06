@@ -88,6 +88,38 @@
                 </div>
                 <!-- ./col -->
             </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="w-100 mt-3">
+                        <h3>Recent Actions</h3>
+                    </div>
+                    <div class="w-100">
+                        <table id="example2" class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th># ID</th>
+                                    <th>content_type</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Action Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in logs %}
+                                <tr>
+                                    <td>{{ forloop.counter }} # {{ log.id }}</td>
+                                    <td>{{ log.content_type }}</td>
+                                    <td>{{ log.user }}</td>
+                                    <td>{{ log.action_flag }}</td>
+                                    <td>{{ log.action_time | timesince}} ago</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

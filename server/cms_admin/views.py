@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.models import LogEntry,ADDITION,CHANGE,DELETION
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.views import View, generic
@@ -45,6 +46,9 @@ def get_default_context(request):
     context["user"] = request.user.username
     context["contacts"] = get_new_contact_message()
     return context
+
+def get_logs_data(limit):
+    return LogEntry.objects.all().order_by("-id")[:limit]
 
 
 class Error404Page(TemplateView):
@@ -164,6 +168,7 @@ class HomeView(TemplateView):
         context["user"] = request.user.username
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
+        context["logs"] =  get_logs_data(5)
         context["contacts"] = get_new_contact_message()
         return render(request, self.template_name, context)
 
