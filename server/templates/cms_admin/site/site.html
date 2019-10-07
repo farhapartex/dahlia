@@ -17,7 +17,7 @@
                 </div>
                 {% if object_list.count == 0 %}
                 <div class="col-sm-6">
-                    <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
+                    <a href="#" class="btn btn-sm cms-btn-submit float-sm-right mr-5" data-toggle="modal"
                         data-target="#addModal">Add Site
                         <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
                 </div>
@@ -98,7 +98,7 @@
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
                                         <td>{{ site.site_name }}</td>
-                                        <td><a href="{% url 'site_update' site.id %}" class="text-warning">Edit <span
+                                        <td><a href="{% url 'site_update' site.id %}" class="edit-text">Edit <span
                                                     class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
                                             <a href="{% url 'site_delete' site.id %}"
                                                 class="text-danger objDelete">Delete
@@ -141,7 +141,7 @@
                     <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
                                 class="far fa-trash-alt"></i></span>
                         Delete</a>
-                    <button class="btn btn-sm btn-warning" data-dismiss="modal"><span class="mr-1"><i
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
                                 class="fas fa-angle-left"></i></span> Back</button>
                 </div>
             </div>

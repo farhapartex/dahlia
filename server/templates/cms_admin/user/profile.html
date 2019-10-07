@@ -27,7 +27,7 @@
                 <div class="col-md-3">
 
                     <!-- Profile Image -->
-                    <div class="card card-secondary card-outline">
+                    <div class="card card-secondary">
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 {% if profile.avatar %}
@@ -40,18 +40,18 @@
 
                             </div>
 
-                            <h3 class="profile-username text-center">{{ userobj.first_name }} {{ userobj.last_name }}
+                            <h3 class="profile-username text-center mt-1">{{ userobj.first_name }} {{ userobj.last_name }}
                             </h3>
                             {% if profile.bio %}
-                            <p class="text-muted text-center">Bio: {{ profile.bio }}</p>
+                            <p class="text-center edit-text">Bio: {{ profile.bio }}</p>
                             {% endif %}
-                            <p class="text-muted text-center"><span><i class="far fa-envelope"></i></span>
+                            <p class="edit-text text-center"><span><i class="far fa-envelope"></i></span>
                                 {{ userobj.email }}</p>
                             {% if profile.bio %}
-                            <p class="text-muted text-center"><span><i class="fas fa-mobile-alt"></i></span>
+                            <p class="edit-text text-center"><span><i class="fas fa-mobile-alt"></i></span>
                                 {{ profile.mobile }}</p>
                             {% endif %}
-                            <p class="text-center"><a href="{% url 'users' %}" class="text-secondary"><span
+                            <p class="text-center"><a href="{% url 'users' %}" class="edit-text"><span
                                         class="mr-1"><i class="fas fa-angle-left"></i></span>
                                     Back To List</a></p>
                         </div>
@@ -59,7 +59,7 @@
 
                     <!-- About Me Box -->
                     <div class="card card-secondary">
-                        <div class="card-header">
+                        <div class="card-header cms-background">
                             <h3 class="card-title">Profile Information</h3>
                         </div>
                         <!-- /.card-header -->
@@ -69,7 +69,7 @@
                             <ul class="list-unstyled">
                                 {% for edu in educations %}
                                 <li>
-                                    <p class="text-muted">
+                                    <p class="edit-text">
 
                                         {{ edu.degree }} from {{ edu.institution }}
 
@@ -82,13 +82,13 @@
 
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 
-                            <p class="text-muted">Malibu, California</p>
+                            <p class="edit-text">Malibu, California</p>
 
                             <hr>
 
                             <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
 
-                            <p class="text-muted">
+                            <p class="edit-text">
                                 {% for skill in skills %}
                                 <span class="tag tag-danger">{{ skill }} </span>
                                 {% if skills.count > forloop.counter %}
@@ -257,7 +257,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
                                             </div>
@@ -316,7 +316,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
                                             </div>
@@ -353,7 +353,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
                                             </div>
@@ -379,7 +379,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
                                             </div>
@@ -401,7 +401,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
                                             </div>
@@ -431,7 +431,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                                             class="far fa-edit"></i></span>
                                                     Submit</button>
                                             </div>

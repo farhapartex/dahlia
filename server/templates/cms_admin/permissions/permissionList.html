@@ -15,59 +15,17 @@
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Permission List</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
                         data-target="#exampleModalLong">Add Permission
                         <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
-                </div>
+                </div> -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Permission</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/cms/permissions/" method="post">
-                        {% csrf_token %}
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="id_name">Permission Name</label>
-                                {{ form.name }}
-                            </div>
-                            <div class="form-group">
-                                <label for="id_content_type">Content Types</label>
-                                {{ form.content_type }}
-                            </div>
-                            <div class="form-group">
-                                <label for="id_codename">Codename</label>
-                                {{ form.codename }}
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary">Submit</button>
-                            <a href="#" class="btn btn-warning" data-dismiss="modal">Back</a>
-                        </div>
-                    </form>
-                </div>
-                <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
-            </div>
-        </div>
-    </div>
 
     <!-- / Modal -->
     <!-- Main content -->
@@ -76,17 +34,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <!-- <div class="card-header">
                             <ul class="nav nav-pills">
 
                                 <li class="nav-item"><a class="nav-link cms-tab active" href="#permissions"
                                         data-toggle="tab">Permission List</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link cms-tab" href="#set_permission" data-toggle="tab">Set
-                                        Permission</a>
-                                </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
@@ -100,7 +55,7 @@
                                                 <ul class="list-group">
                                                     {% for role in user_roles  %}
                                                     <li class="list-group-item">
-                                                        <a href="{% url 'permissions_filter' role.id %}" class="text-secondary">
+                                                        <a href="{% url 'permissions_filter' role.id %}" class="edit-text">
                                                             {% if role.role == 1 %}
                                                             Administrator
                                                             {% elif role.role == 2 %}
@@ -160,37 +115,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="tab-pane" id="set_permission">
-                                    <form action="" method="post">
-                                        <div class="form-group">
-                                            <label for="users">User Lists</label>
-                                            <select class="form-control custom-select user-select" id="users">
-                                                <option value="">-------</option>
-                                                {% for user in users %}
-                                                <option value="{{ user.id }}">{{ user.username }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-
-                                        <table id="example2" class="table table-bordered table-hover text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th># ID</th>
-                                                    <th>Permission Name</th>
-                                                    <th>Permission Content</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Post View</td>
-                                                    <td>Post</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
                                 </div>
                             </div>
 
