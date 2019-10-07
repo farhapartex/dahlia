@@ -185,11 +185,21 @@ textarea{
 }
 
 .cms-sidebar{
-  background: #00b386 !important;
+  background: linear-gradient(to bottom ,#008060, #00cc99, #00e6ac) !important; 
+  background-image: linear-gradient(to bottom,#00664d, #00e6ac);
 }
 
 .cms-sidebar-menu a{
   color: #f2f2f2 !important;
 }
 
+.dash-top-header{
+  background: #009973;
+  opacity: .9;
+  filter: alpha(opacity=50);
+}
+
+.top-header-txt{
+  color: #f2f2f2;
+}
 
