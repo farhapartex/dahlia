@@ -27,7 +27,7 @@
                 <div class="col-md-6">
                     <!-- general form elements -->
                     <div class="card card-secondary">
-                        <div class="card-header">
+                        <div class="card-header cms-background">
                             <h3 class="card-title">Tag Form</h3>
                         </div>
                         <!-- /.card-header -->
@@ -45,10 +45,10 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                    <button type="submit" class="btn btn-sm btn-secondary"><span><i
+                                    <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                         class="far fa-edit"></i></span> Update</button>
                                 <a href="{% url 'tag_delete' tag.id %}" class="btn btn-sm btn-danger objDelete"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-                                <a href="{% url 'tags' %}" class="btn btn-sm btn-warning"><span
+                                <a href="{% url 'tags' %}" class="btn btn-sm cms-btn-back"><span
                                     class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
                             </div>
                         </form>
@@ -74,7 +74,7 @@
             <div class="modal-body">
                 <p>Are you sure, want to delete this tag?</p>
                 <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-                <button class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
                 class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
             </div>
             </div>
