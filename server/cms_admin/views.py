@@ -111,14 +111,7 @@ class SiteView(generic.ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user.username
-        context["contacts"] = get_new_contact_message()
-        try:
-            profile = Profile.objects.get(user=request.user)
-        except:
-            profile = None
-        context["profile"] = profile
+        context = get_default_context(super().get_context_data(**kwargs), self.request)
         context["form"] = SiteForm()
         return context
     
@@ -142,10 +135,10 @@ class SiteUpdateView(TemplateView):
 
     def get(self, request, siteid):
         context = get_default_context({}, request)
+        context["medias"] = MediaImage.objects.all()
         try:
             site = SiteInformation.objects.get(id=siteid)
-            form = SiteForm(instance=site)
-            context["form"] = form
+            context["form"] = SiteForm(instance=site)
             context["site"] = site
             return render(request, self.template_name, context)
         except:

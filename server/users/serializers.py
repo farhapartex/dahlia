@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Permission
 from rest_framework import serializers
+from media_browser.serializers import FlatPublicMediaSerializer
 from .models import *
 
 
@@ -33,6 +34,10 @@ class PublicProfileSerializer(serializers.ModelSerializer):
     socialMedias = SocialMediaPublicSerializer(many=True)
     skills = SkillSerializer(many=True)
     educations = EducationSerializer(many=True)
+    avatar = serializers.SerializerMethodField()
+
+    def get_avatar(self, model):
+        return FlatPublicMediaSerializer(model.avatar).data
 
     class Meta:
         model = Profile

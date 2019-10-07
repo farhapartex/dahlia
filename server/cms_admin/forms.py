@@ -162,10 +162,12 @@ class SiteForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SiteForm, self).__init__(*args, **kwargs)
         self.fields["site_name"].widget.attrs["class"] = "form-control"
+        self.fields["site_logo"].widget.attrs["class"] = "form-control custom-select hide"
+        self.fields["site_favicon"].widget.attrs["class"] = "form-control custom-select hide"
 
     class Meta:
         model = SiteInformation
-        fields = ["site_name"]
+        fields = ["site_name","site_logo","site_favicon"]
 
 
 class MenuForm(ModelForm):

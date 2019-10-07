@@ -1,4 +1,5 @@
 {% extends 'cms_admin/base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Navbar -->
@@ -41,7 +42,42 @@
                                 <div class="form-group">
                                     {{ form.site_name }}
                                 </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+
+                                            <div class="open-media">
+                                                <p class="text-center ppp" style="font-weight: 700;">Select
+                                                    Logo</p>
+                                                <img class="img-fluid site-media"
+                                                id="site_logo"
+                                                    style="max-width: 30px;display:block; margin:auto;"
+                                                    src="{% static 'images/image.png' %}"
+                                                    alt="User profile picture" data-toggle="modal"
+                                                    >
+                                            </div>
+                                            {{ form.site_logo }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+
+                                            <div class="open-media">
+                                                <p class="text-center ppp" style="font-weight: 700;">Select
+                                                    FavIcon</p>
+                                                <img class="img-fluid site-media" id="site_favicon"
+                                                    style="max-width: 30px;display:block; margin:auto;"
+                                                    src="{% static 'images/image.png' %}"
+                                                    alt="User profile picture" data-toggle="modal"
+                                                    >
+                                            </div>
+                                            {{ form.site_favicon }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            {% include 'cms_admin/component/media/mediaList.html' %}
                             <!-- /.card-body -->
 
                             <div class="card-footer">
