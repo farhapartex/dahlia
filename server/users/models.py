@@ -42,7 +42,7 @@ class Profile(models.Model):
     avatar = models.ForeignKey(
         MediaImage,
         verbose_name=_("Profile Image"),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )
