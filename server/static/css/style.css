@@ -186,7 +186,7 @@ textarea{
 
 .cms-sidebar{
   background: linear-gradient(to bottom ,#008060, #00cc99, #00e6ac) !important; 
-  background-image: linear-gradient(to bottom,#00664d, #00e6ac);
+  background-image: linear-gradient(to bottom,#00664d,#008060, #00e6ac);
 }
 
 .cms-sidebar-menu a{
@@ -201,5 +201,22 @@ textarea{
 
 .top-header-txt{
   color: #f2f2f2;
+}
+
+.cms-bg-info{
+  background-color: #63bfcf !important;
+}
+.cms-bg-success{
+  background-color: #46d267 !important;
+}
+.cms-bg-warning{
+  background-color: #ffd24d !important;
+}
+.cms-bg-danger{
+  background-color: #e05260 !important;
+}
+
+.small-box .inner h3, .small-box .inner p{
+  color: #f2f2f2 !important;
 }
 

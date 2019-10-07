@@ -10,7 +10,7 @@
 <div class="content-wrapper">
     <div class="w-100 dash-top-header p-3">
         <div class="w-100">
-            <h3 class="top-header-txt">Welcome devadmin, to Dashboard</h3>
+            <h3 class="top-header-txt">Welcome {{ user }}, to Dashboard</h3>
             <h5 class="top-header-txt">You Look Awesome Today!</h5>
         </div>
     </div>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box cms-bg-info">
                         <div class="inner">
                             <h3>{{ total_post }}</h3>
 
@@ -50,7 +50,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box cms-bg-success">
                         <div class="inner">
                             <h3>53<sup style="font-size: 20px">%</sup></h3>
 
@@ -65,7 +65,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box cms-bg-warning">
                         <div class="inner">
                             <h3>{{ total_user }}</h3>
 
@@ -81,7 +81,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <div class="small-box cms-bg-danger">
                         <div class="inner">
                             <h3>{{ total_media }}</h3>
 
