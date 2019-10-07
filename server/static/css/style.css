@@ -180,6 +180,16 @@ textarea{
   .hide{
       display: none!important;
   }
+.user-panel img{
+  max-height:40px !important;
+}
 
+.cms-sidebar{
+  background: #00b386 !important;
+}
+
+.cms-sidebar-menu a{
+  color: #f2f2f2 !important;
+}
 
 

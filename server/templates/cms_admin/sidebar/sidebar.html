@@ -1,5 +1,5 @@
 {% load static %}
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary cms-sidebar elevation-4">
   <!-- Brand Logo -->
   <a href="{% url 'home' %}" class="brand-link">
     <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="BlogCMS Logo" class="brand-image img-circle elevation-3"
@@ -25,9 +25,10 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column cms-sidebar-menu" data-widget="treeview" role="menu"
+        data-accordion="false">
         <li class="nav-item has-treeview menu-open">
-          <a href="/cms/admin/" class="nav-link active">
+          <a href="/cms/admin/" class="nav-link ">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -35,7 +36,7 @@
           </a>
         </li>
 
-        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview ">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
             <p>
@@ -43,7 +44,7 @@
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">
+          <ul class="nav nav-treeview ">
             <li class="nav-item">
               <a href="/cms/categories/" class="nav-link">
                 <i class="fas fa-stream nav-icon"></i>
