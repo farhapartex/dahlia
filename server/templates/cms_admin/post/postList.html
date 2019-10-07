@@ -63,7 +63,7 @@
                                         <td>{{ post.created_at| timesince }} ago</td>
                                         <td>{{ post.updated_at | timesince}} ago</td>
                                         <td>
-                                            <a href="{% url 'post_update' post.id %}" class="text-warning">Edit <span
+                                            <a href="{% url 'post_update' post.id %}" class="edit-text">Edit <span
                                                     class="ml-1"><i class="far fa-edit"></i></span></a>
                                             <span class="ml-1 mr-1">|</span>
                                             <a href="{% url 'post_delete' post.id %}"
@@ -104,7 +104,7 @@
                     <p>Are you sure, want to delete this post?</p>
                     <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
                                 class="far fa-trash-alt"></i></span> Delete</a>
-                    <button class="btn btn-sm btn-warning" data-dismiss="modal"><span class="mr-1"><i
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
                                 class="fas fa-angle-left"></i></span> Back</button>
                 </div>
             </div>
