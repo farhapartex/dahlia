@@ -185,15 +185,14 @@ textarea{
 }
 
 .cms-sidebar{
-  background: linear-gradient(to bottom ,#008060, #00cc99, #00e6ac) !important; 
-  background-image: linear-gradient(to bottom,#00664d,#008060, #00e6ac);
+  background: #262626 !important;
 }
 
 .cms-sidebar-menu a{
   color: #f2f2f2 !important;
 }
 
-.dash-top-header{
+.dash-top-header, .top-menu, .user-panel{
   background: #009973;
   opacity: .9;
   filter: alpha(opacity=50);
@@ -203,6 +202,10 @@ textarea{
   color: #f2f2f2;
 }
 
+.user-panel a{
+  color: #f2f2f2 !important;
+}
+
 .cms-bg-info{
   background-color: #63bfcf !important;
 }
@@ -210,7 +213,7 @@ textarea{
   background-color: #46d267 !important;
 }
 .cms-bg-warning{
-  background-color: #ffd24d !important;
+  background-color: #ffd966 !important;
 }
 .cms-bg-danger{
   background-color: #e05260 !important;
@@ -218,5 +221,9 @@ textarea{
 
 .small-box .inner h3, .small-box .inner p{
   color: #f2f2f2 !important;
+}
+
+.content-wrapper{
+  background: #f2f2f2 !important;
 }
 
