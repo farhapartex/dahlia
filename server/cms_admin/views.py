@@ -854,6 +854,7 @@ class MediaBrowserUpdateView(TemplateView):
             form = MediaBrowserForm(instance=media, data=request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'Image updated successfully')
                 store_log_info(request,media,2)
                 return HttpResponseRedirect("/cms/medias/")
         except:

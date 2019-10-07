@@ -74,7 +74,7 @@ textarea{
   max-width: 400px;
   max-height: 550px;
   padding: 12px;
-  border: 2px solid #cccccc;
+  border: 3px solid #262626;
 }
 
 .box:before {

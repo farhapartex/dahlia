@@ -56,19 +56,19 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <button class="btn btn-sm btn-secondary"><span class="mr-1"><i
+                                                <button class="btn btn-sm cms-btn-submit"><span class="mr-1"><i
                                                             class="far fa-edit"></i></span> Update</button>
                                                 <a class="btn btn-sm btn-danger objDelete" href="{% url 'media_delete' media.id %}"><span class="mr-1"><i
                                                             class="far fa-trash-alt"></i></span> Delete</a>
-                                                <a href="{% url 'medias' %}" class="btn btn-sm btn-warning"><span
+                                                <a href="{% url 'medias' %}" class="btn btn-sm cms-btn-back"><span
                                                         class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
                                             </div>
                                         </div>
                                         <div class="col-md-7 col-lg-7">
                                             <div class="mx-auto" style="width: 80%;">
                                                 <img src="/media/{{ media.image }}" class="img-detail mx-auto" alt="">
-                                                <p class="text-center mt-3">Image Dimensions: {{ media.width}} x
-                                                    {{ media.height }} | Image Size: {{ media_size|floatformat:-3 }} MB
+                                                <p class="text-center mt-3"><b>Image Dimensions: {{ media.width}} x
+                                                    {{ media.height }}</b> | <b>Image Size: {{ media_size|floatformat:-3 }} MB</b>
                                                 </p>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
                 <div class="modal-body">
                     <p>Are you sure, want to delete this media image?</p>
                     <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-                    <button class="btn btn-sm btn-warning" data-dismiss="modal"><span
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
                     class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
                 </div>
                 </div>
