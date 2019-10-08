@@ -180,6 +180,7 @@ class HomeView(TemplateView):
         context["total_user"] = User.objects.all().count()
         context["total_post"] = Post.objects.all().count()
         context["total_media"] = MediaImage.objects.all().count()
+        context["new_message_count"] = Contact.objects.filter(seen=False).count()
         context["logs"] =  get_logs_data(10)
         return render(request, self.template_name, context)
 

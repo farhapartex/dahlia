@@ -45,14 +45,14 @@
                     <!-- small box -->
                     <div class="small-box cms-bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>{{ new_message_count }}</h3>
 
-                            <p>Bounce Rate</p>
+                            <p>New Messages</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="far fa-address-book"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{% url 'contacts' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

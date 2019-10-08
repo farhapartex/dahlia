@@ -2,9 +2,9 @@
 <aside class="main-sidebar sidebar-dark-primary cms-sidebar elevation-4">
   <!-- Brand Logo -->
   <a href="{% url 'home' %}" class="brand-link">
-    <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="BlogCMS Logo" class="brand-image img-circle elevation-3"
+    <img src="{% static 'images/dahlia-logo.png' %}" alt="Dahlia Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8">
-    <span class="brand-text font-weight-light">BlogCMS</span>
+    <span class="brand-text font-weight-light">Dahlia</span>
   </a>
 
   <!-- Sidebar -->
@@ -46,7 +46,7 @@
           </a>
           <ul class="nav nav-treeview ">
             <li class="nav-item">
-              <a href="/cms/categories/" class="nav-link">
+              <a href="{% url 'category' %}" class="nav-link">
                 <i class="fas fa-stream nav-icon"></i>
                 <p>All Category List</p>
               </a>
@@ -104,10 +104,10 @@
           </a>
         </li>
         <li class="nav-item has-treeview">
-          <a href="/cms/contacts/" class="nav-link">
+          <a href="{% url 'contacts' %}" class="nav-link">
             <i class="far fa-address-book nav-icon"></i>
             <p>
-              Contact
+              Contact Message
               <!-- <i class="fas fa-angle-left right"></i> -->
             </p>
           </a>
