@@ -58,7 +58,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box cms-bg-warning">
+                    <div class="small-box " style="background: #b300b3;">
                         <div class="inner">
                             <h3>{{ total_user }}</h3>
 
@@ -95,6 +95,7 @@
                     <div class="w-100 mt-3">
                         <h3>Recent Actions</h3>
                     </div>
+                    {% if logs.count > 0 %}
                     <div class="w-100">
                         <table id="example2" class="table table-hover text-center">
                             <thead>
@@ -120,6 +121,13 @@
                             </tbody>
                         </table>
                     </div>
+                    {% else %}
+                    <div class="w-75 mx-auto">
+                        <div class="alert cms-warning " role="alert">
+                        Currently there are no recent action found!
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div><!-- /.container-fluid -->
