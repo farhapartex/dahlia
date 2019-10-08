@@ -83,7 +83,6 @@
                                                         <tr>
                                                             <th># ID</th>
                                                             <th>Permission Name</th>
-                                                            <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -91,7 +90,7 @@
                                                         <tr>
                                                             <td>{{ forloop.counter }}</td>
                                                             <td>{{ permission.codename }}</td>
-                                                            <td><a href="/cms/permissions/{{ permission.id }}/change/"
+                                                            <!-- <td><a href="/cms/permissions/{{ permission.id }}/change/"
                                                                     class="text-warning">Edit <span class="ml-1"><i
                                                                             class="far fa-edit"></i></span></a> <span> |
                                                                 </span>
@@ -99,7 +98,7 @@
                                                                     class="text-danger">Delete
                                                                     <span class="ml-1"><i
                                                                             class="far fa-trash-alt"></i></span></a>
-                                                            </td>
+                                                            </td> -->
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
