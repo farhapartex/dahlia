@@ -9,6 +9,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
+  {% if c_profile.user_role.role <= 2 %}
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -100,6 +101,8 @@
           </div>
       </div>
   </div>
+
+  {% endif %}
 
 </div>
 <!-- /.content-wrapper -->

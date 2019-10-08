@@ -9,6 +9,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -27,8 +28,9 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    {% endif %}
 
-
+    {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -56,7 +58,9 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                     class="far fa-edit"></i></span> Update</button>
+                                    {% if c_profile.user_role.role == 1 %}
                                 <a href="{% url 'category_delete' category.id %}" class="btn btn-sm btn-danger objDelete"><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                                {% endif %}
                                 <a href="{% url 'category' %}" class="btn btn-sm cms-btn-back"><span
                                     class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
                             </div>
@@ -68,20 +72,23 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
+    {% endif %}
 
         <!-- Modal -->
+        {% if c_profile.user_role.role == 1 %}
   <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <p>Are you sure, want to delete this category?</p>
-              <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-              <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
-                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
-            </div>
-          </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <p>Are you sure, want to delete this category?</p>
+            <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+            <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
+            class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
         </div>
-      </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 </div>
 <!-- /.content-wrapper -->

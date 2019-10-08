@@ -15,17 +15,20 @@
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Tag List</h1>
                 </div><!-- /.col -->
+                {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
                 <div class="col-sm-6">
                     <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
                         data-target="#exampleModalLong">Add Tag
                         <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
                 </div>
+                {% endif %}
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Modal -->
+    {% if c_profile.user_role.role <= 2 %}
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -64,6 +67,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <!-- / Modal -->
     <!-- Main content -->
@@ -102,11 +106,20 @@
                                         <td>{{ tag.name }}</td>
                                         <td>{{ tag.created_at| timesince }}</td>
                                         <td>{{ tag.updated_at | timesince}}</td>
-                                        <td><a href="{% url 'tag_update' tag.id %}" class="edit-text">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
+                                        <td>
+                                                {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
+                                            <a href="{% url 'tag_update' tag.id %}" class="edit-text">Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a> 
+                                                    {% if c_profile.user_role.role == 1 %}
+                                            <span> | </span>
                                             <a href="{% url 'tag_delete' tag.id %}"
                                                 class="text-danger objDelete">Delete
-                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
+                                            {% endif %}
+                                                {% else %}
+                                                <span>You have no action permission</span>
+                                                {% endif %}
+                                            </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
