@@ -18,13 +18,13 @@
     <div class="w-100 h-100">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-md-5 col-lg-5 col-xl-5 left-side-color">
+                <div class="col-md-5 col-lg-5 col-xl-5 left-side-color cms-background">
                     <div class="w-100 mt-5 h-100">
                         <div class="w-100 logo mb-2">
-                            <img src="{% static 'images/logo.png' %}" alt="">
+                            <img src="{% static 'images/dahlia-logo.png' %}" alt="">
                         </div>
                         <div class="login-side-header">
-                            <h2 class="text-center">Blog CMS</h2>
+                            <h2 class="text-center">Dahlia CMS</h2>
                         </div>
 
                         <div class="w-100 social-login-btn mt-5">
@@ -34,10 +34,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 col-lg-7 col-xl-7 h-100">
+                <div class="col-md-7 col-lg-7 col-xl-7 h-100" style="background:#009973;">
                     <div class="w-100 mt-5 pt-5">
                         <div class="mt-3">
-                            <h3 class="text-center">User Admin Panel</h3>
+                            <h3 class="text-center" style="color: #f2f2f2;">User Login</h3>
                         </div>
                         <div class="mt-5 w-50 mx-auto">
                             <form action="{% url 'login' %}" method="post" class="w-100">
@@ -62,7 +62,7 @@
                                 </div> -->
                                 <div class="mt-3">
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-login w-100" value="Login">
+                                        <input type="submit" class="btn cms-btn-submit w-100" value="Login">
                                     </div>
                                 </div>
                             </form>

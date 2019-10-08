@@ -47,3 +47,20 @@ input[type='text'], input[type='password']{
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.cms-btn-submit, .cms-btn-submit:hover{
+    background: #262626;
+    border: 1px solid #262626;
+    color: #f2f2f2;
+  }
+  
+  .cms-btn-back, .cms-btn-back:hover{
+    background: #35c7d0;
+    border: 1px solid #80ffbf;
+    color: #f8f9fa;
+  }
+  
+  .cms-background{
+    background: #262626 !important;
+    color: #f2f2f2 !important;
+  }
