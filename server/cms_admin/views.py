@@ -357,18 +357,29 @@ class UserListView(ListView):
         form = UserBasicForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            if len(form.email) == 0:
-                messages.error(request, 'User email could not be empty')
+            if len(form.email) == 0 or len(form.username) == 0:
+                messages.error(request, 'Username or email can not be empty')
                 return HttpResponseRedirect("/cms/users/")
             else:
-                form.set_password(form.password)
-                form.save()
-                user = User.objects.all().order_by("-id")[0]
-                store_log_info(request,user,1)
-                messages.success(request, 'User "{0}" created successfully'.format(user.username))
-                return HttpResponseRedirect("/cms/users/")
+                email = form.email
+                username = form.username
+                try:
+                    user = User.objects.get(email=email, username=username)
+                    if user:
+                        messages.error(request, 'Duplicate user found. Change email or username')
+                        return HttpResponseRedirect("/cms/users/")
+                    else:
+                        form.set_password(form.password)
+                        form.save()
+                        user = User.objects.all().order_by("-id")[0]
+                        store_log_info(request,user,1)
+                        messages.success(request, 'User "{0}" created successfully'.format(user.username))
+                        return HttpResponseRedirect("/cms/users/")
+                except:
+                    messages.error(request, 'Server Error')
+                    return HttpResponseRedirect("/cms/users/")
         else:
-            messages.error(request, 'Data is not valid')
+            messages.error(request, 'Duplicate user found / Data is not valid')
             return HttpResponseRedirect("/cms/users/")
 
 
