@@ -426,9 +426,17 @@ class ProfileUpdateView(View):
         profile = Profile.objects.get(user=uid)
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
-            profile = form.save()
+            profile = Profile.objects.get(user=uid)
+            if profile.user_role.role > 2:
+                form = form.save(commit=False)
+                role = UserRole.objects.get(role=profile.user_role.role)
+                form.user_role =  role
+            form.save() 
             store_log_info(request,profile,2)
             messages.success(request, 'Profile updated successfully')
+            return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
+        else:
+            messages.error(request, 'Form is not valid')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
 

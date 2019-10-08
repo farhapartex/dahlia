@@ -122,9 +122,11 @@
                                 <li class="nav-item"><a class="nav-link cms-tab active" href="#overview"
                                         data-toggle="tab">Overview</a>
                                 </li>
+                                {% if c_profile.user_role.role <= 2 or c_profile == profile %}
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#basic"
                                         data-toggle="tab">Basic</a>
                                 </li>
+                                
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#profile"
                                         data-toggle="tab">Profile</a>
                                 </li>
@@ -137,6 +139,7 @@
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#skill"
                                         data-toggle="tab">Skill</a>
                                 </li>
+                                {% endif %}
                                 {% if c_profile == profile %}
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#password"
                                         data-toggle="tab">Password</a>
@@ -228,7 +231,7 @@
                                 </div>
 
                                 <!-- /.tab-pane -->
-
+                                {% if c_profile.user_role.role <= 2 or c_profile == profile %}
                                 <div class="tab-pane" id="basic">
                                     <form class="form-horizontal" action="{% url 'user_update' userobj.id %}"
                                         method="post">
@@ -295,7 +298,7 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
-                                                {% if request.user.is_superuser %}
+                                                {% if c_profile.user_role.role <= 2 %}
                                                 <div class="col-sm-5">
                                                     <label for="inputName" class="col-sm-12 control-label">User
                                                         Role</label>
@@ -414,7 +417,7 @@
                                         </div>
                                     </form>
                                 </div>
-
+                                {% endif %}
                                 {% if c_profile == profile %}
                                 <div class="tab-pane" id="password">
                                     <form class="form-horizontal" method="post"

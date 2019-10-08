@@ -10,7 +10,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    {% if c_profile.user_role.role <= 2 %}
+    {% if c_profile.user_role.role <= 3 %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -142,9 +142,15 @@
                                         <td>{{ u.is_superuser }}</td>
                                         <td>{{ u.last_login | timesince }}</td>
                                         <td>
-                                            
-                                            <a href="{% url 'profile' u.id %}" class="edit-text">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            <a href="{% url 'profile' u.id %}" class="edit-text">
+                                                {% if c_profile.user_role.role <= 2 %}
+                                                Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span>
+                                                {% else %}
+                                                View <span class="ml-1"><i
+                                                    class="far fa-eye"></i></span>
+                                                {% endif %}
+                                            </a>
                                             {% if c_profile.user_role.role == 1 %}
                                             <span class="ml-1 mr-1">|</span>
                                             <a href="{% url 'profile' u.id %}" class="text-danger objDelete">Delete <span><i class="far fa-trash-alt"></i></span></a>
