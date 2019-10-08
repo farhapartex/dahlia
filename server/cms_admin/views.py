@@ -450,6 +450,25 @@ class UserUpdateView(View):
             messages.success(request, 'User updated successfully')
             return HttpResponseRedirect("/cms/users/{0}/profile".format(uid))
 
+class UserDeleteView(View):
+    def get(self, request, uid):
+        try:
+            user = User.objects.get(id=uid)
+            if user.is_superuser:
+                messages.error(request, 'Admin can not be removed')
+                return HttpResponseRedirect("/cms/users/")
+            elif request.user == user:
+                messages.error(request, 'User can not removed by themselves')
+                return HttpResponseRedirect("/cms/users/")
+            else:
+                store_log_info(request,user,2)
+                user.delete()
+                messages.success(request, 'User deleted successfully')
+                return HttpResponseRedirect("/cms/users/")
+        except:
+            messages.error(request, 'User Not Found/ Server Error')
+            return HttpResponseRedirect("/cms/users/")
+
 class UserPasswordUpdateView(View):
     def post(self, request, uid):
         try:

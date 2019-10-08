@@ -51,6 +51,11 @@ urlpatterns = [
         name="user_update",
     ),
     path(
+        "users/<int:uid>/delete/",
+        login_required(UserDeleteView.as_view()),
+        name="user_delete",
+    ),
+    path(
         "users/<int:uid>/password/update/",
         login_required(UserPasswordUpdateView.as_view()),
         name="password_update",

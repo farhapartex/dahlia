@@ -153,7 +153,7 @@
                                             </a>
                                             {% if c_profile.user_role.role == 1 %}
                                             <span class="ml-1 mr-1">|</span>
-                                            <a href="{% url 'profile' u.id %}" class="text-danger objDelete">Delete <span><i class="far fa-trash-alt"></i></span></a>
+                                            <a href="{% url 'user_delete' u.id %}" class="text-danger objDelete">Delete <span><i class="far fa-trash-alt"></i></span></a>
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -181,7 +181,7 @@
 
         </div>
     </section>
-
+    {% if c_profile.user_role.role == 1 %}
     <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -194,6 +194,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     {% else %}
 
