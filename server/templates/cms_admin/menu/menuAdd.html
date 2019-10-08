@@ -9,23 +9,28 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role <= 2 %}
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Menu List</h1>
                 </div><!-- /.col -->
+                {% if c_profile.user_role.role == 1 %}
                 <div class="col-sm-6">
                     <a href="#" class="btn btn-sm cms-btn-submit float-sm-right mr-5" data-toggle="modal"
                         data-target="#exampleModalLong">Add Menu
                         <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
                 </div>
+                {% endif %}
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Modal -->
+    {% if c_profile.user_role.role == 1 %}
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -88,6 +93,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <!-- / Modal -->
     <!-- Main content -->
@@ -128,9 +134,13 @@
                                         <td>{{ menu.allow_submenu}}</td>
                                         <td>{{ menu.parent_menu}}</td>
                                         <td><a href="{% url 'menu_update' menu.id %}" class="edit-text">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a> <span> | </span>
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a>
+                                             {% if c_profile.user_role.role == 1 %}
+                                             <span> | </span>
                                             <a href="{% url 'menu_delete' menu.id %}" class="text-danger objDelete">Delete
-                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a></td>
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -168,6 +178,14 @@
             </div>
         </div>
     </div>
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
 
 </div>
 <!-- /.content-wrapper -->

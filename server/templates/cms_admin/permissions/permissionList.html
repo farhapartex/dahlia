@@ -9,6 +9,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role == 1 %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -90,15 +91,6 @@
                                                         <tr>
                                                             <td>{{ forloop.counter }}</td>
                                                             <td>{{ permission.codename }}</td>
-                                                            <!-- <td><a href="/cms/permissions/{{ permission.id }}/change/"
-                                                                    class="text-warning">Edit <span class="ml-1"><i
-                                                                            class="far fa-edit"></i></span></a> <span> |
-                                                                </span>
-                                                                <a href="/cms/permissions/{{ permission.id }}/delete/"
-                                                                    class="text-danger">Delete
-                                                                    <span class="ml-1"><i
-                                                                            class="far fa-trash-alt"></i></span></a>
-                                                            </td> -->
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
@@ -130,6 +122,14 @@
 
         </div>
     </section>
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
 
 </div>
 <!-- /.content-wrapper -->

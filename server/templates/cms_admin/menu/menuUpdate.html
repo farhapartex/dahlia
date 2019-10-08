@@ -9,6 +9,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role <= 2 %}
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -58,8 +60,10 @@
                                 <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
                                             class="far fa-edit"></i></span>
                                     Update</button>
+                                {% if c_profile.user_role.role == 1 %}
                                 <a href="{% url 'menu_delete' menu.id %}" class="btn btn-sm btn-danger objDelete"><span
                                         class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                                {% endif %}
                                 <a href="{% url 'menus' %}" class="btn btn-sm cms-btn-back"><span class="mr-1"><i
                                             class="fas fa-angle-left"></i></span> Back</a>
                             </div>
@@ -96,6 +100,14 @@
             </div>
         </div>
     </div>
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
 
 </div>
 <!-- /.content-wrapper -->

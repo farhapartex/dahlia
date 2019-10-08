@@ -86,12 +86,14 @@
                 <p>All Post List</p>
               </a>
             </li>
+            {% if c_profile.user_role.role <= 2 %}
             <li class="nav-item">
               <a href="/cms/posts/add/" class="nav-link">
                 <i class="fas fa-edit nav-icon"></i>
                 <p>Add New Post</p>
               </a>
             </li>
+            {% endif %}
           </ul>
         </li>
         <li class="nav-item has-treeview">
@@ -103,6 +105,7 @@
             </p>
           </a>
         </li>
+        {% if c_profile.user_role.role <= 2 %}
         <li class="nav-item has-treeview">
           <a href="{% url 'contacts' %}" class="nav-link">
             <i class="far fa-address-book nav-icon"></i>
@@ -112,6 +115,7 @@
             </p>
           </a>
         </li>
+        {% endif %}
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cogs"></i>
@@ -127,30 +131,39 @@
                 <p>Users</p>
               </a>
             </li>
+            {% if c_profile.user_role.role <= 2 %}
             <li class="nav-item">
               <a href="/cms/site/" class="nav-link">
                 <i class="fas fa-globe-asia nav-icon"></i>
                 <p>Site</p>
               </a>
             </li>
+            {% endif %}
+
+            {% if c_profile.user_role.role <= 2 %}
             <li class="nav-item">
               <a href="/cms/menus/" class="nav-link">
                 <i class="fas fa-list nav-icon"></i>
                 <p>Main Menu</p>
               </a>
             </li>
+            {% endif %}
+
             <li class="nav-item">
               <a href="/cms/apis/" class="nav-link">
                 <i class="fas fa-link nav-icon"></i>
                 <p>APIs</p>
               </a>
             </li>
+
+            {% if c_profile.user_role.role <= 2 %}
             <li class="nav-item">
               <a href="/cms/permissions/" class="nav-link">
                 <i class="fas fa-unlock-alt nav-icon"></i>
                 <p>Permissions</p>
               </a>
             </li>
+            {% endif %}
 
           </ul>
         </li>
