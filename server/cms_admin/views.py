@@ -1,12 +1,14 @@
 import re, json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry,ADDITION,CHANGE,DELETION
 from django.contrib import messages
+from django.conf import settings
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.views.generic import DetailView, ListView, CreateView, edit
@@ -16,6 +18,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from django.core import serializers
 from django.urls import reverse
+from django.utils.http import is_safe_url
 from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 from cms import urls
@@ -89,7 +92,16 @@ class LoginView(TemplateView):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect("/cms/admin/")
+                next_url = request.GET.get('next')
+                url_is_safe = is_safe_url(
+                    url=next_url,
+                    allowed_hosts=settings.ALLOWED_HOSTS,
+                    require_https=request.is_secure(),
+                )
+                if url_is_safe and next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect("/cms/admin/")
             else:
                 messages.error(request, 'User Account is not active')
                 return HttpResponseRedirect("/accounts/login/")
@@ -103,6 +115,8 @@ class LoginView(TemplateView):
     def get(self, request):
         if request.user.is_authenticated:
             return HttpResponseRedirect("/cms/admin/")
+        else:
+            return DjangoLoginView()
 
 
 class LogoutView(TemplateView):

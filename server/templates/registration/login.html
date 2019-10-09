@@ -45,7 +45,7 @@
                 </div>
                 {% endfor %}
                 {% endif %}
-                <form class="login100-form validate-form" action="{% url 'login' %}" method="post">
+                <form class="login100-form validate-form" action="{% url 'login' %}?next={{ next }}" method="post">
                     {% csrf_token %}
 
                     <span class="login100-form-avatar mb-3">
@@ -65,6 +65,8 @@
                         {{ form.password }}
                         <span class="focus-input100" data-placeholder="Password"></span>
                     </div>
+
+                    <input type="hidden" name="next" value="{{ next }}">
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">

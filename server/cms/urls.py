@@ -18,6 +18,7 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404, handler500
+from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 from users import views as u_views
 from blog import views as b_views
@@ -38,7 +39,7 @@ admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
 
 urlpatterns = [
     path("django/admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/login/", auth_views.LoginView.as_view()),
     path("cms/", include("cms_admin.urls")),
     re_path(r"^api/v1/public/contact/", s_views.ContactCreateAPIView.as_view()),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
