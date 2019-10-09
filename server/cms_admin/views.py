@@ -86,7 +86,6 @@ class LoginView(TemplateView):
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         user = authenticate(username=username, password=password)
-        print(self.kwargs)
         if user is not None:
             if user.is_active:
                 login(request, user)
