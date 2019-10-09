@@ -90,6 +90,13 @@ class LoginView(TemplateView):
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect("/cms/admin/")
+            else:
+                messages.error(request, 'User Account is not active')
+                return HttpResponseRedirect("/accounts/login/")
+
+        else:
+            messages.error(request, 'User Not Found')
+            return HttpResponseRedirect("/accounts/login/")
 
         return HttpResponseRedirect("/accounts/login/")
 

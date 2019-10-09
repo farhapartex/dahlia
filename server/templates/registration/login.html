@@ -37,6 +37,14 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100 p-t-5 p-b-10">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="text-center alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
                 <form class="login100-form validate-form" action="{% url 'login' %}" method="post">
                     {% csrf_token %}
 
