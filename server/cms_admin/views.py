@@ -28,6 +28,7 @@ from sites.models import *
 from users.models import *
 from .forms import *
 from .models import *
+from .permission_values import ADMIN_PERMISSION,MODERATOR_PERMISSION,EDITOR_PERMISSION
 from users.serializers import PermissionSerializer
 
 # Create your views here.

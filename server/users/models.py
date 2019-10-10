@@ -16,9 +16,6 @@ ROLE_CHOICE = ((1, "Administrator"), (2, "Moderator"), (3, "Editor"))
 
 class UserRole(models.Model):
     role = models.SmallIntegerField(_("User Role"), choices=ROLE_CHOICE, default=1)
-    permissions = models.ManyToManyField(
-        Permission, verbose_name=_("Permissions"), related_name="user_role"
-    )
 
     def __str__(self):
         if self.role == 1:
