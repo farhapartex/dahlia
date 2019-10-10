@@ -2,11 +2,11 @@ version: '3'
 services:
   db:
     image: postgres:latest
-    container_name: blogCMS_db
+    container_name: dahlia_db
     volumes:
-      - blogCMS-db:/var/lib/postgresql/data
+      - dahlia-db:/var/lib/postgresql/data
   server:
-    container_name: blogCMS_server
+    container_name: dahlia_server
     build:
       context: ./server
     command: python manage.py runserver 0.0.0.0:8000
@@ -17,4 +17,4 @@ services:
     depends_on:
       - db
 volumes:
-  blogCMS-db:
+  dahlia-db:
