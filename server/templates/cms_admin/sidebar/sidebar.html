@@ -165,7 +165,7 @@
             </li>
             {% endif %}
 
-            {% if request.user.is_superuser %}
+            {% if request.user.is_superuser or c_profile.user_role.role == 1%}
             <li class="nav-item">
               <a href="{% url 'roles' %}" class="nav-link">
                 <i class="fas fa-unlock-alt nav-icon"></i>

@@ -72,9 +72,10 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm cms-btn-submit"><span class=" mr-1"><i class="fas fa-plus"></i></span>Add Image</button>
-                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
-                                class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
+                            <button type="submit" class="btn btn-sm cms-btn-submit"><span class=" mr-1"><i
+                                        class="fas fa-plus"></i></span>Add Image</button>
+                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                        class="fas fa-chevron-left"></i></span> Back</a>
                         </div>
                     </form>
                 </div>
@@ -97,7 +98,8 @@
                         {% if messages %}
                         <div class="card-header">
                             {% for message in messages %}
-                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
                                 {{ message }}
                             </div>
                             {% endfor %}
@@ -128,7 +130,7 @@
                             {% else %}
                             <div class="w-75 mx-auto">
                                 <div class="alert cms-warning " role="alert">
-                                    Currently there are no images found!
+                                    <p class="text-center mo-p0">Currently there are no images found!</p>
                                 </div>
                             </div>
                             {% endif %}

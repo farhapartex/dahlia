@@ -26,15 +26,15 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-              {% if messages %}
-              <div class="card-header">
-                  {% for message in messages %}
-                  <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">    
-                      {{ message }}
-                  </div>
-                  {% endfor %}
+            {% if messages %}
+            <div class="card-header">
+              {% for message in messages %}
+              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+                {{ message }}
               </div>
-              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
             <!-- /.card-header -->
             <div class="card-body">
               {% if contact_list.count > 0 %}
@@ -71,7 +71,7 @@
               {% else %}
               <div class="w-75 mx-auto">
                 <div class="alert cms-warning " role="alert">
-                  Currently there are no contacts found!
+                  <p class="text-center mo-p0">Currently there are no contacts found!</p>
                 </div>
               </div>
               {% endif %}
@@ -89,25 +89,27 @@
     </div>
   </section>
 
-  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-          <div class="modal-body">
-              <p>Are you sure, want to delete this contact message?</p>
-              <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-              <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
-              class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
-          </div>
-          </div>
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Are you sure, want to delete this contact message?</p>
+          <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span>
+            Delete</a>
+          <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                class="fas fa-angle-left"></i></span> Back</button>
+        </div>
       </div>
+    </div>
   </div>
 
   {% else %}
-    <div class="w-75 mx-auto" style="overflow: hidden;">
-        <div class="alert cms-warning mt-5" role="alert">
-            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
-        </div>
+  <div class="w-75 mx-auto" style="overflow: hidden;">
+    <div class="alert cms-warning mt-5" role="alert">
+      <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
     </div>
+  </div>
 
   {% endif %}
 

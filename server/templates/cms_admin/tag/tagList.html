@@ -107,19 +107,18 @@
                                         <td>{{ tag.created_at| timesince }}</td>
                                         <td>{{ tag.updated_at | timesince}}</td>
                                         <td>
-                                                {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
+                                            {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
                                             <a href="{% url 'tag_update' tag.id %}" class="edit-text">Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span></a> 
-                                                    {% if c_profile.user_role.role == 1 %}
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            {% if c_profile.user_role.role == 1 %}
                                             <span> | </span>
-                                            <a href="{% url 'tag_delete' tag.id %}"
-                                                class="text-danger objDelete">Delete
+                                            <a href="{% url 'tag_delete' tag.id %}" class="text-danger objDelete">Delete
                                                 <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
                                             {% endif %}
-                                                {% else %}
-                                                <span>You have no action permission</span>
-                                                {% endif %}
-                                            </td>
+                                            {% else %}
+                                            <span>You have no action permission</span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -128,7 +127,7 @@
                             {% else %}
                             <div class="w-75 mx-auto">
                                 <div class="alert cms-warning " role="alert">
-                                    Currently there are no tags found!
+                                    <p class="text-center mo-p0">Currently there are no tags found!</p>
                                 </div>
                             </div>
                             {% endif %}

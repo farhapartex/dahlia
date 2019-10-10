@@ -56,7 +56,8 @@
                                                 <ul class="list-group">
                                                     {% for role in user_roles  %}
                                                     <li class="list-group-item">
-                                                        <a href="{% url 'permissions_filter' role.id %}" class="edit-text">
+                                                        <a href="{% url 'permissions_filter' role.id %}"
+                                                            class="edit-text">
                                                             {% if role.role == 1 %}
                                                             Administrator
                                                             {% elif role.role == 2 %}
