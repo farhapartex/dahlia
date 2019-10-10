@@ -10,7 +10,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    {% if c_profile.user_role.role <= 3 %}
+    {% if c_profile.user_role.role <= 3 or request.user.is_superuser%}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -68,7 +68,8 @@
                                 </div>
                                 <div class="col-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Username <span class="text-danger">*</span></label>
+                                        <label for="exampleInputEmail1">Username <span
+                                                class="text-danger">*</span></label>
                                         {{ form.username }}
                                     </div>
                                 </div>
@@ -76,20 +77,21 @@
                             <div class="row">
                                 <div class="col-6 col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Password <span class="text-danger">*</span></label>
+                                        <label for="exampleInputEmail1">Password <span
+                                                class="text-danger">*</span></label>
                                         {{ form.password }}
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
-                                class="far fa-edit"></i></span> Submit</button>
-                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
-                                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</a>
+                                        class="far fa-edit"></i></span> Submit</button>
+                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                        class="fas fa-angle-left"></i></span> Back</a>
                         </div>
                     </form>
                 </div>
@@ -144,16 +146,15 @@
                                         <td>
                                             <a href="{% url 'profile' u.id %}" class="edit-text">
                                                 {% if c_profile.user_role.role <= 2 %}
-                                                Edit <span
-                                                    class="ml-1"><i class="far fa-edit"></i></span>
+                                                Edit <span class="ml-1"><i class="far fa-edit"></i></span>
                                                 {% else %}
-                                                View <span class="ml-1"><i
-                                                    class="far fa-eye"></i></span>
+                                                View <span class="ml-1"><i class="far fa-eye"></i></span>
                                                 {% endif %}
                                             </a>
                                             {% if c_profile.user_role.role == 1 %}
                                             <span class="ml-1 mr-1">|</span>
-                                            <a href="{% url 'user_delete' u.id %}" class="text-danger objDelete">Delete <span><i class="far fa-trash-alt"></i></span></a>
+                                            <a href="{% url 'user_delete' u.id %}" class="text-danger objDelete">Delete
+                                                <span><i class="far fa-trash-alt"></i></span></a>
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -182,15 +183,17 @@
         </div>
     </section>
     {% if c_profile.user_role.role == 1 %}
-    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-body">
-                <p>Are you sure, want to delete this user?</p>
-                <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
-                <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
-                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
-            </div>
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this user?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span> Delete</a>
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
             </div>
         </div>
     </div>

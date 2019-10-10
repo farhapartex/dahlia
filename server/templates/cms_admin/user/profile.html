@@ -10,8 +10,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    
-    
+
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -42,7 +42,8 @@
 
                             </div>
 
-                            <h3 class="profile-username text-center mt-1">{{ userobj.first_name }} {{ userobj.last_name }}
+                            <h3 class="profile-username text-center mt-1">{{ userobj.first_name }}
+                                {{ userobj.last_name }}
                             </h3>
                             {% if profile.bio %}
                             <p class="text-center edit-text">Bio: {{ profile.bio }}</p>
@@ -53,8 +54,8 @@
                             <p class="edit-text text-center"><span><i class="fas fa-mobile-alt"></i></span>
                                 {{ profile.mobile }}</p>
                             {% endif %}
-                            <p class="text-center"><a href="{% url 'users' %}" class="edit-text"><span
-                                        class="mr-1"><i class="fas fa-angle-left"></i></span>
+                            <p class="text-center"><a href="{% url 'users' %}" class="edit-text"><span class="mr-1"><i
+                                            class="fas fa-angle-left"></i></span>
                                     Back To List</a></p>
                         </div>
                     </div>
@@ -126,7 +127,7 @@
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#basic"
                                         data-toggle="tab">Basic</a>
                                 </li>
-                                
+
                                 <li class="nav-item"><a class="nav-link cms-tab" href="#profile"
                                         data-toggle="tab">Profile</a>
                                 </li>
@@ -298,7 +299,7 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
-                                                {% if c_profile.user_role.role <= 2 %}
+                                                {% if c_profile.user_role.role <= 2 or request.user.is_superuser %}
                                                 <div class="col-sm-5">
                                                     <label for="inputName" class="col-sm-12 control-label">User
                                                         Role</label>

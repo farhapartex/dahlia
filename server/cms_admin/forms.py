@@ -195,3 +195,14 @@ class MediaBrowserForm(ModelForm):
         model = MediaImage
         fields = ["title", "height", "width", "image"]
 
+
+class UserRoleForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserRoleForm, self).__init__(*args, **kwargs)
+        self.fields["role"].widget.attrs["class"] = "form-control custom-select"
+        self.fields["permissions"].widget.attrs["class"] = "form-control custom-select"
+    
+    class Meta:
+        model = UserRole
+        fields = ["role", "permissions",]
+

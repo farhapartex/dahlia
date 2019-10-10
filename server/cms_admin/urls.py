@@ -169,6 +169,7 @@ urlpatterns = [
         login_required(ContactDeleteView.as_view()),
         name="contact_delete",
     ),
+    path("roles/", login_required(UserRoleView.as_view()), name="roles"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]

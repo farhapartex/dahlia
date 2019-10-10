@@ -36,6 +36,7 @@ public_router.register(r"posts", b_views.PublicPostViewSet)
 public_router.register(r"site", s_views.PublicSiteAPIView)
 
 admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
+admin_router.register(r"user-roles", u_views.PrivatePermissionAddAPIView)
 
 urlpatterns = [
     path("django/admin/", admin.site.urls),

@@ -11,7 +11,7 @@ def profile_photo_upload_path(instance, filename):
     return "dp/{0}".format(filename)
 
 
-ROLE_CHOICE = ((1, "Administrator"), (2, "Moderator"), (3, "Editor"), (4, "Subscriber"))
+ROLE_CHOICE = ((1, "Administrator"), (2, "Moderator"), (3, "Editor"))
 
 
 class UserRole(models.Model):

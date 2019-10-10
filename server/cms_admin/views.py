@@ -384,8 +384,8 @@ class UserListView(ListView):
                 email = form.email
                 username = form.username
                 try:
-                    user = User.objects.get(email=email, username=username)
-                    if user:
+                    user_exist = User.objects.filter(email=email, username=username).count()
+                    if user_exist > 0:
                         messages.error(request, 'Duplicate user found. Change email or username')
                         return HttpResponseRedirect("/cms/users/")
                     else:
@@ -458,10 +458,13 @@ class ProfileUpdateView(View):
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
             profile = Profile.objects.get(user=uid)
-            if profile.user_role.role > 2:
-                form = form.save(commit=False)
-                role = UserRole.objects.get(role=profile.user_role.role)
-                form.user_role =  role
+            try:
+                if profile.user_role and profile.user_role.role > 2  :
+                    form = form.save(commit=False)
+                    role = UserRole.objects.get(role=profile.user_role.role)
+                    form.user_role =  role
+            except:
+                pass
             form.save() 
             store_log_info(request,profile,2)
             messages.success(request, 'Profile updated successfully')
@@ -960,6 +963,40 @@ class ContactDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/contacts/")
         except:
             return HttpResponseRedirect("/cms/contacts/")
+
+
+class UserRoleView(TemplateView):
+    queryset = UserRole.objects.all().order_by("-id")
+    template_name = "cms_admin/permissions/userRoles.html"
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = get_default_context(super().get_context_data(**kwargs), self.request)
+        context["form"] = UserRoleForm()
+
+        return context
+
+    
+    def post(self, request):
+        form = UserRoleForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            try:
+                user_role = UserRole.objects.filter(role=form.role).count()
+                if user_role > 0:
+                    messages.error(request, 'Role Exists')
+                    return HttpResponseRedirect("/cms/roles/")
+                else:
+                    form.save()
+                    messages.success(request, 'Role created successfully')
+                    return HttpResponseRedirect("/cms/roles/")
+            except:
+                messages.error(request, 'Server error')
+                return HttpResponseRedirect("/cms/roles/")
+        else:
+            messages.error(request, 'Data not valid')
+            return HttpResponseRedirect("/cms/roles/")
+    
 
 
 

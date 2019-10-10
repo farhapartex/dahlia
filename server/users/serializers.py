@@ -60,3 +60,9 @@ class PermissionSerializer(serializers.ModelSerializer):
         model = Permission
         fields = "__all__"
 
+
+class UserRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserRole
+        fields = "__all__"
+

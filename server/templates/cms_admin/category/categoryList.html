@@ -76,7 +76,7 @@
             {% if messages %}
             <div class="card-header">
               {% for message in messages %}
-              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+              <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
                 {{ message }}
               </div>
               {% endfor %}
@@ -103,15 +103,14 @@
                     <td>{{ category.created_at| timesince }}</td>
                     <td>{{ category.updated_at | timesince}}</td>
                     <td>
-                        {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
-                      <a href="{% url 'category_update' category.id %}" class="edit-text">Edit <span
-                          class="ml-1"><i class="far fa-edit"></i></span></a> 
-                          {% if c_profile.user_role.role == 1 %}
-                        <span> | </span> <a
-                        href="{% url 'category_delete' category.id %}" id="{{ category.id }}"
+                      {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
+                      <a href="{% url 'category_update' category.id %}" class="edit-text">Edit <span class="ml-1"><i
+                            class="far fa-edit"></i></span></a>
+                      {% if c_profile.user_role.role == 1 %}
+                      <span> | </span> <a href="{% url 'category_delete' category.id %}" id="{{ category.id }}"
                         class="text-danger objDelete">Delete
                         <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
-                        {% endif %}
+                      {% endif %}
                       {% else %}
                       <span>You have no action permission</span>
                       {% endif %}
