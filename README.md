@@ -89,8 +89,17 @@ In **Dahlia**, images are stored separately. In **Dahlia**, any kind of images w
 
 * `"/api/v1/public/profile/"` this API will expose profile information of the `Administrator`. **Dahlia** consider that `Administrator` is the owner of the blog site.
 * `"/api/v1/public/categories/"` this API will expose all category list which are available in **Dahlia**
+  * Category API support filtering category. User can filter category by category name
+  * With filtering option the API will look as `"/api/v1/public/categories/?category_name="`
+  * Category API also support pagination. For each call Post API give 10 category.
 * `"/api/v1/public/tags/"` this API will expose all tag list which are available in **Dahlia**
-* `"/api/v1/public/posts/"` this API will expose all post list which are public only. 
+  * Tag API support filtering tags. User can filter tags by category name
+  * With filter option the API is `"/api/v1/public/tags/?tag_name="`
+  * Tag API also support pagination. For each call Post API give 10 tag.
+* `"/api/v1/public/posts/"` this API will expose all post list which are public only.
+  * Post API support filtering. User can filter data by using title, subtitle or post content.
+  * With filter option the API is `"/api/v1/public/posts/?title=&subtitle=&body="`
+  * Post API also support pagination. For each call Post API give 10 post content.
 * `"/api/v1/public/site/"` this API will expose site information
 
 Full list of API can be found in API menu which is under Settings
