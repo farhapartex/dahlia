@@ -36,4 +36,17 @@ Initially you are not able to perform any operation like Creation, Deletion etc.
 * Click on `Settings` and then `Create Role`. Click on `Add Role` which is on right upper of the page. 
 * Dahlia contain 3 roles which are `Administrator`, `Moderator` and `Editor`.
 * By Clicking `Add Role` a modal form will appear. Select `Administrator` and select all permissions and submit. 
-* Now you are able to perform all kind of actions in `Dahlia`
+* Now click on your username in top of the sidebar , then click on `Profile` tab and provide necessary information and must select `Administrator` from Select Role options and after click on `Submit` button.
+* Congratulations! Now you are able to perform all kind of actions in `Dahlia`
+
+### Features in Dahlia
+
+Dahlia is a blog CMS. It provide a user all kind of features which is essential for creating a blog site. The key features are
+* Category
+* Tag
+* Media Browser
+* Post
+* Public API
+* Contact Message
+* Menu Options
+* Creating User with permissions
