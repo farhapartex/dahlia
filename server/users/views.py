@@ -21,9 +21,3 @@ class PublicProfileViewSet(viewsets.ReadOnlyModelViewSet):
         except:
             return []
 
-
-class PrivatePermissionAddAPIView(viewsets.ModelViewSet):
-    queryset = UserRole.objects.all()
-    serializer_class = UserRoleSerializer
-    # permission_classes = (IsAuthenticated, IsAdminOrReadOnly)
-

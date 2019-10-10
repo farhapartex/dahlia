@@ -965,8 +965,8 @@ class ContactDeleteView(TemplateView):
             return HttpResponseRedirect("/cms/contacts/")
 
 
-class UserRoleView(TemplateView):
-    queryset = UserRole.objects.all().order_by("-id")
+class UserRoleView(ListView):
+    queryset = UserRole.objects.all().order_by("id")
     template_name = "cms_admin/permissions/userRoles.html"
     paginate_by = 12
 

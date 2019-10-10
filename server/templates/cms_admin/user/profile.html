@@ -152,16 +152,16 @@
                             <div class="tab-content">
 
                                 <div class="active tab-pane" id="overview">
-                                    {% if request.user.is_superuser %}
                                     <div class="w-100 mb-5">
-                                        <h4>About {% if c_profile == profile %}Me{% else %}User{% endif %}</h4>
+                                        <h4>About
+                                            {% if c_profile == profile %}Me{% else %}{{ userobj.username }}{% endif %}
+                                        </h4>
                                         <div class="mt-3">
                                             <p>
                                                 {{ userobj.profile.about }}
                                             </p>
                                         </div>
                                     </div>
-                                    {% endif %}
                                     <div class="w-100 mb-5">
                                         <h4>Social Medias</h4>
                                         <div class="mt-3">
