@@ -13,6 +13,9 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
 * [Features in Dahlia](https://github.com/farhapartex/dahlia#features-in-dahlia)
 * [Features Descriptions](https://github.com/farhapartex/dahlia#description-of-features-in-dahlia)
   * [User](https://github.com/farhapartex/dahlia#user)
+  * [Profile](https://github.com/farhapartex/dahlia#user)
+  * [Site](https://github.com/farhapartex/dahlia#user)
+  * [Main Menu](https://github.com/farhapartex/dahlia#user)
 
 ### How To Install
 
@@ -59,7 +62,16 @@ Dahlia is a blog CMS. It provide a user all kind of features which is essential 
 
 ## Description of Features in Dahlia
 
-#### User
+#### User 
 Only `Administrator` can create user and control all other features of user (Profile, Education, Skill, Social). `Administrator` and `Moderator` both of them are able to update any user information ( `Moderator` is not able to control `Administrator` profile). But none of them can change password of any user. A password is changeable only by this user which it belongs. 
-After creating a user, `Administrator` must have to update profile of that user with proper role. Otherwise, the new user will not be able to do any operations in the CMS. 
+After creating a user, `Administrator` must have to update profile of that user with proper role. Otherwise, the new user will not be able to do any operations in the CMS.
+
+#### Profile
+In `Dahlia`, Profile is a combination of Bio, About, Education ,skill, social and password information. User can add necessary profile information to show in their blog site.
+
+#### Site
+Site contains the information of your blog site such as title, site logo, site favicon etc. 
+
+#### Main Menu
+A blog site need menus. In `Dahlia` user can create their menu list. To create menu, user must have to create site information before. Otherwise menu can not be created.
 
