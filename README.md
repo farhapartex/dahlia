@@ -18,6 +18,7 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
   * [Site Information](https://github.com/farhapartex/dahlia#site-information)
   * [Main Menu](https://github.com/farhapartex/dahlia#main-menu)
   * [API Reference](https://github.com/farhapartex/dahlia#api-refrence)
+  * [Contact Message](https://github.com/farhapartex/dahlia#api-refrence)
   
 
 ### How To Install
@@ -93,3 +94,8 @@ In **Dahlia**, images are stored separately. In **Dahlia**, any kind of images w
 * `"/api/v1/public/site/"` this API will expose site information
 
 Full list of API can be found in API menu which is under Settings
+
+### Contact Message
+**Dahlia** provides a way to connect reader with the blog owner. Reader of the blog site can send a message via a public post API which is `"/api/v1/public/contact/"`. This API is only for post data. No one can use the API for get request. Reader must have to provide their name, email with the message. 
+
+In **Dahlia** owner will get notification alert for unseen contact messages from the upper right corner.
