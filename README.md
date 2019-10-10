@@ -49,3 +49,10 @@ Dahlia is a blog CMS. It provide a user all kind of features which is essential 
 * Contact Message
 * Menu Options
 * Creating User with permissions
+
+## Description of Features in Dahlia
+
+#### User
+Only `Administrator` can create user and control all other features of user (Profile, Education, Skill, Social). `Administrator` and `Moderator` both of them are able to update any user information ( `Moderator` is not able to control `Administrator` profile). But none of them can change password of any user. A password is changeable only by this user which it belongs. 
+After creating a user, `Administrator` must have to update profile of that user with proper role. Otherwise, the new user will not be able to do any operations in the CMS. 
+
