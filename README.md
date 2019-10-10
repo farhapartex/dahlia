@@ -12,3 +12,4 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
 * Clone the repository from `https://github.com/farhapartex/dahlia.git`
 * Move to the folder `dahlia`
 * Open your command shell on this folder
+* Type `docker-compose build server`
