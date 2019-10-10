@@ -58,9 +58,15 @@ Dahlia is a blog CMS. It provide a user all kind of features which is essential 
 * Public API
 * Contact Message
 * Menu Options
-* Creating User with permissions
+* Creating User with role
 
-## Description of Features in Dahlia
+## Feature Description of Dahlia
 
 #### User Role
-`Dahlia` Provide 3 user role which are `Administrator`, `Moderator` and `Editor`. In Dahlia `Administrator` can do any kind of operations, `Moderator` can also do any kind of operations without creating user, changing system information.
+**Dahlia** provides 3 user role which are `Administrator`, `Moderator` and `Editor`. In **Dahlia**, `Administrator` can do any kind of operations, `Moderator` can also perform any kind of operations without creating user, deleting any information and changing system information.
+
+### Site Information
+**Dahlia** give user chance to create their blog site information such as, site name, site logo, site favicon etc. Only `Administrator` can add or edit site information.
+
+### Main-Menu
+**Dahlia** allow you to create menu list for your blog website. Remember that, a menu can be created if and only if there is a site information created before. Without creating site information, you can not create any menu in **Dahlia**.
