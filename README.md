@@ -1,3 +1,4 @@
+![Dahlia](/static/images/dahlia-logo.png)
 ## Dahlia 1.0.0
 
 ### What is Dahlia
@@ -17,7 +18,7 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
   * [User Role](https://github.com/farhapartex/dahlia#user-role)
   * [Site Information](https://github.com/farhapartex/dahlia#site-information)
   * [Main Menu](https://github.com/farhapartex/dahlia#main-menu)
-  * [API Reference](https://github.com/farhapartex/dahlia#main-menu)
+  * [API Reference](https://github.com/farhapartex/dahlia#api-refrence)
   
 
 ### How To Install
