@@ -12,9 +12,12 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
 * [How To Install](https://github.com/farhapartex/dahlia#how-to-install)
 * [Features in Dahlia](https://github.com/farhapartex/dahlia#features-in-dahlia)
 * [Features Descriptions](https://github.com/farhapartex/dahlia#description-of-features-in-dahlia)
+  * [Category, Tag](https://github.com/farhapartex/dahlia#main-menu)
+  * [Post](https://github.com/farhapartex/dahlia#main-menu)
   * [User Role](https://github.com/farhapartex/dahlia#user-role)
   * [Site Information](https://github.com/farhapartex/dahlia#site-information)
   * [Main Menu](https://github.com/farhapartex/dahlia#main-menu)
+  
 
 ### How To Install
 
@@ -60,6 +63,12 @@ Dahlia is a blog CMS. It provide a user all kind of features which is essential 
 * Creating User with role
 
 ## Feature Description of Dahlia
+
+### Category, Tag
+In **Dahlia**, you can create category, tag. `Administrator` can create, update and delete any category or tag. `Moderator` only can add and edit. `Editor` only can edit any tag or category.
+
+### Post
+In **Dahlia**, the main purpose is creating blog post easily and maintain the blog site. A post is a combination of title, subtitle, post content, category and tags. A post can contain multiple tags. `Administrator` can create , update and delete any post. `Moderator` can create new post and update an existing post. But can not delete any post. `Editor` can only edit any post.
 
 #### User Role
 **Dahlia** provides 3 user role which are `Administrator`, `Moderator` and `Editor`. In **Dahlia**, `Administrator` can do any kind of operations, `Moderator` can also perform any kind of operations without creating user, deleting any information and changing system information.
