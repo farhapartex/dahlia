@@ -107,4 +107,4 @@ Full list of API can be found in API menu which is under Settings
 ### Contact Message
 **Dahlia** provides a way to connect reader with the blog owner. Reader of the blog site can send a message via a public post API which is `"/api/v1/public/contact/"`. This API is only for post data. No one can use the API for get request. Reader must have to provide their name, email with the message. 
 
-In **Dahlia** owner will get notification alert for unseen contact messages from the upper right corner.
+In **Dahlia** owner will get notifications alert for unseen contact messages which will be shown in the upper right corner of header.
