@@ -1,4 +1,3 @@
-![Dahlia](/static/images/dahlia-logo.png)
 ## Dahlia 1.0.0
 
 ### What is Dahlia
