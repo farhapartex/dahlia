@@ -17,6 +17,7 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
   * [User Role](https://github.com/farhapartex/dahlia#user-role)
   * [Site Information](https://github.com/farhapartex/dahlia#site-information)
   * [Main Menu](https://github.com/farhapartex/dahlia#main-menu)
+  * [API Reference](https://github.com/farhapartex/dahlia#main-menu)
   
 
 ### How To Install
@@ -70,6 +71,9 @@ In **Dahlia**, you can create category, tag. `Administrator` can create, update 
 ### Post
 In **Dahlia**, the main purpose is creating blog post easily and maintain the blog site. A post is a combination of title, subtitle, post content, category and tags. A post can contain multiple tags. `Administrator` can create , update and delete any post. `Moderator` can create new post and update an existing post. But can not delete any post. `Editor` can only edit any post.
 
+### Media
+In **Dahlia**, images are stored separately. In **Dahlia**, any kind of images will be used from the **Media** section. `Administrator` and `Moderator` can add, update and delete any image. `Editor` only can view image.
+
 #### User Role
 **Dahlia** provides 3 user role which are `Administrator`, `Moderator` and `Editor`. In **Dahlia**, `Administrator` can do any kind of operations, `Moderator` can also perform any kind of operations without creating user, deleting any information and changing system information.
 
@@ -78,3 +82,14 @@ In **Dahlia**, the main purpose is creating blog post easily and maintain the bl
 
 ### Main-Menu
 **Dahlia** allow you to create menu list for your blog website. Remember that, a menu can be created if and only if there is a site information created before. Without creating site information, you can not create any menu in **Dahlia**.
+
+### API Reference
+**Dahlia** provides various types of API to integrate in front-end template to show the post content. Here are list of APis in **Dahlia**
+
+* `"/api/v1/public/profile/"` this API will expose profile information of the `Administrator`. **Dahlia** consider that `Administrator` is the owner of the blog site.
+* `"/api/v1/public/categories/"` this API will expose all category list which are available in **Dahlia**
+* `"/api/v1/public/tags/"` this API will expose all tag list which are available in **Dahlia**
+* `"/api/v1/public/posts/"` this API will expose all post list which are public only. 
+* `"/api/v1/public/site/"` this API will expose site information
+
+Full list of API can be found in API menu which is under Settings
