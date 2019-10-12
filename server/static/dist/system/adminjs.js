@@ -11,7 +11,14 @@ $(document).ready(function () {
 
 
     $(".user-select").change(function () {
-        let apiUrl = "http://127.0.0.1:8000/api/v1/public/categories/";
+        let host = window.location.host
+        let apiUrl = host +"/api/v1/public/categories/";
+        if(host == "localhost:8000" || host == "127.0.0.1:8000"){
+            apiUrl = "http://" + apiUrl;
+        }
+        else{
+            apiUrl = "https://" + apiUrl;
+        }
         $.ajax({
             url: apiUrl, success: function (result) {
                 console.log(result);
@@ -65,5 +72,46 @@ $(document).ready(function () {
     $("#postText").keyup(function () {
         let postContent = $(this).html();
         $("#id_body").text(postContent);
+    });
+
+    $("#select_all_cat").click(function () {
+        if ($('#select_all_cat').prop('checked')){
+            $('.cat_check').prop('checked', true);
+        }
+        else{
+            $('.cat_check').prop('checked', false);
+        }
+
+        // $('.cat_check').prop('checked', false);
+        
+    });
+
+
+    $(".action-select").change(function () {
+        if($(this).val() == "delete"){
+
+            $('input:checkbox.cat_check').each(function () {
+                if(this.checked){
+                    let id = $(this).val();
+                    let host = window.location.host
+                    let apiUrl = host + window.location.pathname + id + "/delete/";
+                    if(host == "localhost:8000" || host == "127.0.0.1:8000"){
+                        apiUrl = "http://" + apiUrl;
+                    }
+                    else{
+                        apiUrl = "https://" + apiUrl;
+                    }
+                    $.ajax({
+                        url: apiUrl, success: function (result) {
+                            console.log(result);
+                            
+                        }, error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                    window.location.reload();
+                }
+           });
+        }
     });
 });
