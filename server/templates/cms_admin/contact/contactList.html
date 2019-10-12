@@ -38,10 +38,23 @@
             <!-- /.card-header -->
             <div class="card-body">
               {% if contact_list.count > 0 %}
+              <div class="row">
+                  <div class="form-group col-md-2 col-2">
+                    <select class="form-control form-control-sm action-select">
+                      <option selected>Actions</option>
+                      <option value="delete">Delete</option>
+                    </select>
+                  </div>
+                </div>
               <table id="example2" class="table table-bordered table-hover text-center">
                 <thead>
                   <tr>
-                    <th># ID</th>
+                    <th>
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="select_all_cat">
+                            <label class="form-check-label" for="exampleCheck1">All</label>
+                        </div>
+                    </th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Created At</th>
@@ -52,9 +65,11 @@
                   {% for contact in contact_list %}
                   <tr>
                     <td>
-                      {{ forloop.counter }}
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input cat_check" id="{{ contact.id }}" value="{{ contact.id }}">
+                        </div>
                       {% if contact.seen == False %}
-                      <span class="badge badge-pill badge-danger">new</span>
+                      <span class="badge badge-pill badge-danger">New</span>
                       {% endif %}
                     </td>
                     <td>{{ contact.name }}</td>

@@ -124,10 +124,23 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             {% if object_list.count > 0 %}
+                            <div class="row">
+                                <div class="form-group col-md-2 col-2">
+                                  <select class="form-control form-control-sm action-select">
+                                    <option selected>Actions</option>
+                                    <option value="delete">Delete</option>
+                                  </select>
+                                </div>
+                              </div>
                             <table id="example2" class="table table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
-                                        <th># ID</th>
+                                        <th>
+                                            <div class=" form-check">
+                                                <input type="checkbox" class="form-check-input" id="select_all_cat">
+                                                <label class="form-check-label" for="exampleCheck1">All</label>
+                                            </div>
+                                        </th>
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Superuser</th>
@@ -138,7 +151,13 @@
                                 <tbody>
                                     {% for u in object_list %}
                                     <tr>
-                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            {% if u.is_superuser == False %}
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input cat_check" id="{{ u.id }}" value="{{ u.id }}">
+                                              </div>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ u.username }} </td>
                                         <td>{{ u.email }}</td>
                                         <td>{{ u.is_superuser }}</td>
@@ -151,10 +170,12 @@
                                                 View <span class="ml-1"><i class="far fa-eye"></i></span>
                                                 {% endif %}
                                             </a>
+                                            {% if u.is_superuser == False %}
                                             {% if c_profile.user_role.role == 1 %}
                                             <span class="ml-1 mr-1">|</span>
                                             <a href="{% url 'user_delete' u.id %}" class="text-danger objDelete">Delete
                                                 <span><i class="far fa-trash-alt"></i></span></a>
+                                            {% endif %}
                                             {% endif %}
                                         </td>
                                     </tr>
