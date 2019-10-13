@@ -61,8 +61,6 @@ class CommentPublicSerializer(serializers.ModelSerializer):
 class PublicPostSerializer(serializers.ModelSerializer):
     category = PublicCategorySerializer()
     tags = PublicTagSerializer(many=True)
-    # reacts = ReactSerializer(many=True)
-    # comments = CommentSerializer(many=True)
     comments = serializers.SerializerMethodField()
     reacts =serializers.SerializerMethodField()
 

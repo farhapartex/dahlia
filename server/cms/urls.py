@@ -33,6 +33,7 @@ public_router.register(r"profile", u_views.PublicProfileViewSet)
 public_router.register(r"categories", b_views.PublicCategoryViewSet)
 public_router.register(r"tags", b_views.PublicTagViewSet)
 public_router.register(r"posts", b_views.PublicPostViewSet)
+public_router.register(r"comments", b_views.PublicCommentViewSet)
 public_router.register(r"site", s_views.PublicSiteAPIView)
 
 admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
@@ -42,7 +43,6 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view()),
     path("cms/", include("cms_admin.urls")),
     re_path(r"^api/v1/public/contact/", s_views.ContactCreateAPIView.as_view()),
-    re_path(r"^api/v1/public/comments/", b_views.CommentCreateAPIView.as_view()),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]
