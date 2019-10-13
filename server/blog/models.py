@@ -67,11 +67,11 @@ class React(models.Model):
     post = models.ForeignKey(
         Post, verbose_name=_("Post"), related_name="reacts", on_delete=models.CASCADE
     )
-    amount = models.PositiveIntegerField(_("Amount"))
+    # amount = models.PositiveIntegerField(_("Amount"))
     type = models.SmallIntegerField(_("Type"), choices=REACT_TYPES, default=1)
 
     def __str__(self):
-        return f"{self.post} {self.amount}"
+        return f"{self.post} -> {self.type}"
 
 
 class Comment(models.Model):

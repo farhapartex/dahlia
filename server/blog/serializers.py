@@ -30,7 +30,7 @@ class FlatPostSerializer(serializers.ModelSerializer):
 class ReactSerializer(serializers.ModelSerializer):
     class Meta:
         model = React
-        fields = ("id", "type", "amount")
+        fields = ("id", "type")
 
 
 class ChildCommentSerializer(serializers.ModelSerializer):
@@ -52,18 +52,34 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ("id", "parent", "children", "body", "created_at", "updated_at")
 
+class CommentPublicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = ("id","post", "parent", "body",)
 
 class PublicPostSerializer(serializers.ModelSerializer):
     category = PublicCategorySerializer()
     tags = PublicTagSerializer(many=True)
-    reacts = ReactSerializer(many=True)
-    # comments = CommentSerializer(many=True)
     comments = serializers.SerializerMethodField()
+    reacts =serializers.SerializerMethodField()
 
     def get_comments(self, obj):
         post_comment = Comment.objects.filter(post=obj.id, parent=None)
         serializer = CommentSerializer(post_comment, many=True)
         return serializer.data
+    
+    def get_reacts(self, model):
+        likes = React.objects.filter(post=model.id, type=1).count()
+        dislikes = React.objects.filter(post=model.id, type=2).count()
+        claps = React.objects.filter(post=model.id, type=3).count()
+        loves = React.objects.filter(post=model.id, type=4).count()
+        return {
+            "likes" : likes,
+            "dislikes" : dislikes,
+            "claps": claps,
+            "loves" : loves
+        }
 
     class Meta:
         model = Post

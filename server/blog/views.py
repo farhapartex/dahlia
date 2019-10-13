@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django_filters import rest_framework as filters
 from rest_framework import filters as drf_filters
 from rest_framework import generics, viewsets
+from rest_framework import mixins
 from .models import *
 from .serializers import *
 
@@ -46,6 +47,11 @@ class PublicTagViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PublicTagSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = TagListFilter
+
+
+class PublicCommentViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentPublicSerializer
 
 
 class PostListFilter(filters.FilterSet):
