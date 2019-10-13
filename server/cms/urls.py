@@ -42,6 +42,7 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view()),
     path("cms/", include("cms_admin.urls")),
     re_path(r"^api/v1/public/contact/", s_views.ContactCreateAPIView.as_view()),
+    re_path(r"^api/v1/public/comments/", b_views.CommentCreateAPIView.as_view()),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]

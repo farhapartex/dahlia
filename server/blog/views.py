@@ -47,6 +47,10 @@ class PublicTagViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = TagListFilter
 
+class CommentCreateAPIView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentPublicSerializer
+
 
 class PostListFilter(filters.FilterSet):
     title = filters.CharFilter(method="filter_by_post_title")
