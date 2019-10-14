@@ -44,10 +44,29 @@ def get_new_contact_message():
     contacts = Contact.objects.filter(seen=False).order_by("-id")
     return contacts
 
+def get_notification():
+    notifications = Notification.objects.all().order_by("-id")[:10]
+    notification_list = []
+    for notification in notifications:
+        if notification.status:
+            seen = True
+        else:
+            seen = False
+        if notification.content_object.__class__ is Comment:
+            notification_list.append({"obj": notification.content_object,"model":"comment","message" : "Comment", "seen":seen})
+        elif notification.content_object.__class__ is React:
+            notification_list.append({"obj": notification.content_object,"model":"react","message" : "React", "seen":seen})
+        elif notification.content_object.__class__ is Contact:
+            notification_list.append({"obj": notification.content_object,"model":"contact","message" : "Contact", "seen":seen})
+    
+    return notification_list
+
 
 def get_default_context(context,request):
     context["user"] = request.user.username
     context["contacts"] = get_new_contact_message()
+    context["notifications"] = get_notification()
+    context["notification_count"] = Notification.objects.filter(status=False).count()
     try:
         profile = Profile.objects.get(user=request.user)
     except:
@@ -650,6 +669,8 @@ class PostUpdateView(TemplateView):
             form = PostForm(instance=post)
             context["form"] = form
             context["post"] = post
+            context["comments"] = post.comments.all()
+            context["reacts"] = post.reacts.all()
             context["stage"] = "update"
             return render(request, self.template_name, context)
         except:

@@ -8,4 +8,8 @@ from .models import *
 class SystemPermissionAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    pass
+
 

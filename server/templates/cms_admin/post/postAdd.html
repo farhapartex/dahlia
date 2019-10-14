@@ -116,6 +116,13 @@
                             <label>Select Tags <span class="text-danger">*</span></label>
                             {{ form.tags }}
                         </div>
+                        {% if stage == "update" %}
+                        <div class="form-group mt-2 w-75 mx-auto">
+                            <b>
+                                <span class="mr-3">Comments: {{ comments.count }}</span> <span>Reacts: {{ reacts.count }}</span>
+                            </b>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
 
