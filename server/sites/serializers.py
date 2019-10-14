@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from media_browser.serializers import FlatPublicMediaSerializer
+from cms_admin.models import Notification
 from .models import *
 
 
@@ -43,6 +44,13 @@ class PublicSiteInformationSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        contact = Contact.objects.create(**validated_data)
+        notification = Notification(content_object=contact)
+        notification.save()
+        return contact
+
     class Meta:
         model = Contact
         fields = ("id","name","email","message")

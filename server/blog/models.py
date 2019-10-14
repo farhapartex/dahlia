@@ -60,7 +60,7 @@ class Post(models.Model):
         return "/api/v1/public/posts/{0}/".format(self.id)
 
 
-REACT_TYPES = ((1, "LIKE"), (2, "DISLIKE"), (3, "CLAP"), (4, "LOVE"))
+REACT_TYPES = ((1, "LIKE"), (2, "DISLIKE"), (3, "CLAP"), (4, "LOVE"),(5, "WOW"))
 
 
 class React(models.Model):

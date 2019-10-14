@@ -33,22 +33,22 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
-                {% if contacts.count > 0 %}
-                <span class="badge badge-danger navbar-badge">{{ contacts.count }}</span>
+                {% if notification_count > 0 %}
+                <span class="badge badge-danger navbar-badge">{{ notification_count }}</span>
                 {% endif %}
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                {% for contact in contacts %}
-                <a href="{% url 'contact' contact.id  %}" class="dropdown-item">
+                <p class="pl-2 pt-2">Notifications</p>
+                {% for notification in notifications %}
+                <a href="{% url 'contact' notification.obj.id  %}" class="dropdown-item notification" style="background: {% if notification.seen %} transparent {% else %} #d9d9d9 {% endif %}">
                     <!-- Message Start -->
                     <div class="media">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
-                                {{ contact.name }}
                                 <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                             </h3>
-                            <p class="text-sm">{{ contact.message|truncatechars:40 }}</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ contact.created_at | timesince }} Ago</p>
+                            <p class="text-sm">{{ notification.message|truncatechars:40 }} notification</p>
+                            <!-- <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ contact.created_at | timesince }} Ago</p> -->
                         </div>
                     </div>
                     <!-- Message End -->
@@ -56,10 +56,10 @@
                 <div class="dropdown-divider"></div>
                 {% endfor %}
 
-                {% if contacts.count > 0 %}
-                <a href="{% url 'contacts' %}" class="dropdown-item dropdown-footer">See All Messages</a>
+                {% if notifications %}
+                <a href="{% url 'contacts' %}" class="dropdown-item dropdown-footer">See All Notifications</a>
                 {% else %}
-                <p class="dropdown-item dropdown-footer">Currently no new message found!</p>
+                <p class="dropdown-item dropdown-footer">Currently no new notifications found!</p>
                 {% endif %}
             </div>
         </li>

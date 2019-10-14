@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from cms_admin.models import Notification
 from .models import *
 
 
@@ -54,9 +55,27 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class CommentPublicSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        comment = Comment.objects.create(**validated_data)
+        notification = Notification(content_object=comment)
+        notification.save()
+        return comment
+
     class Meta:
         model = Comment
         fields = ("id","post", "parent", "body",)
+
+class ReactPublicSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        react = React.objects.create(**validated_data)
+        notification = Notification(content_object=react)
+        notification.save()
+        return react
+        
+    class Meta:
+        model = React
+        fields = ("id","post", "type",)
 
 class PublicPostSerializer(serializers.ModelSerializer):
     category = PublicCategorySerializer()
@@ -74,11 +93,13 @@ class PublicPostSerializer(serializers.ModelSerializer):
         dislikes = React.objects.filter(post=model.id, type=2).count()
         claps = React.objects.filter(post=model.id, type=3).count()
         loves = React.objects.filter(post=model.id, type=4).count()
+        wows = React.objects.filter(post=model.id, type=5).count()
         return {
             "likes" : likes,
             "dislikes" : dislikes,
             "claps": claps,
-            "loves" : loves
+            "loves" : loves,
+            "wows" : wows
         }
 
     class Meta:

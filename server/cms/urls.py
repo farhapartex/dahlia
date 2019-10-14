@@ -34,6 +34,7 @@ public_router.register(r"categories", b_views.PublicCategoryViewSet)
 public_router.register(r"tags", b_views.PublicTagViewSet)
 public_router.register(r"posts", b_views.PublicPostViewSet)
 public_router.register(r"comments", b_views.PublicCommentViewSet)
+public_router.register(r"reacts", b_views.PublicReactViewSet)
 public_router.register(r"site", s_views.PublicSiteAPIView)
 
 admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
