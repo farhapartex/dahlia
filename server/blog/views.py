@@ -54,6 +54,11 @@ class PublicCommentViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
     serializer_class = CommentPublicSerializer
 
 
+class PublicReactViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
+    queryset = React.objects.all()
+    serializer_class = ReactPublicSerializer
+
+
 class PostListFilter(filters.FilterSet):
     title = filters.CharFilter(method="filter_by_post_title")
     subtitle = filters.CharFilter(method="filter_by_post_subtitle")

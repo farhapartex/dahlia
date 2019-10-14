@@ -58,6 +58,11 @@ class CommentPublicSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ("id","post", "parent", "body",)
 
+class ReactPublicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = React
+        fields = ("id","post", "type",)
+
 class PublicPostSerializer(serializers.ModelSerializer):
     category = PublicCategorySerializer()
     tags = PublicTagSerializer(many=True)
@@ -74,11 +79,13 @@ class PublicPostSerializer(serializers.ModelSerializer):
         dislikes = React.objects.filter(post=model.id, type=2).count()
         claps = React.objects.filter(post=model.id, type=3).count()
         loves = React.objects.filter(post=model.id, type=4).count()
+        wows = React.objects.filter(post=model.id, type=5).count()
         return {
             "likes" : likes,
             "dislikes" : dislikes,
             "claps": claps,
-            "loves" : loves
+            "loves" : loves,
+            "wows" : wows
         }
 
     class Meta:
