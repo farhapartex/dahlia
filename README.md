@@ -63,6 +63,7 @@ Dahlia is a blog CMS. It provide a user all kind of features which is essential 
 * Contact Message
 * Menu Options
 * Creating User with role
+* Notification
 
 ## Feature Description of Dahlia
 
@@ -100,6 +101,15 @@ In **Dahlia**, images are stored separately. In **Dahlia**, any kind of images w
   * Post API support filtering. User can filter data by using title, subtitle or post content.
   * With filter option the API is `"/api/v1/public/posts/?title=&subtitle=&body="`
   * Post API also support pagination. For each call Post API give 10 post content.
+* `"/api/v1/public/comments/"` this API will create comment for a specific post
+  * The API takes data as like below
+  ```
+  {
+      post : post_id (for which post for the comment is),
+      parent: comment_id (if the comment is a child of comment of another comment of that post)
+      body: comment_text (Comment text for that post)
+  }
+  ```
 * `"/api/v1/public/site/"` this API will expose site information
 
 Full list of API can be found in API menu which is under Settings
