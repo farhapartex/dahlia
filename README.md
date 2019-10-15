@@ -17,7 +17,7 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
   * [User Role](https://github.com/farhapartex/dahlia#user-role)
   * [Site Information](https://github.com/farhapartex/dahlia#site-information)
   * [Main Menu](https://github.com/farhapartex/dahlia#main-menu)
-  * [API Reference](https://github.com/farhapartex/dahlia#api-refrence)
+  * [API Reference](https://github.com/farhapartex/dahlia#api-reference)
   * [Contact Message](https://github.com/farhapartex/dahlia#contact-message)
   
 
