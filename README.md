@@ -105,11 +105,22 @@ In **Dahlia**, images are stored separately. In **Dahlia**, any kind of images w
   * The API takes data as like below
   ```
   {
-      post : post_id (for which post for the comment is),
+      post : post_id (existing post id, for which post for the comment is),
       parent: comment_id (if the comment is a child of comment of another comment of that post)
       body: comment_text (Comment text for that post)
   }
   ```
+  * After creating the comment the comment will be automatically added to that post API
+* `"/api/v1/public/reacts/"` this API will create react for a specific post
+  * In Dahlia there are 5 types react which are Like, Dislike, Clap, Love and Wow, Each has a representative value which are 1,2,3,4 and 5
+  * This API is only a post API, With a specific post, it will create a reaction. The data objects is as like below
+  ```
+  {
+      post : post_id (existing post id, for which post for the reaction is),
+      type: type_value (1,2,3,4 or 5. )
+  }
+  ```
+  * After creating a react, total calculation will be automatically added to that post API
 * `"/api/v1/public/site/"` this API will expose site information
 
 Full list of API can be found in API menu which is under Settings
