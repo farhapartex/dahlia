@@ -23,6 +23,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework import generics, viewsets
 from cms import urls
 from media_browser.models import *
+from cms_admin.models import *
 from blog.models import *
 from sites.models import *
 from users.models import *
@@ -48,17 +49,24 @@ def get_notification():
     notifications = Notification.objects.all().order_by("-id")[:10]
     notification_list = []
     for notification in notifications:
+        message, model = "", notification.content_object
         if notification.status:
             seen = True
         else:
             seen = False
-        if notification.content_object.__class__ is Comment:
-            notification_list.append({"obj": notification.content_object,"model":"comment","message" : "Comment", "seen":seen})
-        elif notification.content_object.__class__ is React:
-            notification_list.append({"obj": notification.content_object,"model":"react","message" : "React", "seen":seen})
-        elif notification.content_object.__class__ is Contact:
-            notification_list.append({"obj": notification.content_object,"model":"contact","message" : "Contact", "seen":seen})
-    
+            message = "new "
+        if model.__class__ is Comment:
+            model_name = "comment"
+            message = message + "comment notification for the post '{0}'...".format(model.post.title[0:30])
+        elif model.__class__ is React:
+            model_name = "react"
+            message = message + "react notification for the post '{0}'...".format(model.post.title[0:30])
+        elif model.__class__ is Contact:
+            model_name = "contact"
+            verb = "sent" if seen else "sends"
+            message = model.name+" "+verb+" contact message"
+        
+        notification_list.append({"obj": notification.content_object,"model": model_name,"message" : message, "seen":seen})
     return notification_list
 
 
@@ -968,9 +976,13 @@ class ContactView(TemplateView):
     def get(self, request, cid):
         context = get_default_context({},request)
         contact = Contact.objects.get(id=cid)
-        if contact.seen is False:
-            contact.seen = True
-            contact.save()
+        contact_obj = ContentType.objects.get_for_model(Contact)
+        notification = Notification.objects.filter(content_type=contact_obj, object_id=contact.id)[0]
+
+        #notification = Notification.objects.get(content_object=contact)
+        if notification.status is False:
+            notification.status = True
+            notification.save()
         context["contact"] = contact
 
         return render(request, self.template_name, context)
