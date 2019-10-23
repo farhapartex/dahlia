@@ -56,7 +56,8 @@
                                         <li class="nav-item"><a class="nav-link active" href="#editor"
                                                 data-toggle="tab">Editor</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#plain_text" data-toggle="tab">Plain
+                                        <li class="nav-item"><a class="nav-link" href="#plain_text"
+                                                data-toggle="tab">Plain
                                                 Text</a>
                                         </li>
                                     </ul>
@@ -81,6 +82,25 @@
                                 </div><!-- /.card-body -->
                             </div>
                         </div>
+
+                        {% if stage == "update" %}
+                        <div class="form-group mt-5">
+                            <div class="pt-1 pb-1">
+                                <h4>Post Comments</h4>
+                            </div>
+                            {% if comments.count  > 0%}
+                            <ul class="list-group">
+                                {% for comment in comments %}
+                                <li class="list-group-item">{{ comment.body }} <br>
+                                    <small>{{ comment.created_at | timesince }} ago</small>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>No comment found!</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="col-md-4">
                         <div class="form-group w-75 mx-auto">
@@ -119,7 +139,8 @@
                         {% if stage == "update" %}
                         <div class="form-group mt-2 w-75 mx-auto">
                             <b>
-                                <span class="mr-3">Comments: {{ comments.count }}</span> <span>Reacts: {{ reacts.count }}</span>
+                                <span class="mr-3">Comments: {{ comments.count }}</span> <span>Reacts:
+                                    {{ reacts.count }}</span>
                             </b>
                         </div>
                         {% endif %}

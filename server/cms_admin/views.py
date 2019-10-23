@@ -56,17 +56,17 @@ def get_notification():
             seen = False
             message = "new "
         if model.__class__ is Comment:
-            model_name = "comment"
+            model_name = "comments"
             message = message + "comment notification for the post '{0}'...".format(model.post.title[0:30])
         elif model.__class__ is React:
             model_name = "react"
             message = message + "react notification for the post '{0}'...".format(model.post.title[0:30])
         elif model.__class__ is Contact:
-            model_name = "contact"
+            model_name = "contacts"
             verb = "sent" if seen else "sends"
             message = model.name+" "+verb+" contact message"
         
-        notification_list.append({"obj": notification.content_object,"model": model_name,"message" : message, "seen":seen})
+        notification_list.append({"id":notification.id,"obj": notification.content_object,"model": model_name,"message" : message, "seen":seen})
     return notification_list
 
 
@@ -1030,6 +1030,29 @@ class UserRoleView(ListView):
         else:
             messages.error(request, 'Data not valid')
             return HttpResponseRedirect("/cms/roles/")
+
+
+
+class NotificationListView(ListView):
+    queryset = Notification.objects.all().order_by("-id")
+    template_name = "cms_admin/notification/notificationList.html"
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = get_default_context(super().get_context_data(**kwargs), self.request)
+
+        return context
+
+
+class NotificationDeleteView(TemplateView):
+    def get(self, request, notiid):
+        try:
+            notification = Notification.objects.get(id=notiid)
+            store_log_info(request,notification,3)
+            notification.delete()
+            return HttpResponseRedirect("/cms/notifications/")
+        except:
+            return HttpResponseRedirect("/cms/notifications/")
     
 
 

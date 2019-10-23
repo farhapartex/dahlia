@@ -170,6 +170,8 @@ urlpatterns = [
         name="contact_delete",
     ),
     path("roles/", login_required(UserRoleView.as_view()), name="roles"),
+    path("notifications/", login_required(NotificationListView.as_view()), name="notifications"),
+    path("notifications/<int:notiid>/delete/", login_required(NotificationDeleteView.as_view()), name="notification_delete"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]

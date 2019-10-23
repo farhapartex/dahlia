@@ -1,0 +1,149 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Notification List</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        {% if messages %}
+                        <div class="card-header">
+                            {% for message in messages %}
+                            <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            {% if object_list.count > 0 %}
+                            <div class="row">
+                                <div class="form-group col-md-2 col-2">
+                                    <select class="form-control form-control-sm action-select">
+                                        <option selected>Actions</option>
+                                        <option value="delete">Delete</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <table id="example2" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class=" form-check">
+                                                <input type="checkbox" class="form-check-input" id="select_all_cat">
+                                                <label class="form-check-label" for="exampleCheck1">All</label>
+                                            </div>
+                                        </th>
+                                        <th>Notification</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for notification in notifications %}
+                                    <tr>
+                                        <!-- <td>{{ forloop.counter }}</td> -->
+                                        <td>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input cat_check"
+                                                    id="{{ category.id }}" value="{{ category.id }}">
+                                            </div>
+                                        </td>
+                                        <td>{{ notification.message }}</td>
+                                        <td>{% if notification.seen %} Seen {% else %}Unseen{% endif %}</td>
+                                        <td>
+                                            {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
+                                            {% if  notification.model == 'contacts' %}
+                                            <a href="/cms/{{ notification.model }}/{{ notification.obj.id }}/view/"
+                                                class="edit-text">View
+                                                <span class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            {% else %}
+                                            <a href="/cms/posts/{{ notification.obj.post.id }}/change/"
+                                                class="edit-text">View
+                                                <span class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            {% endif %}
+                                            {% if c_profile.user_role.role == 1 %}
+                                            <span> | </span> <a href="{% url 'notification_delete' notification.id %}"
+                                                id="" class="text-danger objDelete">Delete
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
+                                            {% endif %}
+                                            {% else %}
+                                            <span>You have no action permission</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% include 'cms_admin/pagination/pagination.html' %}
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert cms-warning " role="alert">
+                                    <p class="text-center mo-p0">Currently there are no notification found!</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    {% if c_profile.user_role.role == 1 %}
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this notification?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span>
+                        Delete</a>
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}
