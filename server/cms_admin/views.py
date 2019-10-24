@@ -76,6 +76,15 @@ def get_notification(notify_amount):
         notification_list = []
     return notification_list
 
+def delete_notification(model_class, object_id):
+    try:
+        contact_obj = ContentType.objects.get_for_model(model_class)
+        notification = Notification.objects.filter(content_type=contact_obj, object_id=object_id)[0]
+        notification.delete()
+        return True
+    except:
+        return False
+
 
 def get_default_context(context,request, notify_amount=10):
     context["user"] = request.user.username
@@ -100,17 +109,6 @@ def store_log_info(request,model, flag):
     object_repr     = "", 
     action_flag     = flag
 )
-
-def delete_notification(model_class, object_id):
-    try:
-        contact_obj = ContentType.objects.get_for_model(model_class)
-        notification = Notification.objects.filter(content_type=contact_obj, object_id=object_id)[0]
-        notification.delete()
-        return True
-    except:
-        return False
-    
-
 
 
 class Error404Page(TemplateView):
@@ -741,8 +739,9 @@ class PostDeleteView(View):
         
         
 def get_url_list(urls):
-    url_list = []
-    for index in range(0, len(urls), 4):
+    url_list, index = [], 0
+    # for index in range(0, len(urls), 4):
+    while index < len(urls):
         url_text = (
             urls[index].pattern._regex
             if isinstance(urls[index].pattern, RegexPattern)
@@ -750,7 +749,13 @@ def get_url_list(urls):
         )
         url_text = re.sub("[^A-Za-z0-9]+", "", url_text)
         url_list.append(url_text)
-    del url_list[-1]
+        url_name = urls[index].name
+        if url_name == "api-root":
+            break
+        elif url_name == "comment-list" or url_name == "contact-list" or url_name == "reacts-list":
+            index += 2
+        else:
+            index += 4
     return url_list
 
 
