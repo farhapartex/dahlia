@@ -112,13 +112,15 @@ $(document).ready(function () {
                     });
                     // window.location.reload();
                     // $(location).attr('href', window.location.pathname);
+                    location.reload();
 
 
                 }
 
             });
 
-            $(location).attr('href', window.location.pathname);
+            // $(location).attr('href', window.location.pathname);
+            location.reload();
 
 
         }
