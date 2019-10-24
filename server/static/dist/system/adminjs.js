@@ -12,11 +12,11 @@ $(document).ready(function () {
 
     $(".user-select").change(function () {
         let host = window.location.host
-        let apiUrl = host +"/api/v1/public/categories/";
-        if(host == "localhost:8000" || host == "127.0.0.1:8000"){
+        let apiUrl = host + "/api/v1/public/categories/";
+        if (host == "localhost:8000" || host == "127.0.0.1:8000") {
             apiUrl = "http://" + apiUrl;
         }
-        else{
+        else {
             apiUrl = "https://" + apiUrl;
         }
         $.ajax({
@@ -36,28 +36,28 @@ $(document).ready(function () {
 
     $(".modal-img").click(function () {
         let modal_image_id = $(this).attr('id');
-        console.log("1"+mediaTagId);
-        if(mediaTagId){
-            if(mediaTagId == "site_logo"){
-                console.log("1"+mediaTagId);
+        console.log("1" + mediaTagId);
+        if (mediaTagId) {
+            if (mediaTagId == "site_logo") {
+                console.log("1" + mediaTagId);
                 $("#id_site_logo").val(modal_image_id);
-                console.log("2"+$("#id_site_logo").val())
+                console.log("2" + $("#id_site_logo").val())
             }
-            else if(mediaTagId == "site_favicon"){
+            else if (mediaTagId == "site_favicon") {
                 console.log(mediaTagId);
                 $("#id_site_favicon").val(modal_image_id);
-                console.log("3"+$("#id_site_favicon").val()); 
+                console.log("3" + $("#id_site_favicon").val());
             }
             $('.media-browser-modal').modal('hide');
             mediaTagId = null;
-            console.log("4"+mediaTagId);
+            console.log("4" + mediaTagId);
         }
-        else{
-            
+        else {
+
             $("#id_avatar").val(modal_image_id);
             $('.media-browser-modal').modal('hide');
         }
-        
+
     });
 
     $(".objDelete").click(function () {
@@ -75,43 +75,52 @@ $(document).ready(function () {
     });
 
     $("#select_all_cat").click(function () {
-        if ($('#select_all_cat').prop('checked')){
+        if ($('#select_all_cat').prop('checked')) {
             $('.cat_check').prop('checked', true);
         }
-        else{
+        else {
             $('.cat_check').prop('checked', false);
         }
 
         // $('.cat_check').prop('checked', false);
-        
+
     });
 
 
     $(".action-select").change(function () {
-        if($(this).val() == "delete"){
+        if ($(this).val() == "delete") {
+            let host = window.location.host;
+            let absolute_path = host + window.location.pathname;
 
             $('input:checkbox.cat_check').each(function () {
-                if(this.checked){
+                if (this.checked) {
                     let id = $(this).val();
-                    let host = window.location.host
-                    let apiUrl = host + window.location.pathname + id + "/delete/";
-                    if(host == "localhost:8000" || host == "127.0.0.1:8000"){
+                    let apiUrl = absolute_path + id + "/delete/";
+                    if (host == "localhost:8000" || host == "127.0.0.1:8000") {
                         apiUrl = "http://" + apiUrl;
                     }
-                    else{
+                    else {
                         apiUrl = "https://" + apiUrl;
                     }
                     $.ajax({
                         url: apiUrl, success: function (result) {
                             console.log(result);
-                            
+
                         }, error: function (error) {
                             console.log(error);
                         }
                     });
-                    window.location.reload();
+                    // window.location.reload();
+                    // $(location).attr('href', window.location.pathname);
+
+
                 }
-           });
+
+            });
+
+            $(location).attr('href', window.location.pathname);
+
+
         }
     });
 });

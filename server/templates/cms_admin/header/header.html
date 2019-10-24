@@ -40,13 +40,16 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <p class="pl-2 pt-2">Notifications</p>
                 {% for notification in notifications %}
-                <a href="{% url 'contact' notification.obj.id  %}" class="dropdown-item notification"
+                <a href="{% if  notification.model == 'contacts' %}/cms/{{ notification.model }}/{{ notification.obj.id }}/view/{% else %}/cms/comments/{{ notification.id }}/view/{% endif %}"
+                    class="dropdown-item notification"
                     style="background: {% if notification.seen %} transparent {% else %} #d9d9d9 {% endif %}">
                     <!-- Message Start -->
                     <div class="media">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                <span
+                                    class="float-right text-sm {% if notification.seen %} text-secondary {% else %}text-danger{% endif %}"><i
+                                        class="fas fa-star"></i></span>
                             </h3>
                             <p class="text-sm">{{ notification.message }}</p>
                             <!-- <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ contact.created_at | timesince }} Ago</p> -->

@@ -45,35 +45,42 @@ def get_new_contact_message():
     contacts = Contact.objects.filter(seen=False).order_by("-id")
     return contacts
 
-def get_notification():
-    notifications = Notification.objects.all().order_by("-id")[:10]
-    notification_list = []
-    for notification in notifications:
-        message, model = "", notification.content_object
-        if notification.status:
-            seen = True
+def get_notification(notify_amount):
+    notifications = []
+    try:
+        if notify_amount is None:
+            notifications = Notification.objects.all().order_by("-id")
         else:
-            seen = False
-            message = "new "
-        if model.__class__ is Comment:
-            model_name = "comments"
-            message = message + "comment notification for the post '{0}'...".format(model.post.title[0:30])
-        elif model.__class__ is React:
-            model_name = "react"
-            message = message + "react notification for the post '{0}'...".format(model.post.title[0:30])
-        elif model.__class__ is Contact:
-            model_name = "contacts"
-            verb = "sent" if seen else "sends"
-            message = model.name+" "+verb+" contact message"
+            notifications = Notification.objects.all().order_by("-id")[:notify_amount]
+        notification_list = []
+        for notification in notifications:
+            message, model = "", notification.content_object
+            if notification.status:
+                seen = True
+            else:
+                seen = False
+                message = "new "
+            if model.__class__ is Comment:
+                model_name = "comments"
+                message = message + "comment notification for the post '{0}'...".format(model.post.title[0:30])
+            elif model.__class__ is React:
+                model_name = "react"
+                message = message + "react notification for the post '{0}'...".format(model.post.title[0:30])
+            elif model.__class__ is Contact:
+                model_name = "contacts"
+                verb = "sent" if seen else "sends"
+                message = model.name+" "+verb+" contact message"
         
-        notification_list.append({"id":notification.id,"obj": notification.content_object,"model": model_name,"message" : message, "seen":seen})
+            notification_list.append({"id":notification.id,"obj": notification.content_object,"model": model_name,"message" : message, "seen":seen})
+    except:
+        notification_list = []
     return notification_list
 
 
-def get_default_context(context,request):
+def get_default_context(context,request, notify_amount=10):
     context["user"] = request.user.username
     context["contacts"] = get_new_contact_message()
-    context["notifications"] = get_notification()
+    context["notifications"] = get_notification(notify_amount)
     context["notification_count"] = Notification.objects.filter(status=False).count()
     try:
         profile = Profile.objects.get(user=request.user)
@@ -973,8 +980,7 @@ class ContactListView(TemplateView):
 class ContactView(TemplateView):
     template_name = "cms_admin/contact/contact-view.html"
 
-    def get(self, request, cid):
-        context = get_default_context({},request)
+    def get(self, request, cid): 
         contact = Contact.objects.get(id=cid)
         contact_obj = ContentType.objects.get_for_model(Contact)
         notification = Notification.objects.filter(content_type=contact_obj, object_id=contact.id)[0]
@@ -983,6 +989,9 @@ class ContactView(TemplateView):
         if notification.status is False:
             notification.status = True
             notification.save()
+            contact.seen = True
+            contact.save()
+        context = get_default_context({},request)
         context["contact"] = contact
 
         return render(request, self.template_name, context)
@@ -990,14 +999,48 @@ class ContactView(TemplateView):
 
 class ContactDeleteView(TemplateView):
     def get(self, request, cid):
-        try:
-            contact = Contact.objects.get(id=cid)
-            store_log_info(request,contact,3)
-            contact.delete()
-            return HttpResponseRedirect("/cms/contacts/")
-        except:
-            return HttpResponseRedirect("/cms/contacts/")
+        # try:
+        contact = Contact.objects.get(id=cid)
+        contact_obj = ContentType.objects.get_for_model(Contact)
+        notification = Notification.objects.filter(content_type=contact_obj, object_id=cid)[0]
+        store_log_info(request,contact,3)
+        contact.delete()
+        notification.delete()
+        return HttpResponseRedirect("/cms/contacts/")
+        # except:
+        #     return HttpResponseRedirect("/cms/contacts/")
 
+
+class CommentView(TemplateView):
+
+    def get(self, request, notifyid):
+        try:
+            notify = Notification.objects.get(id=notifyid)
+            contact_obj = ContentType.objects.get_for_model(Comment)
+            notification = Notification.objects.filter(content_type=contact_obj, object_id=notify.content_object.id)[0]
+            if notification.status is False:
+                notification.status = True
+                notification.save()
+            return HttpResponseRedirect("/cms/posts/{0}/change/".format(notify.content_object.post.id))
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/notifications/")
+
+
+class ReactView(TemplateView):
+
+    def get(self, request, notifyid):
+        try:
+            notify = Notification.objects.get(id=4)
+            contact_obj = ContentType.objects.get_for_model(React)
+            notification = Notification.objects.filter(content_type=contact_obj, object_id=notify.content_object.id)[0]
+            if notification.status is False:
+                notification.status = True
+                notification.save()
+            return HttpResponseRedirect("/cms/posts/{0}/change/".format(notify.content_object.post.id))
+        except:
+            messages.error(request, 'Server Error')
+            return HttpResponseRedirect("/cms/notifications/")
 
 class UserRoleView(ListView):
     queryset = UserRole.objects.all().order_by("id")
@@ -1039,9 +1082,7 @@ class NotificationListView(ListView):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = get_default_context(super().get_context_data(**kwargs), self.request)
-
-        return context
+        return get_default_context(super().get_context_data(**kwargs), self.request, None)
 
 
 class NotificationDeleteView(TemplateView):

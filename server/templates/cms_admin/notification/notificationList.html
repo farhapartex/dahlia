@@ -39,7 +39,7 @@
                         {% endif %}
                         <!-- /.card-header -->
                         <div class="card-body">
-                            {% if object_list.count > 0 %}
+                            {% if notifications %}
                             <div class="row">
                                 <div class="form-group col-md-2 col-2">
                                     <select class="form-control form-control-sm action-select">
@@ -69,10 +69,15 @@
                                         <td>
                                             <div class="form-group form-check">
                                                 <input type="checkbox" class="form-check-input cat_check"
-                                                    id="{{ category.id }}" value="{{ category.id }}">
+                                                    id="{{ notification.id }}" value="{{ notification.id }}">
                                             </div>
                                         </td>
-                                        <td>{{ notification.message }}</td>
+                                        <td>
+                                            <span
+                                                class="text-sm {% if notification.seen %} text-secondary {% else %}text-danger{% endif %}"><i
+                                                    class="fas fa-star"></i></span>
+                                            {{ notification.message }}
+                                        </td>
                                         <td>{% if notification.seen %} Seen {% else %}Unseen{% endif %}</td>
                                         <td>
                                             {% if c_profile.user_role.role == 1 or c_profile.user_role.role == 2 %}
@@ -81,8 +86,7 @@
                                                 class="edit-text">View
                                                 <span class="ml-1"><i class="far fa-edit"></i></span></a>
                                             {% else %}
-                                            <a href="/cms/posts/{{ notification.obj.post.id }}/change/"
-                                                class="edit-text">View
+                                            <a href="/cms/comments/{{ notification.id }}/view/" class="edit-text">View
                                                 <span class="ml-1"><i class="far fa-edit"></i></span></a>
                                             {% endif %}
                                             {% if c_profile.user_role.role == 1 %}

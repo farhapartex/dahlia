@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django_filters import rest_framework as filters
 from rest_framework import filters as drf_filters
-from rest_framework import generics, viewsets
-from rest_framework import mixins
+from rest_framework import generics, viewsets,mixins
 from .models import *
 from .serializers import *
 

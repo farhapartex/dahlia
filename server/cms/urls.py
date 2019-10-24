@@ -36,6 +36,7 @@ public_router.register(r"posts", b_views.PublicPostViewSet)
 public_router.register(r"comments", b_views.PublicCommentViewSet)
 public_router.register(r"reacts", b_views.PublicReactViewSet)
 public_router.register(r"site", s_views.PublicSiteAPIView)
+public_router.register(r"contact", s_views.ContactCreateAPIView)
 
 admin_router.register(r"medias", media_views.MediaImagePrivateAPIView)
 
@@ -43,7 +44,6 @@ urlpatterns = [
     path("django/admin/", admin.site.urls),
     path("accounts/login/", auth_views.LoginView.as_view()),
     path("cms/", include("cms_admin.urls")),
-    re_path(r"^api/v1/public/contact/", s_views.ContactCreateAPIView.as_view()),
     re_path(r"^api/v1/admin/", include(admin_router.urls)),
     re_path(r"^api/v1/public/", include(public_router.urls)),
 ]

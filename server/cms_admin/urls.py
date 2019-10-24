@@ -129,6 +129,11 @@ urlpatterns = [
         login_required(PostDeleteView.as_view()),
         name="post_delete",
     ),
+    path(
+        "comments/<int:notifyid>/view/",
+        login_required(CommentView.as_view()),
+        name="comment_view",
+    ),
     path("apis/", login_required(APIUrlListView.as_view()), name="apis"),
     path(
         "permissions/", login_required(PermissionListView.as_view()), name="permissions"
