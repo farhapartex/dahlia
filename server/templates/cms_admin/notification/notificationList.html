@@ -85,6 +85,9 @@
                                             <a href="/cms/{{ notification.model }}/{{ notification.obj.id }}/view/"
                                                 class="edit-text">View
                                                 <span class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            {% elif  notification.model == 'react' %}
+                                            <a href="/cms/reacts/{{ notification.id }}/view/" class="edit-text">View
+                                                <span class="ml-1"><i class="far fa-edit"></i></span></a>
                                             {% else %}
                                             <a href="/cms/comments/{{ notification.id }}/view/" class="edit-text">View
                                                 <span class="ml-1"><i class="far fa-edit"></i></span></a>

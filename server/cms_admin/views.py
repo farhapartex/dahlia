@@ -1059,12 +1059,11 @@ class CommentDeleteView(View):
             return HttpResponseRedirect("/cms/admin/")
         
 
-
-class ReactView(TemplateView):
+class ReactView(View):
 
     def get(self, request, notifyid):
         try:
-            notify = Notification.objects.get(id=4)
+            notify = Notification.objects.get(id=notifyid)
             contact_obj = ContentType.objects.get_for_model(React)
             notification = Notification.objects.filter(content_type=contact_obj, object_id=notify.content_object.id)[0]
             if notification.status is False:

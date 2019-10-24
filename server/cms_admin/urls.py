@@ -139,6 +139,11 @@ urlpatterns = [
         login_required(CommentDeleteView.as_view()),
         name="comment_delete",
     ),
+    path(
+        "reacts/<int:notifyid>/view/",
+        login_required(ReactView.as_view()),
+        name="react_view",
+    ),
     path("apis/", login_required(APIUrlListView.as_view()), name="apis"),
     path(
         "permissions/", login_required(PermissionListView.as_view()), name="permissions"
