@@ -44,7 +44,7 @@ class Profile(models.Model):
         null=True,
     )
     bio = models.CharField(_("Bio"), max_length=150, blank=True, null=True)
-    about = models.TextField(_("About"))
+    about = models.TextField(_("About"),blank=True, null=True)
     mobile = models.CharField(_("Mobile"), max_length=15, blank=True, null=True)
     user_role = models.ForeignKey(
         UserRole,
