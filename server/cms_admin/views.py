@@ -101,6 +101,17 @@ def store_log_info(request,model, flag):
     action_flag     = flag
 )
 
+def delete_notification(model_class, object_id):
+    try:
+        contact_obj = ContentType.objects.get_for_model(model_class)
+        notification = Notification.objects.filter(content_type=contact_obj, object_id=object_id)[0]
+        notification.delete()
+        return True
+    except:
+        return False
+    
+
+
 
 class Error404Page(TemplateView):
     template_name = "cms_admin/error/e404.html"
@@ -714,6 +725,10 @@ class PostDeleteView(View):
             post = Post.objects.get(id=pid)
             if post:
                 store_log_info(request,post,3)
+                comments = post.comments.all()
+                if comments.count() > 0:
+                    for comment in comments:
+                        delete_notification(Comment, comment.id)
                 post.delete()
                 messages.success(request, 'Post deleted successfully')
                 return HttpResponseRedirect("/cms/posts/")
@@ -999,16 +1014,15 @@ class ContactView(TemplateView):
 
 class ContactDeleteView(TemplateView):
     def get(self, request, cid):
-        # try:
-        contact = Contact.objects.get(id=cid)
-        contact_obj = ContentType.objects.get_for_model(Contact)
-        notification = Notification.objects.filter(content_type=contact_obj, object_id=cid)[0]
-        store_log_info(request,contact,3)
-        contact.delete()
-        notification.delete()
-        return HttpResponseRedirect("/cms/contacts/")
-        # except:
-        #     return HttpResponseRedirect("/cms/contacts/")
+        try:
+            contact = Contact.objects.get(id=cid)
+            store_log_info(request,contact,3)
+            delete_notification(Contact, cid)
+            contact.delete()
+            notification.delete()
+            return HttpResponseRedirect("/cms/contacts/")
+        except:
+            return HttpResponseRedirect("/cms/contacts/")
 
 
 class CommentView(TemplateView):
@@ -1032,9 +1046,7 @@ class CommentDeleteView(View):
         try:
             comment = Comment.objects.get(id=comment_id)
             post = comment.post
-            contact_obj = ContentType.objects.get_for_model(Comment)
-            notification = Notification.objects.filter(content_type=contact_obj, object_id=comment.id)[0]
-            notification.delete()
+            delete_notification(Comment, comment.id)
             comment.delete()
             messages.success(request, 'Comment deleted successfully')
             return HttpResponseRedirect("/cms/posts/{0}/change".format(post.id))
