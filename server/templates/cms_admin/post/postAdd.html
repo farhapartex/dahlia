@@ -92,7 +92,9 @@
                             <ul class="list-group">
                                 {% for comment in comments %}
                                 <li class="list-group-item">{{ comment.body }} <br>
-                                    <small>{{ comment.created_at | timesince }} ago</small>
+                                    <small><span>{{ comment.created_at | timesince }} ago</span> | <span><a
+                                                href="{% url 'comment_delete' comment.id %}"
+                                                class="text-sm text-danger">Delete</a></span></small>
                                 </li>
                                 {% endfor %}
                             </ul>

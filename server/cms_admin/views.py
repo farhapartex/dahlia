@@ -1027,6 +1027,22 @@ class CommentView(TemplateView):
             return HttpResponseRedirect("/cms/notifications/")
 
 
+class CommentDeleteView(View):
+    def get(self, request,comment_id):
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            post = comment.post
+            contact_obj = ContentType.objects.get_for_model(Comment)
+            notification = Notification.objects.filter(content_type=contact_obj, object_id=comment.id)[0]
+            notification.delete()
+            comment.delete()
+            messages.success(request, 'Comment deleted successfully')
+            return HttpResponseRedirect("/cms/posts/{0}/change".format(post.id))
+        except:
+            return HttpResponseRedirect("/cms/admin/")
+        
+
+
 class ReactView(TemplateView):
 
     def get(self, request, notifyid):
