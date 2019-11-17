@@ -1,0 +1,139 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  {% if c_profile.user_role.role <= 2 %}
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Contact List</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            {% if messages %}
+            <div class="card-header">
+              {% for message in messages %}
+              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+                {{ message }}
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <!-- /.card-header -->
+            <div class="card-body">
+              {% if contact_list.count > 0 %}
+              <div class="row">
+                  <div class="form-group col-md-2 col-2">
+                    <select class="form-control form-control-sm action-select">
+                      <option selected>Actions</option>
+                      <option value="delete">Delete</option>
+                    </select>
+                  </div>
+                </div>
+              <table id="example2" class="table table-bordered table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>
+                        <div class=" form-check">
+                            <input type="checkbox" class="form-check-input" id="select_all_cat">
+                            <label class="form-check-label" for="exampleCheck1">All</label>
+                        </div>
+                    </th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for contact in contact_list %}
+                  <tr>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input cat_check" id="{{ contact.id }}" value="{{ contact.id }}">
+                        </div>
+                      {% if contact.seen == False %}
+                      <span class="badge badge-pill badge-danger">New</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.created_at| timesince }} ago</td>
+                    <td><a href="{% url 'contact' contact.id %}" class="edit-text">View <span class="ml-1"><i
+                            class="far fa-eye"></i></span></a> <span class="ml-1 mr-1">|</span>
+                      <a href="{% url 'contact_delete' contact.id %}" class="text-danger objDelete">Delete <span><i
+                            class="far fa-trash-alt"></i></span></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <div class="w-75 mx-auto">
+                <div class="alert cms-warning " role="alert">
+                  <p class="text-center mo-p0">Currently there are no contacts found!</p>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+    </div>
+  </section>
+
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Are you sure, want to delete this contact message?</p>
+          <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span>
+            Delete</a>
+          <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                class="fas fa-angle-left"></i></span> Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="w-75 mx-auto" style="overflow: hidden;">
+    <div class="alert cms-warning mt-5" role="alert">
+      <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+    </div>
+  </div>
+
+  {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

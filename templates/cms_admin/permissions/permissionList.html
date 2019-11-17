@@ -1,0 +1,143 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role == 1 %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Permission List</h1>
+                </div><!-- /.col -->
+                <!-- <div class="col-sm-6">
+                    <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
+                        data-target="#exampleModalLong">Add Permission
+                        <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
+                </div> -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Modal -->
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- <div class="card-header">
+                            <ul class="nav nav-pills">
+
+                                <li class="nav-item"><a class="nav-link cms-tab active" href="#permissions"
+                                        data-toggle="tab">Permission List</a>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="permissions">
+                                    <div class="row">
+                                        <div class="col-md-3 col-lg-3">
+                                            <div class="w-100">
+                                                <h5 class="text-center">Primary Role</h5>
+                                            </div>
+                                            <div class="w-100 mt-4">
+                                                <ul class="list-group">
+                                                    {% for role in user_roles  %}
+                                                    <li class="list-group-item">
+                                                        <a href="{% url 'permissions_filter' role.id %}"
+                                                            class="edit-text">
+                                                            {% if role.role == 1 %}
+                                                            Administrator
+                                                            {% elif role.role == 2 %}
+                                                            Moderator
+                                                            {% elif role.role == 3 %}
+                                                            Editor
+                                                            {% elif role.role == 4 %}
+                                                            Subscriber
+                                                            {% endif %}
+                                                        </a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9">
+                                            <div class="w-100">
+                                                <h5 class="text-center">Role Wise Permissions</h5>
+                                            </div>
+                                            <div class="w-100 mt-4">
+                                                {% if object_list.count > 0 %}
+                                                <table id="example2"
+                                                    class="table table-bordered table-hover text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th># ID</th>
+                                                            <th>Permission Name</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for permission in object_list %}
+                                                        <tr>
+                                                            <td>{{ forloop.counter }}</td>
+                                                            <td>{{ permission.codename }}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                {% include 'cms_admin/pagination/pagination.html' %}
+                                                {% else %}
+                                                <div class="w-75 mx-auto">
+                                                    <div class="alert cms-warning " role="alert">
+                                                        Currently there are no permissions found!
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

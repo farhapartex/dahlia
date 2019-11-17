@@ -1,0 +1,144 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="w-100 dash-top-header pl-3 pr-3 pt-2 pb-2">
+        <div class="w-100">
+            <h4 class="top-header-txt">Welcome {{ user }}, to Dashboard</h4>
+            <h5 class="top-header-txt">You Look Awesome Today!</h5>
+        </div>
+    </div>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+  <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box cms-bg-info">
+                        <div class="inner">
+                            <h3>{{ total_post }}</h3>
+
+                            <p>Total Posts</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <a href="{% url 'posts' %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box cms-bg-success">
+                        <div class="inner">
+                            <h3>{{ new_message_count }}</h3>
+
+                            <p>New Messages</p>
+                        </div>
+                        <div class="icon">
+                            <i class="far fa-address-book"></i>
+                        </div>
+                        <a href="{% url 'contacts' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box " style="background: #b300b3;">
+                        <div class="inner">
+                            <h3>{{ total_user }}</h3>
+
+                            <p>Total Users</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="{% url 'users' %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box cms-bg-danger">
+                        <div class="inner">
+                            <h3>{{ total_media }}</h3>
+
+                            <p>Total Images</p>
+                        </div>
+                        <div class="icon">
+                            <i class="far fa-images"></i>
+                        </div>
+                        <a href="{% url 'medias' %}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="w-100 mt-3">
+                        <h3>Recent Actions</h3>
+                    </div>
+                    {% if logs.count > 0 %}
+                    <div class="w-100">
+                        <table id="example2" class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th># ID</th>
+                                    <th>Content Model</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Action Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in logs %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ log.content_type }}</td>
+                                    <td>{{ log.user }}</td>
+                                    <td>{% if log.action_flag == 1 %}Addition{% elif log.action_flag == 2 %}Edition{% else %}Deletion{% endif %}
+                                    </td>
+                                    <td>{{ log.action_time | timesince}} ago</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="w-75 mx-auto">
+                        <div class="alert cms-warning " role="alert">
+                            <p class="text-center mo-p0">Currently there are no recent action found!</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

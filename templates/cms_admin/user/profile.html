@@ -1,0 +1,474 @@
+{% extends 'cms_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{ userobj.username }} Profile</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-secondary">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                {% if profile.avatar %}
+                                <img class="profile-user-img img-fluid img-circle"
+                                    src="/media/{{ profile.avatar.image }}" alt="User profile picture">
+                                {% else %}
+                                <img class="profile-user-img img-fluid img-circle" src="{% static 'images/user.svg' %}"
+                                    alt="User profile picture">
+                                {% endif %}
+
+                            </div>
+
+                            <h3 class="profile-username text-center mt-1">{{ userobj.first_name }}
+                                {{ userobj.last_name }}
+                            </h3>
+                            {% if profile.bio %}
+                            <p class="text-center edit-text">Bio: {{ profile.bio }}</p>
+                            {% endif %}
+                            <p class="edit-text text-center"><span><i class="far fa-envelope"></i></span>
+                                {{ userobj.email }}</p>
+                            {% if profile.bio %}
+                            <p class="edit-text text-center"><span><i class="fas fa-mobile-alt"></i></span>
+                                {{ profile.mobile }}</p>
+                            {% endif %}
+                            <p class="text-center"><a href="{% url 'users' %}" class="edit-text"><span class="mr-1"><i
+                                            class="fas fa-angle-left"></i></span>
+                                    Back To List</a></p>
+                        </div>
+                    </div>
+
+                    <!-- About Me Box -->
+                    <div class="card card-secondary">
+                        <div class="card-header cms-background">
+                            <h3 class="card-title">Profile Information</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                            <ul class="list-unstyled">
+                                {% for edu in educations %}
+                                <li>
+                                    <p class="edit-text">
+
+                                        {{ edu.degree }} from {{ edu.institution }}
+
+                                    </p>
+                                </li>
+                                {% endfor%}
+                            </ul>
+
+                            <hr>
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                            <p class="edit-text">Malibu, California</p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                            <p class="edit-text">
+                                {% for skill in skills %}
+                                <span class="tag tag-danger">{{ skill }} </span>
+                                {% if skills.count > forloop.counter %}
+                                <span>,</span>
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+
+                            <hr>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <ul class="nav nav-pills">
+
+                                <li class="nav-item"><a class="nav-link cms-tab active" href="#overview"
+                                        data-toggle="tab">Overview</a>
+                                </li>
+                                {% if c_profile.user_role.role <= 2 or c_profile == profile %}
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#basic"
+                                        data-toggle="tab">Basic</a>
+                                </li>
+
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#profile"
+                                        data-toggle="tab">Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#education"
+                                        data-toggle="tab">Education</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#social"
+                                        data-toggle="tab">Social</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#skill"
+                                        data-toggle="tab">Skill</a>
+                                </li>
+                                {% endif %}
+                                {% if c_profile == profile %}
+                                <li class="nav-item"><a class="nav-link cms-tab" href="#password"
+                                        data-toggle="tab">Password</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+
+                                <div class="active tab-pane" id="overview">
+                                    <div class="w-100 mb-5">
+                                        <h4>About
+                                            {% if c_profile == profile %}Me{% else %}{{ userobj.username }}{% endif %}
+                                        </h4>
+                                        <div class="mt-3">
+                                            <p>
+                                                {{ userobj.profile.about }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 mb-5">
+                                        <h4>Social Medias</h4>
+                                        <div class="mt-3">
+                                            {% if  socialMedias.count > 0%}
+                                            <ul class="list-inline">
+                                                {% for social in socialMedias %}
+                                                {% if social.type == 1 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item border-primary text-primary text-center">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 2 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item border-info text-info text-center">
+                                                        <i class="fab fa-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 3 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item border-secondary text-secondary text-center">
+                                                        <i class="fab fa-github-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 4 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item stackoverflow text-center">
+                                                        <i class="fab fa-stack-overflow"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 5 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item behance text-center">
+                                                        <i class="fab fa-behance"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 6 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item kaggle text-center">
+                                                        <i class="fab fa-kaggle"></i>
+                                                    </a>
+                                                </li>
+                                                {% elif social.type == 7 %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ social.url }}"
+                                                        class="social-list-item border-danger text-danger text-center">
+                                                        <i class="fab fa-google"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+
+                                                {% endfor %}
+                                            </ul>
+                                            {% else %}
+                                            <div>
+
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /.tab-pane -->
+                                {% if c_profile.user_role.role <= 2 or c_profile == profile %}
+                                <div class="tab-pane" id="basic">
+                                    <form class="form-horizontal" action="{% url 'user_update' userobj.id %}"
+                                        method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">First
+                                                        Name</label>
+                                                    {{ form.first_name }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Last
+                                                        Name</label>
+                                                    {{ form.last_name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Email <span
+                                                            class="text-danger">*</span></label>
+                                                    {{ form.email }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Username
+                                                        <span class="text-danger">*</span></label>
+                                                    {{ form.username }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="profile">
+                                    <form class="form-horizontal" method="post"
+                                        {% if profile_stage == "update" %}action="{% url 'profile_update' userobj.id %}"
+                                        {% else %}action="{% url 'profile_post' userobj.id %}" {% endif %}>
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Bio</label>
+                                                    {{ profile_form.bio }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Mobile
+                                                        Number</label>
+                                                    {{ profile_form.mobile }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-10">
+                                                    <label for="inputName" class="col-sm-12 control-label">About</label>
+                                                    {{ profile_form.about }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                {% if c_profile.user_role.role <= 2 or request.user.is_superuser %}
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">User
+                                                        Role</label>
+                                                    {{ profile_form.user_role }}
+                                                </div>
+                                                {% endif %}
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+
+                                                        <div class="open-media">
+                                                            <p class="text-center ppp" style="font-weight: 700;">Select
+                                                                Image</p>
+                                                            <img class="img-fluid"
+                                                                style="max-width: 30px;display:block; margin:auto;"
+                                                                src="{% static 'images/image.png' %}"
+                                                                alt="User profile picture" data-toggle="modal"
+                                                                data-target=".media-browser-modal">
+                                                        </div>
+                                                        {{ profile_form.avatar }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    {% if profile_stage == "update" %}Update{% else %}Submit{% endif %}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% include 'cms_admin/component/media/mediaList.html' %}
+                                <div class="tab-pane" id="education">
+                                    <form class="form-horizontal" action="{% url 'education_post' userobj.id %}"
+                                        method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Degree <span
+                                                            class="text-danger">*</span></label>
+                                                    {{ education_form.degree }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Institution
+                                                        <span class="text-danger">*</span></label>
+                                                    {{ education_form.institution }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Session <span
+                                                            class="text-danger">*</span></label>
+                                                    {{ education_form.session }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="social">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'social_post' userobj.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">Type</label>
+                                                    {{ social_form.type }}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <label for="inputName" class="col-sm-12 control-label">URL</label>
+                                                    {{ social_form.url }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="skill">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'skill_post' userobj.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-10 col-lg-10">
+                                                    <label for="inputName" class="col-sm-12 control-label">Skill</label>
+                                                    {{ skill_form.name }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% endif %}
+                                {% if c_profile == profile %}
+                                <div class="tab-pane" id="password">
+                                    <form class="form-horizontal" method="post"
+                                        action="{% url 'password_update' userobj.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-5 col-lg-5">
+                                                    <label for="id_password" class="col-sm-12 control-label">Password
+                                                        <span class="text-danger">*</span></label>
+                                                    {{ password_form.password }}
+                                                </div>
+                                                <div class="col-sm-5 col-lg-5">
+                                                    <label for="id_confirm_password"
+                                                        class="col-sm-12 control-label">Confirm Password <span
+                                                            class="text-danger">*</span></label>
+                                                    {{ password_form.confirm_password }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                                            class="far fa-edit"></i></span>
+                                                    Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% endif %}
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}
