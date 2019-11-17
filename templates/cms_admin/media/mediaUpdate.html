@@ -1,0 +1,118 @@
+{% extends 'cms_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Edit Media Images</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="col-11 mx-auto pt-5 pb-5">
+                                <form action="{% url 'media_update' media.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-5 col-lg-5">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Image Title</label>
+                                                {{ form.title }}
+                                            </div>
+                                            <div class="form-group">
+                                                    <!-- <label for="exampleFormControlFile1">Choose File</label> -->
+                                                    {{ form.image }}
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Image Width</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Image Height</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <button class="btn btn-sm cms-btn-submit"><span class="mr-1"><i
+                                                            class="far fa-edit"></i></span> Update</button>
+                                                {% if c_profile.user_role.role <= 2 %}
+                                                <a class="btn btn-sm btn-danger objDelete" href="{% url 'media_delete' media.id %}"><span class="mr-1"><i
+                                                            class="far fa-trash-alt"></i></span> Delete</a>
+                                                {% endif %}
+                                                <a href="{% url 'medias' %}" class="btn btn-sm cms-btn-back"><span
+                                                        class="mr-1"><i class="fas fa-chevron-left"></i></span> Back</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-lg-7">
+                                            <div class="mx-auto" style="width: 80%;">
+                                                <img src="/media/{{ media.image }}" class="img-detail mx-auto" alt="">
+                                                <p class="text-center mt-3"><b>Image Dimensions: {{ media.width}} x
+                                                    {{ media.height }}</b> | <b>Image Size: {{ media_size|floatformat:-3 }} MB</b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+    {% if c_profile.user_role.role <= 2 %}
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-body">
+                <p>Are you sure, want to delete this media image?</p>
+                <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i class="far fa-trash-alt"></i></span> Delete</a>
+                <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span
+                class="mr-1"><i class="fas fa-angle-left"></i></span> Back</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

@@ -1,0 +1,159 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role <= 3 %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{% if stage == 'update' %} Update{% else %} Add New{% endif %} Post</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="w-100 p-3">
+
+            <form
+                action="{% if stage == 'update' %}{% url 'post_update' post.id %}{% else %}{% url 'post_add' %}{% endif %}"
+                method="post" class="">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="title">Post Title <span class="text-danger">*</span></label>
+                            {{ form.title }}
+                        </div>
+                        <div class="form-group">
+                            <label for="subtitle">Post Subitle</label>
+                            {{ form.subtitle }}
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Post Content</label>
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="nav-item"><a class="nav-link active" href="#editor"
+                                                data-toggle="tab">Editor</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="#plain_text" data-toggle="tab">Plain
+                                                Text</a>
+                                        </li>
+                                    </ul>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="tab-content">
+
+                                        <div class="active tab-pane" id="editor">
+                                            <div id="postText">
+
+                                            </div>
+                                        </div>
+
+                                        <!-- /.tab-pane -->
+
+                                        <div class="tab-pane" id="plain_text">
+                                            {{ form.body }}
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group w-75 mx-auto">
+                            <label for="exampleCheck1">Publish Status <span class="text-danger">*</span></label>
+                            {{ form.published }}
+
+                        </div>
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <button class="btn cms-btn-submit w-100">
+                                {% if stage == 'update' %}Update{% else %}Create{% endif %} Post
+                            </button>
+
+                        </div>
+
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <a href="{% url 'posts' %}" class="edit-text mt-3 "><span class="mr-1"><i
+                                        class="fas fa-angle-left"></i></span> Back To List</a>
+                            {% if c_profile.user_role.role == 1 %}
+                            {% if stage == 'update' %}
+                            <span class="ml-1 mr-1">|</span>
+                            <a href="{% url 'post_delete' post.id %}" class="text-danger mt-3 objDelete"><span
+                                    class="mr-1"><i class="far fa-trash-alt"></i></span> Move To Trash</a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <label for="inputStatus">Select Category <span class="text-danger">*</span></label>
+                            {{ form.category }}
+                        </div>
+
+                        <div class="form-group mt-4 w-75 mx-auto">
+                            <label>Select Tags <span class="text-danger">*</span></label>
+                            {{ form.tags }}
+                        </div>
+                        {% if stage == "update" %}
+                        <div class="form-group mt-2 w-75 mx-auto">
+                            <b>
+                                <span class="mr-3">Comments: {{ comments.count }}</span> <span>Reacts: {{ reacts.count }}</span>
+                            </b>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <!-- ./row -->
+    </section>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this post?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span> Delete</a>
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

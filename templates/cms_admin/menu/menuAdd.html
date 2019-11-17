@@ -1,0 +1,204 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% if c_profile.user_role.role <= 2 %}
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Menu List</h1>
+                </div><!-- /.col -->
+                {% if c_profile.user_role.role == 1 %}
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-sm cms-btn-submit float-sm-right mr-5" data-toggle="modal"
+                        data-target="#exampleModalLong">Add Menu
+                        <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
+                </div>
+                {% endif %}
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Modal -->
+    {% if c_profile.user_role.role == 1 %}
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'menus' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-ms-6 col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Menu Text <span
+                                                class="text-danger">*</span></label>
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-ms-6 col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Menu URL <span
+                                                class="text-danger">*</span></label>
+                                        {{ form.url }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-ms-6 col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Allow Sub-menu?</label>
+                                        {{ form.allow_submenu }}
+                                    </div>
+                                </div>
+                                <div class="col-ms-6 col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Parent Menu</label>
+                                        {{ form.parent_menu }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm cms-btn-submit"><span class="mr-1"><i
+                                        class="far fa-edit"></i></span> Submit</button>
+                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                        class="fas fa-angle-left"></i></span> Back</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        {% if messages %}
+                        <div class="card-header">
+                            {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            {% if menus.count > 0 %}
+                            <table id="example2" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Menu Text</th>
+                                        <th>Menu URL</th>
+                                        <th>Allow Sub-menu</th>
+                                        <th>Parent Menu</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for menu in menus %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ menu.name }}</td>
+                                        <td>{{ menu.url}}</td>
+                                        <td>{{ menu.allow_submenu}}</td>
+                                        <td>{{ menu.parent_menu}}</td>
+                                        <td><a href="{% url 'menu_update' menu.id %}" class="edit-text">Edit <span
+                                                    class="ml-1"><i class="far fa-edit"></i></span></a>
+                                            {% if c_profile.user_role.role == 1 %}
+                                            <span> | </span>
+                                            <a href="{% url 'menu_delete' menu.id %}"
+                                                class="text-danger objDelete">Delete
+                                                <span class="ml-1"><i class="far fa-trash-alt"></i></span></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert cms-warning " role="alert">
+                                    <p class="text-center mo-p0">Currently there are no menus found!</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </div>
+    </section>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this menu?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span> Delete</a>
+                    <button class="btn btn-sm cms-btn-back" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

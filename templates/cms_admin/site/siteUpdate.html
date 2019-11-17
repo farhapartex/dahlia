@@ -1,0 +1,129 @@
+{% extends 'cms_admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Update Site</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <div class="card-header cms-background">
+                            <h3 class="card-title">Site Form</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="{% url 'site_update' site.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Site Name <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.site_name }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+
+                                            <div class="open-media">
+                                                <p class="text-center ppp" style="font-weight: 700;">Select
+                                                    Logo</p>
+                                                <img class="img-fluid site-media"
+                                                id="site_logo"
+                                                    style="max-width: 30px;display:block; margin:auto;"
+                                                    src="{% static 'images/image.png' %}"
+                                                    alt="User profile picture" data-toggle="modal"
+                                                    >
+                                            </div>
+                                            {{ form.site_logo }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+
+                                            <div class="open-media">
+                                                <p class="text-center ppp" style="font-weight: 700;">Select
+                                                    FavIcon</p>
+                                                <img class="img-fluid site-media" id="site_favicon"
+                                                    style="max-width: 30px;display:block; margin:auto;"
+                                                    src="{% static 'images/image.png' %}"
+                                                    alt="User profile picture" data-toggle="modal"
+                                                    >
+                                            </div>
+                                            {{ form.site_favicon }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% include 'cms_admin/component/media/mediaList.html' %}
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-sm cms-btn-submit"><span><i
+                                            class="far fa-edit"></i></span> Update</button>
+                                <a href="{% url 'site' %}" class="btn btn-sm cms-btn-back"><span class="mr-1"><i
+                                            class="fas fa-angle-left"></i></span> Back</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure, want to delete this site information?</p>
+                    <a class="btn btn-sm btn-danger cateDelete" href=""><span class="ml-1"><i
+                                class="far fa-trash-alt"></i></span> Delete</a>
+                    <button class="btn btn-sm btn-warning" data-dismiss="modal"><span class="mr-1"><i
+                                class="fas fa-angle-left"></i></span> Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}

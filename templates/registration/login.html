@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dahlia Login Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/dahlia-logo.png' %}" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+        href="{% static 'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+        href="{% static 'login/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-5 p-b-10">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="text-center alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                    role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <form class="login100-form validate-form" action="{% url 'login' %}?next={{ next }}" method="post">
+                    {% csrf_token %}
+
+                    <span class="login100-form-avatar mb-3">
+                        <img src="{% static 'images/dahlia-logo.png' %}" alt="CMS Logo">
+                    </span>
+                    <span class="cms-name-title">
+                        Dahlia Login Panel
+                    </span>
+
+
+                    <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Enter username">
+                        {{ form.username }}
+                        <span class="focus-input100" data-placeholder="Username"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                        {{ form.password }}
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/animsition/js/animsition.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/select2/select2.min.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'login/vendor/daterangepicker/daterangepicker.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/vendor/countdowntime/countdowntime.js' %}"></script>
+    <!--===============================================================================================-->
+    <script src="{% static 'login/js/main.js"></script>
+    <script src="{% static 'login/cms/login.js' %}"></script>
+
+</body>
+
+</html>

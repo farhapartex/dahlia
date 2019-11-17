@@ -5,7 +5,6 @@ Dahlia is a blog cms, developed based on Django Framework. The main philosophy o
 
 ### Prerequisite
 * Python 3
-* Docker
 
 ## Index
 
@@ -28,15 +27,14 @@ Follow the steps to install dahlia
 
 * Clone the repository and move to the folder `dahlia`
 * Open your command shell on this folder
-* Type `docker-compose build server`
-* Run the command `docker-compose pull server`
-* Run the command `docker-compose up server`
-* Open another terminal and move to `dahlia` folder
-  * Run the command on second terminal `docker-compose exec server bash`
-  * Run `pipenv run ./manage.py makemigrations`
-  * Run `pipenv run ./manage.py migrate`
+* Type `pipenv install` (If you don not have pipenv pre-installed install it)
+* Start virtual environment by the command `pipenv shell`
+* For db migrations
+  * Run the command `python3 manage.py makemigrations`
+  * Run `python3 manage.py migrate`
+  * If you want to use PostgreSql, install psycopg2 before migrations
 * Above command will create migrations file. Now it's time to create superuser
-* Run the command in second terminal `pipenv run ./manage.py createsuperuser`
+* Run the command in second terminal `python3 manage.py createsuperuser`
   * Provide `username`, `email` (not necessary), `password` 
 * After creating super user open browser and go to `http://127.0.0.1:8000/cms/admin/`
   * It will redirect you to login page

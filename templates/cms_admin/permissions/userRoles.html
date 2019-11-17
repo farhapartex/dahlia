@@ -1,0 +1,147 @@
+{% extends 'cms_admin/base.html' %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'cms_admin/header/header.html' %}
+<!-- Main Sidebar Container -->
+{% include 'cms_admin/sidebar/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    {% if request.user.is_superuser or c_profile.user_role.role == 1 %}
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">User Roles</h1>
+                </div><!-- /.col -->
+                {% if request.user.is_superuser %}
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-sm btn-add float-sm-right mr-5" data-toggle="modal"
+                        data-target="#exampleModalLong">Add Role
+                        <span class=" ml-2"><i class="fas fa-plus"></i></span></a>
+                </div>
+                {% endif %}
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    {% if request.user.is_superuser %}
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add User Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'roles' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="id_role">Select Role</label>
+                                {{ form.role }}
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="id_permissions">Select Permissions</label>
+                                {{ form.permissions }}
+                            </div> -->
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm cms-btn-submit">Submit</button>
+                            <a href="#" class="btn btn-sm cms-btn-back" data-dismiss="modal">Back</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- / Modal -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        {% if messages %}
+                        <div class="card-header">
+                            {% for message in messages %}
+                            <div class="alert cms-{% if message.tags == 'error' %}danger{% else %}success{% endif %}"
+                                role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            {% if object_list.count > 0 %}
+                            <table id="example2" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Role Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for role in object_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ role }}</td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% include 'cms_admin/pagination/pagination.html' %}
+                            {% else %}
+                            <div class="w-75 mx-auto">
+                                <div class="alert cms-warning " role="alert">
+                                    <p class="text-center mo-p0">Currently there are no user role found!</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+    </section>
+
+
+    {% else %}
+    <div class="w-75 mx-auto" style="overflow: hidden;">
+        <div class="alert cms-warning mt-5" role="alert">
+            <p class="text-center mo-p0">Sorry! You have no permission for this page content!</p>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<!-- /.content-wrapper -->
+{% include 'cms_admin/footer/footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+{% endblock content %}
